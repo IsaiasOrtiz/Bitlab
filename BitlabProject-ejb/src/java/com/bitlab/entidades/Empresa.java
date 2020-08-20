@@ -30,32 +30,32 @@ import javax.validation.constraints.Size;
  * @author elcon
  */
 @Entity
-@Table(name = "BL_NV_NIVEL", catalog = "BD_BITLAB", schema = "")
+@Table(name = "BL_EMP_EMPRESA", catalog = "BD_BITLAB", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "NivelTecnologia.findAll", query = "SELECT n FROM NivelTecnologia n"),
-    @NamedQuery(name = "NivelTecnologia.findByNvId", query = "SELECT n FROM NivelTecnologia n WHERE n.nvId = :nvId"),
-    @NamedQuery(name = "NivelTecnologia.findByNvNombre", query = "SELECT n FROM NivelTecnologia n WHERE n.nvNombre = :nvNombre"),
-    @NamedQuery(name = "NivelTecnologia.findByAUsuarioCrea", query = "SELECT n FROM NivelTecnologia n WHERE n.aUsuarioCrea = :aUsuarioCrea"),
-    @NamedQuery(name = "NivelTecnologia.findByAFechaCreacion", query = "SELECT n FROM NivelTecnologia n WHERE n.aFechaCreacion = :aFechaCreacion"),
-    @NamedQuery(name = "NivelTecnologia.findByAFechaModificacion", query = "SELECT n FROM NivelTecnologia n WHERE n.aFechaModificacion = :aFechaModificacion"),
-    @NamedQuery(name = "NivelTecnologia.findByAUsuarioModifica", query = "SELECT n FROM NivelTecnologia n WHERE n.aUsuarioModifica = :aUsuarioModifica")})
-public class NivelTecnologia implements Serializable {
+    @NamedQuery(name = "Empresa.findAll", query = "SELECT e FROM Empresa e"),
+    @NamedQuery(name = "Empresa.findByEmpId", query = "SELECT e FROM Empresa e WHERE e.empId = :empId"),
+    @NamedQuery(name = "Empresa.findByEmpNombre", query = "SELECT e FROM Empresa e WHERE e.empNombre = :empNombre"),
+    @NamedQuery(name = "Empresa.findByAUsuarioCrea", query = "SELECT e FROM Empresa e WHERE e.aUsuarioCrea = :aUsuarioCrea"),
+    @NamedQuery(name = "Empresa.findByAFechaCreacion", query = "SELECT e FROM Empresa e WHERE e.aFechaCreacion = :aFechaCreacion"),
+    @NamedQuery(name = "Empresa.findByAFechaModificacion", query = "SELECT e FROM Empresa e WHERE e.aFechaModificacion = :aFechaModificacion"),
+    @NamedQuery(name = "Empresa.findByAUsuarioModifica", query = "SELECT e FROM Empresa e WHERE e.aUsuarioModifica = :aUsuarioModifica")})
+public class Empresa implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "NV_ID", nullable = false)
-    private Integer nvId;
+    @Column(name = "EMP_ID", nullable = false)
+    private Integer empId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "NV_NOMBRE", nullable = false, length = 50)
-    private String nvNombre;
+    @Column(name = "EMP_NOMBRE", nullable = false, length = 50)
+    private String empNombre;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "A_USUARIO_CREA", nullable = false, length = 100)
+    @Size(min = 1, max = 45)
+    @Column(name = "A_USUARIO_CREA", nullable = false, length = 45)
     private String aUsuarioCrea;
     @Basic(optional = false)
     @NotNull
@@ -65,40 +65,40 @@ public class NivelTecnologia implements Serializable {
     @Column(name = "A_FECHA_MODIFICACION")
     @Temporal(TemporalType.DATE)
     private Date aFechaModificacion;
-    @Size(max = 100)
-    @Column(name = "A_USUARIO_MODIFICA", length = 100)
+    @Size(max = 45)
+    @Column(name = "A_USUARIO_MODIFICA", length = 45)
     private String aUsuarioModifica;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nvId", fetch = FetchType.LAZY)
-    private List<TecnologiasManejadas> tecnologiasManejadasList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empId", fetch = FetchType.LAZY)
+    private List<IntermediacionLaboral> intermediacionLaboralList;
 
-    public NivelTecnologia() {
+    public Empresa() {
     }
 
-    public NivelTecnologia(Integer nvId) {
-        this.nvId = nvId;
+    public Empresa(Integer empId) {
+        this.empId = empId;
     }
 
-    public NivelTecnologia(Integer nvId, String nvNombre, String aUsuarioCrea, Date aFechaCreacion) {
-        this.nvId = nvId;
-        this.nvNombre = nvNombre;
+    public Empresa(Integer empId, String empNombre, String aUsuarioCrea, Date aFechaCreacion) {
+        this.empId = empId;
+        this.empNombre = empNombre;
         this.aUsuarioCrea = aUsuarioCrea;
         this.aFechaCreacion = aFechaCreacion;
     }
 
-    public Integer getNvId() {
-        return nvId;
+    public Integer getEmpId() {
+        return empId;
     }
 
-    public void setNvId(Integer nvId) {
-        this.nvId = nvId;
+    public void setEmpId(Integer empId) {
+        this.empId = empId;
     }
 
-    public String getNvNombre() {
-        return nvNombre;
+    public String getEmpNombre() {
+        return empNombre;
     }
 
-    public void setNvNombre(String nvNombre) {
-        this.nvNombre = nvNombre;
+    public void setEmpNombre(String empNombre) {
+        this.empNombre = empNombre;
     }
 
     public String getAUsuarioCrea() {
@@ -133,29 +133,29 @@ public class NivelTecnologia implements Serializable {
         this.aUsuarioModifica = aUsuarioModifica;
     }
 
-    public List<TecnologiasManejadas> getTecnologiasManejadasList() {
-        return tecnologiasManejadasList;
+    public List<IntermediacionLaboral> getIntermediacionLaboralList() {
+        return intermediacionLaboralList;
     }
 
-    public void setTecnologiasManejadasList(List<TecnologiasManejadas> tecnologiasManejadasList) {
-        this.tecnologiasManejadasList = tecnologiasManejadasList;
+    public void setIntermediacionLaboralList(List<IntermediacionLaboral> intermediacionLaboralList) {
+        this.intermediacionLaboralList = intermediacionLaboralList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (nvId != null ? nvId.hashCode() : 0);
+        hash += (empId != null ? empId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof NivelTecnologia)) {
+        if (!(object instanceof Empresa)) {
             return false;
         }
-        NivelTecnologia other = (NivelTecnologia) object;
-        if ((this.nvId == null && other.nvId != null) || (this.nvId != null && !this.nvId.equals(other.nvId))) {
+        Empresa other = (Empresa) object;
+        if ((this.empId == null && other.empId != null) || (this.empId != null && !this.empId.equals(other.empId))) {
             return false;
         }
         return true;
@@ -163,7 +163,7 @@ public class NivelTecnologia implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bitlab.entidades.NivelTecnologia[ nvId=" + nvId + " ]";
+        return "com.bitlab.entidades.Empresa[ empId=" + empId + " ]";
     }
     
 }

@@ -1,9 +1,9 @@
 package com.bitlab.manejadores;
 
-import com.bitlab.entidades.NivelTecnologia;
+import com.bitlab.entidades.EstadoIntermedicacion;
 import com.bitlab.manejadores.util.JsfUtil;
 import com.bitlab.manejadores.util.JsfUtil.PersistAction;
-import com.bitlab.session.NivelTecnologiaFacade;
+import com.bitlab.session.EstadoIntermedicacionFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("nivelTecnologiaController")
+@Named("estadoIntermedicacionController")
 @SessionScoped
-public class NivelTecnologiaController implements Serializable {
+public class EstadoIntermedicacionController implements Serializable {
 
     @EJB
-    private com.bitlab.session.NivelTecnologiaFacade ejbFacade;
-    private List<NivelTecnologia> items = null;
-    private NivelTecnologia selected;
+    private com.bitlab.session.EstadoIntermedicacionFacade ejbFacade;
+    private List<EstadoIntermedicacion> items = null;
+    private EstadoIntermedicacion selected;
 
-    public NivelTecnologiaController() {
+    public EstadoIntermedicacionController() {
     }
 
-    public NivelTecnologia getSelected() {
+    public EstadoIntermedicacion getSelected() {
         return selected;
     }
 
-    public void setSelected(NivelTecnologia selected) {
+    public void setSelected(EstadoIntermedicacion selected) {
         this.selected = selected;
     }
 
@@ -45,36 +45,36 @@ public class NivelTecnologiaController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private NivelTecnologiaFacade getFacade() {
+    private EstadoIntermedicacionFacade getFacade() {
         return ejbFacade;
     }
 
-    public NivelTecnologia prepareCreate() {
-        selected = new NivelTecnologia();
+    public EstadoIntermedicacion prepareCreate() {
+        selected = new EstadoIntermedicacion();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("NivelTecnologiaCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EstadoIntermedicacionCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("NivelTecnologiaUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("EstadoIntermedicacionUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("NivelTecnologiaDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("EstadoIntermedicacionDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<NivelTecnologia> getItems() {
+    public List<EstadoIntermedicacion> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,29 +109,29 @@ public class NivelTecnologiaController implements Serializable {
         }
     }
 
-    public NivelTecnologia getNivelTecnologia(java.lang.Integer id) {
+    public EstadoIntermedicacion getEstadoIntermedicacion(java.lang.Integer id) {
         return getFacade().find(id);
     }
 
-    public List<NivelTecnologia> getItemsAvailableSelectMany() {
+    public List<EstadoIntermedicacion> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<NivelTecnologia> getItemsAvailableSelectOne() {
+    public List<EstadoIntermedicacion> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = NivelTecnologia.class)
-    public static class NivelTecnologiaControllerConverter implements Converter {
+    @FacesConverter(forClass = EstadoIntermedicacion.class)
+    public static class EstadoIntermedicacionControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            NivelTecnologiaController controller = (NivelTecnologiaController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "nivelTecnologiaController");
-            return controller.getNivelTecnologia(getKey(value));
+            EstadoIntermedicacionController controller = (EstadoIntermedicacionController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "estadoIntermedicacionController");
+            return controller.getEstadoIntermedicacion(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -151,11 +151,11 @@ public class NivelTecnologiaController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof NivelTecnologia) {
-                NivelTecnologia o = (NivelTecnologia) object;
-                return getStringKey(o.getNvId());
+            if (object instanceof EstadoIntermedicacion) {
+                EstadoIntermedicacion o = (EstadoIntermedicacion) object;
+                return getStringKey(o.getItId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), NivelTecnologia.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), EstadoIntermedicacion.class.getName()});
                 return null;
             }
         }

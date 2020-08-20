@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NivelTeconologiaEditDlg" widgetVar="NivelTeconologiaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditNivelTeconologiaTitle}">
+            <h:form id="NivelTeconologiaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{nivelTeconologiaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditNivelTeconologiaLabel_nvId}" for="nvId" />
+                        <p:inputText id="nvId" value="#{nivelTeconologiaController.selected.nvId}" title="#{bundle.EditNivelTeconologiaTitle_nvId}" required="true" requiredMessage="#{bundle.EditNivelTeconologiaRequiredMessage_nvId}"/>
+                        <p:outputLabel value="#{bundle.EditNivelTeconologiaLabel_nvNombre}" for="nvNombre" />
+                        <p:inputText id="nvNombre" value="#{nivelTeconologiaController.selected.nvNombre}" title="#{bundle.EditNivelTeconologiaTitle_nvNombre}" required="true" requiredMessage="#{bundle.EditNivelTeconologiaRequiredMessage_nvNombre}"/>
+                        <p:outputLabel value="#{bundle.EditNivelTeconologiaLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{nivelTeconologiaController.selected.AUsuarioCrea}" title="#{bundle.EditNivelTeconologiaTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.EditNivelTeconologiaRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.EditNivelTeconologiaLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{nivelTeconologiaController.selected.AFechaCreacion}" title="#{bundle.EditNivelTeconologiaTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditNivelTeconologiaRequiredMessage_AFechaCreacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditNivelTeconologiaLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{nivelTeconologiaController.selected.AFechaModificacion}" title="#{bundle.EditNivelTeconologiaTitle_AFechaModificacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditNivelTeconologiaLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{nivelTeconologiaController.selected.AUsuarioModifica}" title="#{bundle.EditNivelTeconologiaTitle_AUsuarioModifica}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{nivelTeconologiaController.update}" value="#{bundle.Save}" update="display,:NivelTeconologiaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'NivelTeconologiaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="NivelTeconologiaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

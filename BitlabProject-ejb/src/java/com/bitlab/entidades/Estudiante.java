@@ -160,15 +160,14 @@ public class Estudiante implements Serializable {
     @JoinColumn(name = "ESN_ID", referencedColumnName = "ESN_ID", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private EstadoSeleccion esnId;
-    @JoinColumn(name = "ILB_ID", referencedColumnName = "ILB_ID", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private IntermediacionLaboral ilbId;
     @JoinColumn(name = "MP_ID", referencedColumnName = "MP_ID", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Municipio mpId;
     @JoinColumn(name = "RL_ID", referencedColumnName = "RL_ID", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Rol rlId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "esId", fetch = FetchType.LAZY)
+    private List<IntermediacionLaboral> intermediacionLaboralList;
 
     public Estudiante() {
     }
@@ -404,14 +403,6 @@ public class Estudiante implements Serializable {
         this.esnId = esnId;
     }
 
-    public IntermediacionLaboral getIlbId() {
-        return ilbId;
-    }
-
-    public void setIlbId(IntermediacionLaboral ilbId) {
-        this.ilbId = ilbId;
-    }
-
     public Municipio getMpId() {
         return mpId;
     }
@@ -426,6 +417,14 @@ public class Estudiante implements Serializable {
 
     public void setRlId(Rol rlId) {
         this.rlId = rlId;
+    }
+
+    public List<IntermediacionLaboral> getIntermediacionLaboralList() {
+        return intermediacionLaboralList;
+    }
+
+    public void setIntermediacionLaboralList(List<IntermediacionLaboral> intermediacionLaboralList) {
+        this.intermediacionLaboralList = intermediacionLaboralList;
     }
 
     @Override

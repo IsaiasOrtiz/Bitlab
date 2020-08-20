@@ -35,12 +35,6 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIntermediacionLaboralTitle_ilbNombre}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.ilbNombre}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListIntermediacionLaboralTitle_AUsuarioCrea}"/>
                             </f:facet>
                             <h:outputText value="#{item.AUsuarioCrea}"/>
@@ -66,6 +60,24 @@
                                 <h:outputText value="#{bundle.ListIntermediacionLaboralTitle_AUsuarioModifica}"/>
                             </f:facet>
                             <h:outputText value="#{item.AUsuarioModifica}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIntermediacionLaboralTitle_empId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.empId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIntermediacionLaboralTitle_esId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIntermediacionLaboralTitle_itId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.itId}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{intermediacionLaboralController.prepareCreate}" update=":IntermediacionLaboralCreateForm" oncomplete="PF('IntermediacionLaboralCreateDialog').show()"/>

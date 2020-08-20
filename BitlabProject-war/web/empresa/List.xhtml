@@ -10,16 +10,16 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListNivelTecnologiaTitle}"></h:outputText>
+            <h:outputText value="#{bundle.ListEmpresaTitle}"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="NivelTecnologiaListForm">
-                <p:panel header="#{bundle.ListNivelTecnologiaTitle}">
-                    <p:dataTable id="datalist" value="#{nivelTecnologiaController.items}" var="item"
-                                 selectionMode="single" selection="#{nivelTecnologiaController.selected}"
+            <h:form id="EmpresaListForm">
+                <p:panel header="#{bundle.ListEmpresaTitle}">
+                    <p:dataTable id="datalist" value="#{empresaController.items}" var="item"
+                                 selectionMode="single" selection="#{empresaController.selected}"
                                  paginator="true"
-                                 rowKey="#{item.nvId}"
+                                 rowKey="#{item.empId}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
@@ -29,25 +29,25 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListNivelTecnologiaTitle_nvId}"/>
+                                <h:outputText value="#{bundle.ListEmpresaTitle_empId}"/>
                             </f:facet>
-                            <h:outputText value="#{item.nvId}"/>
+                            <h:outputText value="#{item.empId}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListNivelTecnologiaTitle_nvNombre}"/>
+                                <h:outputText value="#{bundle.ListEmpresaTitle_empNombre}"/>
                             </f:facet>
-                            <h:outputText value="#{item.nvNombre}"/>
+                            <h:outputText value="#{item.empNombre}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListNivelTecnologiaTitle_AUsuarioCrea}"/>
+                                <h:outputText value="#{bundle.ListEmpresaTitle_AUsuarioCrea}"/>
                             </f:facet>
                             <h:outputText value="#{item.AUsuarioCrea}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListNivelTecnologiaTitle_AFechaCreacion}"/>
+                                <h:outputText value="#{bundle.ListEmpresaTitle_AFechaCreacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.AFechaCreacion}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -55,7 +55,7 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListNivelTecnologiaTitle_AFechaModificacion}"/>
+                                <h:outputText value="#{bundle.ListEmpresaTitle_AFechaModificacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.AFechaModificacion}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -63,15 +63,15 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListNivelTecnologiaTitle_AUsuarioModifica}"/>
+                                <h:outputText value="#{bundle.ListEmpresaTitle_AUsuarioModifica}"/>
                             </f:facet>
                             <h:outputText value="#{item.AUsuarioModifica}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{nivelTecnologiaController.prepareCreate}" update=":NivelTecnologiaCreateForm" oncomplete="PF('NivelTecnologiaCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":NivelTecnologiaViewForm" oncomplete="PF('NivelTecnologiaViewDialog').show()" disabled="#{empty nivelTecnologiaController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":NivelTecnologiaEditForm" oncomplete="PF('NivelTecnologiaEditDialog').show()" disabled="#{empty nivelTecnologiaController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{nivelTecnologiaController.destroy}" update=":growl,datalist" disabled="#{empty nivelTecnologiaController.selected}"/>
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{empresaController.prepareCreate}" update=":EmpresaCreateForm" oncomplete="PF('EmpresaCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EmpresaViewForm" oncomplete="PF('EmpresaViewDialog').show()" disabled="#{empty empresaController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EmpresaEditForm" oncomplete="PF('EmpresaEditDialog').show()" disabled="#{empty empresaController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{empresaController.destroy}" update=":growl,datalist" disabled="#{empty empresaController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

@@ -7,17 +7,18 @@ package com.bitlab.entidades;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,22 +30,28 @@ import javax.validation.constraints.Size;
  * @author elcon
  */
 @Entity
-@Table(name = "BL_TG_TECNOLOGIAS_MANEJADAS", catalog = "BD_BITLAB", schema = "")
+@Table(name = "BL_NV_NIVEL", catalog = "BD_BITLAB", schema = "")
 @NamedQueries({
-    @NamedQuery(name = "TecnologiasManejadas.findAll", query = "SELECT t FROM TecnologiasManejadas t"),
-    @NamedQuery(name = "TecnologiasManejadas.findByTgId", query = "SELECT t FROM TecnologiasManejadas t WHERE t.tgId = :tgId"),
-    @NamedQuery(name = "TecnologiasManejadas.findByAUsuarioCrea", query = "SELECT t FROM TecnologiasManejadas t WHERE t.aUsuarioCrea = :aUsuarioCrea"),
-    @NamedQuery(name = "TecnologiasManejadas.findByAFechaCreacion", query = "SELECT t FROM TecnologiasManejadas t WHERE t.aFechaCreacion = :aFechaCreacion"),
-    @NamedQuery(name = "TecnologiasManejadas.findByAFechaModificacion", query = "SELECT t FROM TecnologiasManejadas t WHERE t.aFechaModificacion = :aFechaModificacion"),
-    @NamedQuery(name = "TecnologiasManejadas.findByAUsuarioModifica", query = "SELECT t FROM TecnologiasManejadas t WHERE t.aUsuarioModifica = :aUsuarioModifica")})
-public class TecnologiasManejadas implements Serializable {
+    @NamedQuery(name = "NivelTeconologia.findAll", query = "SELECT n FROM NivelTeconologia n"),
+    @NamedQuery(name = "NivelTeconologia.findByNvId", query = "SELECT n FROM NivelTeconologia n WHERE n.nvId = :nvId"),
+    @NamedQuery(name = "NivelTeconologia.findByNvNombre", query = "SELECT n FROM NivelTeconologia n WHERE n.nvNombre = :nvNombre"),
+    @NamedQuery(name = "NivelTeconologia.findByAUsuarioCrea", query = "SELECT n FROM NivelTeconologia n WHERE n.aUsuarioCrea = :aUsuarioCrea"),
+    @NamedQuery(name = "NivelTeconologia.findByAFechaCreacion", query = "SELECT n FROM NivelTeconologia n WHERE n.aFechaCreacion = :aFechaCreacion"),
+    @NamedQuery(name = "NivelTeconologia.findByAFechaModificacion", query = "SELECT n FROM NivelTeconologia n WHERE n.aFechaModificacion = :aFechaModificacion"),
+    @NamedQuery(name = "NivelTeconologia.findByAUsuarioModifica", query = "SELECT n FROM NivelTeconologia n WHERE n.aUsuarioModifica = :aUsuarioModifica")})
+public class NivelTeconologia implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "TG_ID", nullable = false)
-    private Integer tgId;
+    @Column(name = "NV_ID", nullable = false)
+    private Integer nvId;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "NV_NOMBRE", nullable = false, length = 50)
+    private String nvNombre;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -61,35 +68,37 @@ public class TecnologiasManejadas implements Serializable {
     @Size(max = 100)
     @Column(name = "A_USUARIO_MODIFICA", length = 100)
     private String aUsuarioModifica;
-    @JoinColumn(name = "ES_ID", referencedColumnName = "ES_ID", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Estudiante esId;
-    @JoinColumn(name = "NV_ID", referencedColumnName = "NV_ID", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private NivelTeconologia nvId;
-    @JoinColumn(name = "TGD_ID", referencedColumnName = "TGD_ID", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private TecnologiasDisponibles tgdId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nvId", fetch = FetchType.LAZY)
+    private List<TecnologiasManejadas> tecnologiasManejadasList;
 
-    public TecnologiasManejadas() {
+    public NivelTeconologia() {
     }
 
-    public TecnologiasManejadas(Integer tgId) {
-        this.tgId = tgId;
+    public NivelTeconologia(Integer nvId) {
+        this.nvId = nvId;
     }
 
-    public TecnologiasManejadas(Integer tgId, String aUsuarioCrea, Date aFechaCreacion) {
-        this.tgId = tgId;
+    public NivelTeconologia(Integer nvId, String nvNombre, String aUsuarioCrea, Date aFechaCreacion) {
+        this.nvId = nvId;
+        this.nvNombre = nvNombre;
         this.aUsuarioCrea = aUsuarioCrea;
         this.aFechaCreacion = aFechaCreacion;
     }
 
-    public Integer getTgId() {
-        return tgId;
+    public Integer getNvId() {
+        return nvId;
     }
 
-    public void setTgId(Integer tgId) {
-        this.tgId = tgId;
+    public void setNvId(Integer nvId) {
+        this.nvId = nvId;
+    }
+
+    public String getNvNombre() {
+        return nvNombre;
+    }
+
+    public void setNvNombre(String nvNombre) {
+        this.nvNombre = nvNombre;
     }
 
     public String getAUsuarioCrea() {
@@ -124,45 +133,29 @@ public class TecnologiasManejadas implements Serializable {
         this.aUsuarioModifica = aUsuarioModifica;
     }
 
-    public Estudiante getEsId() {
-        return esId;
+    public List<TecnologiasManejadas> getTecnologiasManejadasList() {
+        return tecnologiasManejadasList;
     }
 
-    public void setEsId(Estudiante esId) {
-        this.esId = esId;
-    }
-
-    public NivelTeconologia getNvId() {
-        return nvId;
-    }
-
-    public void setNvId(NivelTeconologia nvId) {
-        this.nvId = nvId;
-    }
-
-    public TecnologiasDisponibles getTgdId() {
-        return tgdId;
-    }
-
-    public void setTgdId(TecnologiasDisponibles tgdId) {
-        this.tgdId = tgdId;
+    public void setTecnologiasManejadasList(List<TecnologiasManejadas> tecnologiasManejadasList) {
+        this.tecnologiasManejadasList = tecnologiasManejadasList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (tgId != null ? tgId.hashCode() : 0);
+        hash += (nvId != null ? nvId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TecnologiasManejadas)) {
+        if (!(object instanceof NivelTeconologia)) {
             return false;
         }
-        TecnologiasManejadas other = (TecnologiasManejadas) object;
-        if ((this.tgId == null && other.tgId != null) || (this.tgId != null && !this.tgId.equals(other.tgId))) {
+        NivelTeconologia other = (NivelTeconologia) object;
+        if ((this.nvId == null && other.nvId != null) || (this.nvId != null && !this.nvId.equals(other.nvId))) {
             return false;
         }
         return true;
@@ -170,7 +163,7 @@ public class TecnologiasManejadas implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bitlab.entidades.TecnologiasManejadas[ tgId=" + tgId + " ]";
+        return "com.bitlab.entidades.NivelTeconologia[ nvId=" + nvId + " ]";
     }
     
 }

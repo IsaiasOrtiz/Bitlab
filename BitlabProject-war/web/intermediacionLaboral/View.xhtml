@@ -14,8 +14,6 @@
                     <p:panelGrid columns="2" rendered="#{intermediacionLaboralController.selected != null}">
                         <h:outputText value="#{bundle.ViewIntermediacionLaboralLabel_ilbId}"/>
                         <h:outputText value="#{intermediacionLaboralController.selected.ilbId}" title="#{bundle.ViewIntermediacionLaboralTitle_ilbId}"/>
-                        <h:outputText value="#{bundle.ViewIntermediacionLaboralLabel_ilbNombre}"/>
-                        <h:outputText value="#{intermediacionLaboralController.selected.ilbNombre}" title="#{bundle.ViewIntermediacionLaboralTitle_ilbNombre}"/>
                         <h:outputText value="#{bundle.ViewIntermediacionLaboralLabel_AUsuarioCrea}"/>
                         <h:outputText value="#{intermediacionLaboralController.selected.AUsuarioCrea}" title="#{bundle.ViewIntermediacionLaboralTitle_AUsuarioCrea}"/>
                         <h:outputText value="#{bundle.ViewIntermediacionLaboralLabel_AFechaCreacion}"/>
@@ -28,6 +26,12 @@
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewIntermediacionLaboralLabel_AUsuarioModifica}"/>
                         <h:outputText value="#{intermediacionLaboralController.selected.AUsuarioModifica}" title="#{bundle.ViewIntermediacionLaboralTitle_AUsuarioModifica}"/>
+                        <h:outputText value="#{bundle.ViewIntermediacionLaboralLabel_empId}"/>
+                        <h:outputText value="#{intermediacionLaboralController.selected.empId}" title="#{bundle.ViewIntermediacionLaboralTitle_empId}"/>
+                        <h:outputText value="#{bundle.ViewIntermediacionLaboralLabel_esId}"/>
+                        <h:outputText value="#{intermediacionLaboralController.selected.esId}" title="#{bundle.ViewIntermediacionLaboralTitle_esId}"/>
+                        <h:outputText value="#{bundle.ViewIntermediacionLaboralLabel_itId}"/>
+                        <h:outputText value="#{intermediacionLaboralController.selected.itId}" title="#{bundle.ViewIntermediacionLaboralTitle_itId}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="IntermediacionLaboralViewDialog.hide()"/>
                 </h:panelGroup>

@@ -32,7 +32,7 @@
                         <p:outputLabel value="#{bundle.EditTecnologiasManejadasLabel_nvId}" for="nvId" />
                         <p:selectOneMenu id="nvId" value="#{tecnologiasManejadasController.selected.nvId}" required="true" requiredMessage="#{bundle.EditTecnologiasManejadasRequiredMessage_nvId}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{nivelTecnologiaController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{nivelTeconologiaController.itemsAvailableSelectOne}"
                                            var="nvIdItem"
                                            itemValue="#{nvIdItem}"/>
                         </p:selectOneMenu>

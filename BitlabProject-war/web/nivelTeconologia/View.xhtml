@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NivelTeconologiaViewDlg" widgetVar="NivelTeconologiaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewNivelTeconologiaTitle}">
+            <h:form id="NivelTeconologiaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{nivelTeconologiaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewNivelTeconologiaLabel_nvId}"/>
+                        <h:outputText value="#{nivelTeconologiaController.selected.nvId}" title="#{bundle.ViewNivelTeconologiaTitle_nvId}"/>
+                        <h:outputText value="#{bundle.ViewNivelTeconologiaLabel_nvNombre}"/>
+                        <h:outputText value="#{nivelTeconologiaController.selected.nvNombre}" title="#{bundle.ViewNivelTeconologiaTitle_nvNombre}"/>
+                        <h:outputText value="#{bundle.ViewNivelTeconologiaLabel_AUsuarioCrea}"/>
+                        <h:outputText value="#{nivelTeconologiaController.selected.AUsuarioCrea}" title="#{bundle.ViewNivelTeconologiaTitle_AUsuarioCrea}"/>
+                        <h:outputText value="#{bundle.ViewNivelTeconologiaLabel_AFechaCreacion}"/>
+                        <h:outputText value="#{nivelTeconologiaController.selected.AFechaCreacion}" title="#{bundle.ViewNivelTeconologiaTitle_AFechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewNivelTeconologiaLabel_AFechaModificacion}"/>
+                        <h:outputText value="#{nivelTeconologiaController.selected.AFechaModificacion}" title="#{bundle.ViewNivelTeconologiaTitle_AFechaModificacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewNivelTeconologiaLabel_AUsuarioModifica}"/>
+                        <h:outputText value="#{nivelTeconologiaController.selected.AUsuarioModifica}" title="#{bundle.ViewNivelTeconologiaTitle_AUsuarioModifica}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="NivelTeconologiaViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

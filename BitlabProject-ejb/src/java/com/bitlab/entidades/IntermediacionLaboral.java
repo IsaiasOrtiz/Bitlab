@@ -7,18 +7,17 @@ package com.bitlab.entidades;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,7 +33,6 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "IntermediacionLaboral.findAll", query = "SELECT i FROM IntermediacionLaboral i"),
     @NamedQuery(name = "IntermediacionLaboral.findByIlbId", query = "SELECT i FROM IntermediacionLaboral i WHERE i.ilbId = :ilbId"),
-    @NamedQuery(name = "IntermediacionLaboral.findByIlbNombre", query = "SELECT i FROM IntermediacionLaboral i WHERE i.ilbNombre = :ilbNombre"),
     @NamedQuery(name = "IntermediacionLaboral.findByAUsuarioCrea", query = "SELECT i FROM IntermediacionLaboral i WHERE i.aUsuarioCrea = :aUsuarioCrea"),
     @NamedQuery(name = "IntermediacionLaboral.findByAFechaCreacion", query = "SELECT i FROM IntermediacionLaboral i WHERE i.aFechaCreacion = :aFechaCreacion"),
     @NamedQuery(name = "IntermediacionLaboral.findByAFechaModificacion", query = "SELECT i FROM IntermediacionLaboral i WHERE i.aFechaModificacion = :aFechaModificacion"),
@@ -47,11 +45,6 @@ public class IntermediacionLaboral implements Serializable {
     @Basic(optional = false)
     @Column(name = "ILB_ID", nullable = false)
     private Integer ilbId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
-    @Column(name = "ILB_NOMBRE", nullable = false, length = 200)
-    private String ilbNombre;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -68,8 +61,15 @@ public class IntermediacionLaboral implements Serializable {
     @Size(max = 100)
     @Column(name = "A_USUARIO_MODIFICA", length = 100)
     private String aUsuarioModifica;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ilbId", fetch = FetchType.LAZY)
-    private List<Estudiante> estudianteList;
+    @JoinColumn(name = "EMP_ID", referencedColumnName = "EMP_ID", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Empresa empId;
+    @JoinColumn(name = "ES_ID", referencedColumnName = "ES_ID", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Estudiante esId;
+    @JoinColumn(name = "IT_ID", referencedColumnName = "IT_ID", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private EstadoIntermedicacion itId;
 
     public IntermediacionLaboral() {
     }
@@ -78,9 +78,8 @@ public class IntermediacionLaboral implements Serializable {
         this.ilbId = ilbId;
     }
 
-    public IntermediacionLaboral(Integer ilbId, String ilbNombre, String aUsuarioCrea, Date aFechaCreacion) {
+    public IntermediacionLaboral(Integer ilbId, String aUsuarioCrea, Date aFechaCreacion) {
         this.ilbId = ilbId;
-        this.ilbNombre = ilbNombre;
         this.aUsuarioCrea = aUsuarioCrea;
         this.aFechaCreacion = aFechaCreacion;
     }
@@ -91,14 +90,6 @@ public class IntermediacionLaboral implements Serializable {
 
     public void setIlbId(Integer ilbId) {
         this.ilbId = ilbId;
-    }
-
-    public String getIlbNombre() {
-        return ilbNombre;
-    }
-
-    public void setIlbNombre(String ilbNombre) {
-        this.ilbNombre = ilbNombre;
     }
 
     public String getAUsuarioCrea() {
@@ -133,12 +124,28 @@ public class IntermediacionLaboral implements Serializable {
         this.aUsuarioModifica = aUsuarioModifica;
     }
 
-    public List<Estudiante> getEstudianteList() {
-        return estudianteList;
+    public Empresa getEmpId() {
+        return empId;
     }
 
-    public void setEstudianteList(List<Estudiante> estudianteList) {
-        this.estudianteList = estudianteList;
+    public void setEmpId(Empresa empId) {
+        this.empId = empId;
+    }
+
+    public Estudiante getEsId() {
+        return esId;
+    }
+
+    public void setEsId(Estudiante esId) {
+        this.esId = esId;
+    }
+
+    public EstadoIntermedicacion getItId() {
+        return itId;
+    }
+
+    public void setItId(EstadoIntermedicacion itId) {
+        this.itId = itId;
     }
 
     @Override

@@ -5,7 +5,7 @@
  */
 package com.bitlab.session;
 
-import com.bitlab.entidades.NivelTecnologia;
+import com.bitlab.entidades.EstadoIntermedicacion;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author elcon
  */
 @Stateless
-public class NivelTecnologiaFacade extends AbstractFacade<NivelTecnologia> {
+public class EstadoIntermedicacionFacade extends AbstractFacade<EstadoIntermedicacion> {
 
     @PersistenceContext(unitName = "BitlabProject-ejbPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class NivelTecnologiaFacade extends AbstractFacade<NivelTecnologia> {
         return em;
     }
 
-    public NivelTecnologiaFacade() {
-        super(NivelTecnologia.class);
+    public EstadoIntermedicacionFacade() {
+        super(EstadoIntermedicacion.class);
     }
     
 }

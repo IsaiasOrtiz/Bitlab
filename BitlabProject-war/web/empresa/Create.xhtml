@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmpresaCreateDlg" widgetVar="EmpresaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEmpresaTitle}">
+            <h:form id="EmpresaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{empresaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_empId}" for="empId" />
+                        <p:inputText id="empId" value="#{empresaController.selected.empId}" title="#{bundle.CreateEmpresaTitle_empId}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_empId}"/>
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_empNombre}" for="empNombre" />
+                        <p:inputText id="empNombre" value="#{empresaController.selected.empNombre}" title="#{bundle.CreateEmpresaTitle_empNombre}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_empNombre}"/>
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{empresaController.selected.AUsuarioCrea}" title="#{bundle.CreateEmpresaTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{empresaController.selected.AFechaCreacion}" title="#{bundle.EditEmpresaTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditEmpresaRequiredMessage_AFechaCreacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{empresaController.selected.AFechaModificacion}" title="#{bundle.EditEmpresaTitle_AFechaModificacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{empresaController.selected.AUsuarioModifica}" title="#{bundle.CreateEmpresaTitle_AUsuarioModifica}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{empresaController.create}" value="#{bundle.Save}" update="display,:EmpresaListForm:datalist,:growl" oncomplete="handleSubmit(args,'EmpresaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EmpresaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EstadoIntermedicacionEditDlg" widgetVar="EstadoIntermedicacionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEstadoIntermedicacionTitle}">
+            <h:form id="EstadoIntermedicacionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{estadoIntermedicacionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditEstadoIntermedicacionLabel_itId}" for="itId" />
+                        <p:inputText id="itId" value="#{estadoIntermedicacionController.selected.itId}" title="#{bundle.EditEstadoIntermedicacionTitle_itId}" required="true" requiredMessage="#{bundle.EditEstadoIntermedicacionRequiredMessage_itId}"/>
+                        <p:outputLabel value="#{bundle.EditEstadoIntermedicacionLabel_itNombre}" for="itNombre" />
+                        <p:inputText id="itNombre" value="#{estadoIntermedicacionController.selected.itNombre}" title="#{bundle.EditEstadoIntermedicacionTitle_itNombre}" required="true" requiredMessage="#{bundle.EditEstadoIntermedicacionRequiredMessage_itNombre}"/>
+                        <p:outputLabel value="#{bundle.EditEstadoIntermedicacionLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{estadoIntermedicacionController.selected.AUsuarioCrea}" title="#{bundle.EditEstadoIntermedicacionTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.EditEstadoIntermedicacionRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.EditEstadoIntermedicacionLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{estadoIntermedicacionController.selected.AFechaCreacion}" title="#{bundle.EditEstadoIntermedicacionTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditEstadoIntermedicacionRequiredMessage_AFechaCreacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditEstadoIntermedicacionLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{estadoIntermedicacionController.selected.AFechaModificacion}" title="#{bundle.EditEstadoIntermedicacionTitle_AFechaModificacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditEstadoIntermedicacionLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{estadoIntermedicacionController.selected.AUsuarioModifica}" title="#{bundle.EditEstadoIntermedicacionTitle_AUsuarioModifica}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{estadoIntermedicacionController.update}" value="#{bundle.Save}" update="display,:EstadoIntermedicacionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EstadoIntermedicacionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EstadoIntermedicacionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

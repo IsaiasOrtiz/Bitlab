@@ -71,13 +71,6 @@
                                            var="esnIdItem"
                                            itemValue="#{esnIdItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditEstudianteLabel_ilbId}" for="ilbId" />
-                        <p:selectOneMenu id="ilbId" value="#{estudianteController.selected.ilbId}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_ilbId}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{intermediacionLaboralController.itemsAvailableSelectOne}"
-                                           var="ilbIdItem"
-                                           itemValue="#{ilbIdItem}"/>
-                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditEstudianteLabel_mpId}" for="mpId" />
                         <p:selectOneMenu id="mpId" value="#{estudianteController.selected.mpId}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_mpId}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

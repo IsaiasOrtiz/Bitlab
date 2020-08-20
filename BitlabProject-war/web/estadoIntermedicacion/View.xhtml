@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EstadoIntermedicacionViewDlg" widgetVar="EstadoIntermedicacionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEstadoIntermedicacionTitle}">
+            <h:form id="EstadoIntermedicacionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{estadoIntermedicacionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEstadoIntermedicacionLabel_itId}"/>
+                        <h:outputText value="#{estadoIntermedicacionController.selected.itId}" title="#{bundle.ViewEstadoIntermedicacionTitle_itId}"/>
+                        <h:outputText value="#{bundle.ViewEstadoIntermedicacionLabel_itNombre}"/>
+                        <h:outputText value="#{estadoIntermedicacionController.selected.itNombre}" title="#{bundle.ViewEstadoIntermedicacionTitle_itNombre}"/>
+                        <h:outputText value="#{bundle.ViewEstadoIntermedicacionLabel_AUsuarioCrea}"/>
+                        <h:outputText value="#{estadoIntermedicacionController.selected.AUsuarioCrea}" title="#{bundle.ViewEstadoIntermedicacionTitle_AUsuarioCrea}"/>
+                        <h:outputText value="#{bundle.ViewEstadoIntermedicacionLabel_AFechaCreacion}"/>
+                        <h:outputText value="#{estadoIntermedicacionController.selected.AFechaCreacion}" title="#{bundle.ViewEstadoIntermedicacionTitle_AFechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEstadoIntermedicacionLabel_AFechaModificacion}"/>
+                        <h:outputText value="#{estadoIntermedicacionController.selected.AFechaModificacion}" title="#{bundle.ViewEstadoIntermedicacionTitle_AFechaModificacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEstadoIntermedicacionLabel_AUsuarioModifica}"/>
+                        <h:outputText value="#{estadoIntermedicacionController.selected.AUsuarioModifica}" title="#{bundle.ViewEstadoIntermedicacionTitle_AUsuarioModifica}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EstadoIntermedicacionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
