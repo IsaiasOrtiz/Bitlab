@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EstudianteCreateDlg" widgetVar="EstudianteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEstudianteTitle}">
+            <h:form id="EstudianteCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{estudianteController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esId}" for="esId" />
+                        <p:inputText id="esId" value="#{estudianteController.selected.esId}" title="#{bundle.CreateEstudianteTitle_esId}" required="true" requiredMessage="#{bundle.CreateEstudianteRequiredMessage_esId}"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esFoto}" for="esFoto" />
+                        <p:inputTextarea rows="4" cols="30" id="esFoto" value="#{estudianteController.selected.esFoto}" title="#{bundle.CreateEstudianteTitle_esFoto}" />
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esNombre}" for="esNombre" />
+                        <p:inputText id="esNombre" value="#{estudianteController.selected.esNombre}" title="#{bundle.CreateEstudianteTitle_esNombre}" required="true" requiredMessage="#{bundle.CreateEstudianteRequiredMessage_esNombre}"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esApellido}" for="esApellido" />
+                        <p:inputText id="esApellido" value="#{estudianteController.selected.esApellido}" title="#{bundle.CreateEstudianteTitle_esApellido}" required="true" requiredMessage="#{bundle.CreateEstudianteRequiredMessage_esApellido}"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esDui}" for="esDui" />
+                        <p:inputText id="esDui" value="#{estudianteController.selected.esDui}" title="#{bundle.CreateEstudianteTitle_esDui}" required="true" requiredMessage="#{bundle.CreateEstudianteRequiredMessage_esDui}"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esFechaNacimiento}" for="esFechaNacimiento" />
+                        <p:calendar id="esFechaNacimiento" pattern="MM/dd/yyyy" value="#{estudianteController.selected.esFechaNacimiento}" title="#{bundle.EditEstudianteTitle_esFechaNacimiento}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_esFechaNacimiento}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esComputadora}" for="esComputadora" />
+                        <p:selectBooleanCheckbox id="esComputadora" value="#{estudianteController.selected.esComputadora}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_esComputadora}"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esDireccion}" for="esDireccion" />
+                        <p:inputText id="esDireccion" value="#{estudianteController.selected.esDireccion}" title="#{bundle.CreateEstudianteTitle_esDireccion}" required="true" requiredMessage="#{bundle.CreateEstudianteRequiredMessage_esDireccion}"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esTelefono}" for="esTelefono" />
+                        <p:inputText id="esTelefono" value="#{estudianteController.selected.esTelefono}" title="#{bundle.CreateEstudianteTitle_esTelefono}" required="true" requiredMessage="#{bundle.CreateEstudianteRequiredMessage_esTelefono}"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esCorreo}" for="esCorreo" />
+                        <p:inputText id="esCorreo" value="#{estudianteController.selected.esCorreo}" title="#{bundle.CreateEstudianteTitle_esCorreo}" required="true" requiredMessage="#{bundle.CreateEstudianteRequiredMessage_esCorreo}"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esClave}" for="esClave" />
+                        <p:inputText id="esClave" value="#{estudianteController.selected.esClave}" title="#{bundle.CreateEstudianteTitle_esClave}" required="true" requiredMessage="#{bundle.CreateEstudianteRequiredMessage_esClave}"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esLaborando}" for="esLaborando" />
+                        <p:selectBooleanCheckbox id="esLaborando" value="#{estudianteController.selected.esLaborando}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_esLaborando}"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esAspiraciones}" for="esAspiraciones" />
+                        <p:inputText id="esAspiraciones" value="#{estudianteController.selected.esAspiraciones}" title="#{bundle.CreateEstudianteTitle_esAspiraciones}" required="true" requiredMessage="#{bundle.CreateEstudianteRequiredMessage_esAspiraciones}"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esInteres}" for="esInteres" />
+                        <p:inputText id="esInteres" value="#{estudianteController.selected.esInteres}" title="#{bundle.CreateEstudianteTitle_esInteres}" required="true" requiredMessage="#{bundle.CreateEstudianteRequiredMessage_esInteres}"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esCv}" for="esCv" />
+                        <p:inputTextarea rows="4" cols="30" id="esCv" value="#{estudianteController.selected.esCv}" title="#{bundle.CreateEstudianteTitle_esCv}" required="true" requiredMessage="#{bundle.CreateEstudianteRequiredMessage_esCv}"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{estudianteController.selected.AUsuarioCrea}" title="#{bundle.CreateEstudianteTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.CreateEstudianteRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{estudianteController.selected.AFechaModificacion}" title="#{bundle.EditEstudianteTitle_AFechaModificacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{estudianteController.selected.AFechaCreacion}" title="#{bundle.EditEstudianteTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_AFechaCreacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{estudianteController.selected.AUsuarioModifica}" title="#{bundle.CreateEstudianteTitle_AUsuarioModifica}" />
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_csId}" for="csId" />
+                        <p:selectOneMenu id="csId" value="#{estudianteController.selected.csId}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_csId}">
+                            <f:selectItems value="#{cursoController.itemsAvailableSelectOne}"
+                                           var="csIdItem"
+                                           itemValue="#{csIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esdId}" for="esdId" />
+                        <p:selectOneMenu id="esdId" value="#{estudianteController.selected.esdId}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_esdId}">
+                            <f:selectItems value="#{escolaridadController.itemsAvailableSelectOne}"
+                                           var="esdIdItem"
+                                           itemValue="#{esdIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esnId}" for="esnId" />
+                        <p:selectOneMenu id="esnId" value="#{estudianteController.selected.esnId}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_esnId}">
+                            <f:selectItems value="#{estadoSeleccionController.itemsAvailableSelectOne}"
+                                           var="esnIdItem"
+                                           itemValue="#{esnIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_ilbId}" for="ilbId" />
+                        <p:selectOneMenu id="ilbId" value="#{estudianteController.selected.ilbId}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_ilbId}">
+                            <f:selectItems value="#{intermediacionLaboralController.itemsAvailableSelectOne}"
+                                           var="ilbIdItem"
+                                           itemValue="#{ilbIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_mpId}" for="mpId" />
+                        <p:selectOneMenu id="mpId" value="#{estudianteController.selected.mpId}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_mpId}">
+                            <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
+                                           var="mpIdItem"
+                                           itemValue="#{mpIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_rlId}" for="rlId" />
+                        <p:selectOneMenu id="rlId" value="#{estudianteController.selected.rlId}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_rlId}">
+                            <f:selectItems value="#{rolController.itemsAvailableSelectOne}"
+                                           var="rlIdItem"
+                                           itemValue="#{rlIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{estudianteController.create}" value="#{bundle.Save}" update="display,:EstudianteListForm:datalist,:growl" oncomplete="handleSubmit(args,'EstudianteCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EstudianteCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

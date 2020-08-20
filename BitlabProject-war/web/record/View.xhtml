@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RecordViewDlg" widgetVar="RecordViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewRecordTitle}">
+            <h:form id="RecordViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{recordController.selected != null}">
+                        <h:outputText value="#{bundle.ViewRecordLabel_rcId}"/>
+                        <h:outputText value="#{recordController.selected.rcId}" title="#{bundle.ViewRecordTitle_rcId}"/>
+                        <h:outputText value="#{bundle.ViewRecordLabel_rcPromedioFinal}"/>
+                        <h:outputText value="#{recordController.selected.rcPromedioFinal}" title="#{bundle.ViewRecordTitle_rcPromedioFinal}"/>
+                        <h:outputText value="#{bundle.ViewRecordLabel_rcComentario}"/>
+                        <h:outputText value="#{recordController.selected.rcComentario}" title="#{bundle.ViewRecordTitle_rcComentario}"/>
+                        <h:outputText value="#{bundle.ViewRecordLabel_rcProfesor}"/>
+                        <h:outputText value="#{recordController.selected.rcProfesor}" title="#{bundle.ViewRecordTitle_rcProfesor}"/>
+                        <h:outputText value="#{bundle.ViewRecordLabel_AUsuarioCrea}"/>
+                        <h:outputText value="#{recordController.selected.AUsuarioCrea}" title="#{bundle.ViewRecordTitle_AUsuarioCrea}"/>
+                        <h:outputText value="#{bundle.ViewRecordLabel_AFechaModificacion}"/>
+                        <h:outputText value="#{recordController.selected.AFechaModificacion}" title="#{bundle.ViewRecordTitle_AFechaModificacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewRecordLabel_AFechaCreacion}"/>
+                        <h:outputText value="#{recordController.selected.AFechaCreacion}" title="#{bundle.ViewRecordTitle_AFechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewRecordLabel_AUsuarioModifica}"/>
+                        <h:outputText value="#{recordController.selected.AUsuarioModifica}" title="#{bundle.ViewRecordTitle_AUsuarioModifica}"/>
+                        <h:outputText value="#{bundle.ViewRecordLabel_csId}"/>
+                        <h:outputText value="#{recordController.selected.csId}" title="#{bundle.ViewRecordTitle_csId}"/>
+                        <h:outputText value="#{bundle.ViewRecordLabel_esId}"/>
+                        <h:outputText value="#{recordController.selected.esId}" title="#{bundle.ViewRecordTitle_esId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="RecordViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

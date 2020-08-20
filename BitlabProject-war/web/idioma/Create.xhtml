@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IdiomaCreateDlg" widgetVar="IdiomaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateIdiomaTitle}">
+            <h:form id="IdiomaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{idiomaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateIdiomaLabel_idmId}" for="idmId" />
+                        <p:inputText id="idmId" value="#{idiomaController.selected.idmId}" title="#{bundle.CreateIdiomaTitle_idmId}" required="true" requiredMessage="#{bundle.CreateIdiomaRequiredMessage_idmId}"/>
+                        <p:outputLabel value="#{bundle.CreateIdiomaLabel_idmNombre}" for="idmNombre" />
+                        <p:inputText id="idmNombre" value="#{idiomaController.selected.idmNombre}" title="#{bundle.CreateIdiomaTitle_idmNombre}" required="true" requiredMessage="#{bundle.CreateIdiomaRequiredMessage_idmNombre}"/>
+                        <p:outputLabel value="#{bundle.CreateIdiomaLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{idiomaController.selected.AUsuarioCrea}" title="#{bundle.CreateIdiomaTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.CreateIdiomaRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.CreateIdiomaLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{idiomaController.selected.AFechaCreacion}" title="#{bundle.EditIdiomaTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditIdiomaRequiredMessage_AFechaCreacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateIdiomaLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{idiomaController.selected.AFechaModificacion}" title="#{bundle.EditIdiomaTitle_AFechaModificacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateIdiomaLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{idiomaController.selected.AUsuarioModifica}" title="#{bundle.CreateIdiomaTitle_AUsuarioModifica}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{idiomaController.create}" value="#{bundle.Save}" update="display,:IdiomaListForm:datalist,:growl" oncomplete="handleSubmit(args,'IdiomaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="IdiomaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

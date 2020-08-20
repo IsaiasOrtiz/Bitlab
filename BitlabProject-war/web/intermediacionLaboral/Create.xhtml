@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IntermediacionLaboralCreateDlg" widgetVar="IntermediacionLaboralCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateIntermediacionLaboralTitle}">
+            <h:form id="IntermediacionLaboralCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{intermediacionLaboralController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateIntermediacionLaboralLabel_ilbId}" for="ilbId" />
+                        <p:inputText id="ilbId" value="#{intermediacionLaboralController.selected.ilbId}" title="#{bundle.CreateIntermediacionLaboralTitle_ilbId}" required="true" requiredMessage="#{bundle.CreateIntermediacionLaboralRequiredMessage_ilbId}"/>
+                        <p:outputLabel value="#{bundle.CreateIntermediacionLaboralLabel_ilbNombre}" for="ilbNombre" />
+                        <p:inputText id="ilbNombre" value="#{intermediacionLaboralController.selected.ilbNombre}" title="#{bundle.CreateIntermediacionLaboralTitle_ilbNombre}" required="true" requiredMessage="#{bundle.CreateIntermediacionLaboralRequiredMessage_ilbNombre}"/>
+                        <p:outputLabel value="#{bundle.CreateIntermediacionLaboralLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{intermediacionLaboralController.selected.AUsuarioCrea}" title="#{bundle.CreateIntermediacionLaboralTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.CreateIntermediacionLaboralRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.CreateIntermediacionLaboralLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{intermediacionLaboralController.selected.AFechaCreacion}" title="#{bundle.EditIntermediacionLaboralTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditIntermediacionLaboralRequiredMessage_AFechaCreacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateIntermediacionLaboralLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{intermediacionLaboralController.selected.AFechaModificacion}" title="#{bundle.EditIntermediacionLaboralTitle_AFechaModificacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateIntermediacionLaboralLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{intermediacionLaboralController.selected.AUsuarioModifica}" title="#{bundle.CreateIntermediacionLaboralTitle_AUsuarioModifica}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{intermediacionLaboralController.create}" value="#{bundle.Save}" update="display,:IntermediacionLaboralListForm:datalist,:growl" oncomplete="handleSubmit(args,'IntermediacionLaboralCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="IntermediacionLaboralCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

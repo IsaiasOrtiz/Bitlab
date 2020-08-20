@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EstadoSeleccionCreateDlg" widgetVar="EstadoSeleccionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEstadoSeleccionTitle}">
+            <h:form id="EstadoSeleccionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{estadoSeleccionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateEstadoSeleccionLabel_esnId}" for="esnId" />
+                        <p:inputText id="esnId" value="#{estadoSeleccionController.selected.esnId}" title="#{bundle.CreateEstadoSeleccionTitle_esnId}" required="true" requiredMessage="#{bundle.CreateEstadoSeleccionRequiredMessage_esnId}"/>
+                        <p:outputLabel value="#{bundle.CreateEstadoSeleccionLabel_esnNombre}" for="esnNombre" />
+                        <p:inputText id="esnNombre" value="#{estadoSeleccionController.selected.esnNombre}" title="#{bundle.CreateEstadoSeleccionTitle_esnNombre}" required="true" requiredMessage="#{bundle.CreateEstadoSeleccionRequiredMessage_esnNombre}"/>
+                        <p:outputLabel value="#{bundle.CreateEstadoSeleccionLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{estadoSeleccionController.selected.AUsuarioCrea}" title="#{bundle.CreateEstadoSeleccionTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.CreateEstadoSeleccionRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.CreateEstadoSeleccionLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{estadoSeleccionController.selected.AFechaModificacion}" title="#{bundle.EditEstadoSeleccionTitle_AFechaModificacion}" required="true" requiredMessage="#{bundle.EditEstadoSeleccionRequiredMessage_AFechaModificacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateEstadoSeleccionLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{estadoSeleccionController.selected.AFechaCreacion}" title="#{bundle.EditEstadoSeleccionTitle_AFechaCreacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateEstadoSeleccionLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{estadoSeleccionController.selected.AUsuarioModifica}" title="#{bundle.CreateEstadoSeleccionTitle_AUsuarioModifica}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{estadoSeleccionController.create}" value="#{bundle.Save}" update="display,:EstadoSeleccionListForm:datalist,:growl" oncomplete="handleSubmit(args,'EstadoSeleccionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EstadoSeleccionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

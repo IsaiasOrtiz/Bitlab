@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HorarioEditDlg" widgetVar="HorarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditHorarioTitle}">
+            <h:form id="HorarioEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{horarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditHorarioLabel_hrId}" for="hrId" />
+                        <p:inputText id="hrId" value="#{horarioController.selected.hrId}" title="#{bundle.EditHorarioTitle_hrId}" required="true" requiredMessage="#{bundle.EditHorarioRequiredMessage_hrId}"/>
+                        <p:outputLabel value="#{bundle.EditHorarioLabel_hrDias}" for="hrDias" />
+                        <p:inputText id="hrDias" value="#{horarioController.selected.hrDias}" title="#{bundle.EditHorarioTitle_hrDias}" required="true" requiredMessage="#{bundle.EditHorarioRequiredMessage_hrDias}"/>
+                        <p:outputLabel value="#{bundle.EditHorarioLabel_hrHoraInicio}" for="hrHoraInicio" />
+                        <p:calendar id="hrHoraInicio" pattern="HH:mm:ss" value="#{horarioController.selected.hrHoraInicio}" title="#{bundle.EditHorarioTitle_hrHoraInicio}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditHorarioLabel_hrHoraFin}" for="hrHoraFin" />
+                        <p:calendar id="hrHoraFin" pattern="HH:mm:ss" value="#{horarioController.selected.hrHoraFin}" title="#{bundle.EditHorarioTitle_hrHoraFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditHorarioLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{horarioController.selected.AUsuarioCrea}" title="#{bundle.EditHorarioTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.EditHorarioRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.EditHorarioLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{horarioController.selected.AFechaModificacion}" title="#{bundle.EditHorarioTitle_AFechaModificacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditHorarioLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{horarioController.selected.AFechaCreacion}" title="#{bundle.EditHorarioTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditHorarioRequiredMessage_AFechaCreacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditHorarioLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{horarioController.selected.AUsuarioModifica}" title="#{bundle.EditHorarioTitle_AUsuarioModifica}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{horarioController.update}" value="#{bundle.Save}" update="display,:HorarioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'HorarioEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="HorarioEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RecordEditDlg" widgetVar="RecordEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditRecordTitle}">
+            <h:form id="RecordEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{recordController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditRecordLabel_rcId}" for="rcId" />
+                        <p:inputText id="rcId" value="#{recordController.selected.rcId}" title="#{bundle.EditRecordTitle_rcId}" required="true" requiredMessage="#{bundle.EditRecordRequiredMessage_rcId}"/>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_rcPromedioFinal}" for="rcPromedioFinal" />
+                        <p:inputText id="rcPromedioFinal" value="#{recordController.selected.rcPromedioFinal}" title="#{bundle.EditRecordTitle_rcPromedioFinal}" required="true" requiredMessage="#{bundle.EditRecordRequiredMessage_rcPromedioFinal}"/>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_rcComentario}" for="rcComentario" />
+                        <p:inputText id="rcComentario" value="#{recordController.selected.rcComentario}" title="#{bundle.EditRecordTitle_rcComentario}" required="true" requiredMessage="#{bundle.EditRecordRequiredMessage_rcComentario}"/>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_rcProfesor}" for="rcProfesor" />
+                        <p:inputText id="rcProfesor" value="#{recordController.selected.rcProfesor}" title="#{bundle.EditRecordTitle_rcProfesor}" required="true" requiredMessage="#{bundle.EditRecordRequiredMessage_rcProfesor}"/>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{recordController.selected.AUsuarioCrea}" title="#{bundle.EditRecordTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.EditRecordRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{recordController.selected.AFechaModificacion}" title="#{bundle.EditRecordTitle_AFechaModificacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{recordController.selected.AFechaCreacion}" title="#{bundle.EditRecordTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditRecordRequiredMessage_AFechaCreacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{recordController.selected.AUsuarioModifica}" title="#{bundle.EditRecordTitle_AUsuarioModifica}" />
+                        <p:outputLabel value="#{bundle.EditRecordLabel_csId}" for="csId" />
+                        <p:selectOneMenu id="csId" value="#{recordController.selected.csId}" required="true" requiredMessage="#{bundle.EditRecordRequiredMessage_csId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cursoController.itemsAvailableSelectOne}"
+                                           var="csIdItem"
+                                           itemValue="#{csIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditRecordLabel_esId}" for="esId" />
+                        <p:selectOneMenu id="esId" value="#{recordController.selected.esId}" required="true" requiredMessage="#{bundle.EditRecordRequiredMessage_esId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{estudianteController.itemsAvailableSelectOne}"
+                                           var="esIdItem"
+                                           itemValue="#{esIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{recordController.update}" value="#{bundle.Save}" update="display,:RecordListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RecordEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RecordEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

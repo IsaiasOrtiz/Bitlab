@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListHorarioTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="HorarioListForm">
+                <p:panel header="#{bundle.ListHorarioTitle}">
+                    <p:dataTable id="datalist" value="#{horarioController.items}" var="item"
+                                 selectionMode="single" selection="#{horarioController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.hrId}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHorarioTitle_hrId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.hrId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHorarioTitle_hrDias}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.hrDias}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHorarioTitle_hrHoraInicio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.hrHoraInicio}">
+                                <f:convertDateTime pattern="HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHorarioTitle_hrHoraFin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.hrHoraFin}">
+                                <f:convertDateTime pattern="HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHorarioTitle_AUsuarioCrea}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.AUsuarioCrea}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHorarioTitle_AFechaModificacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.AFechaModificacion}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHorarioTitle_AFechaCreacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.AFechaCreacion}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHorarioTitle_AUsuarioModifica}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.AUsuarioModifica}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{horarioController.prepareCreate}" update=":HorarioCreateForm" oncomplete="PF('HorarioCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":HorarioViewForm" oncomplete="PF('HorarioViewDialog').show()" disabled="#{empty horarioController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":HorarioEditForm" oncomplete="PF('HorarioEditDialog').show()" disabled="#{empty horarioController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{horarioController.destroy}" update=":growl,datalist" disabled="#{empty horarioController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

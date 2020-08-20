@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IdiomaViewDlg" widgetVar="IdiomaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewIdiomaTitle}">
+            <h:form id="IdiomaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{idiomaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewIdiomaLabel_idmId}"/>
+                        <h:outputText value="#{idiomaController.selected.idmId}" title="#{bundle.ViewIdiomaTitle_idmId}"/>
+                        <h:outputText value="#{bundle.ViewIdiomaLabel_idmNombre}"/>
+                        <h:outputText value="#{idiomaController.selected.idmNombre}" title="#{bundle.ViewIdiomaTitle_idmNombre}"/>
+                        <h:outputText value="#{bundle.ViewIdiomaLabel_AUsuarioCrea}"/>
+                        <h:outputText value="#{idiomaController.selected.AUsuarioCrea}" title="#{bundle.ViewIdiomaTitle_AUsuarioCrea}"/>
+                        <h:outputText value="#{bundle.ViewIdiomaLabel_AFechaCreacion}"/>
+                        <h:outputText value="#{idiomaController.selected.AFechaCreacion}" title="#{bundle.ViewIdiomaTitle_AFechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewIdiomaLabel_AFechaModificacion}"/>
+                        <h:outputText value="#{idiomaController.selected.AFechaModificacion}" title="#{bundle.ViewIdiomaTitle_AFechaModificacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewIdiomaLabel_AUsuarioModifica}"/>
+                        <h:outputText value="#{idiomaController.selected.AUsuarioModifica}" title="#{bundle.ViewIdiomaTitle_AUsuarioModifica}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="IdiomaViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

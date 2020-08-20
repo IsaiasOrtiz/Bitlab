@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MunicipioEditDlg" widgetVar="MunicipioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMunicipioTitle}">
+            <h:form id="MunicipioEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{municipioController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditMunicipioLabel_mpId}" for="mpId" />
+                        <p:inputText id="mpId" value="#{municipioController.selected.mpId}" title="#{bundle.EditMunicipioTitle_mpId}" required="true" requiredMessage="#{bundle.EditMunicipioRequiredMessage_mpId}"/>
+                        <p:outputLabel value="#{bundle.EditMunicipioLabel_mpNombre}" for="mpNombre" />
+                        <p:inputText id="mpNombre" value="#{municipioController.selected.mpNombre}" title="#{bundle.EditMunicipioTitle_mpNombre}" required="true" requiredMessage="#{bundle.EditMunicipioRequiredMessage_mpNombre}"/>
+                        <p:outputLabel value="#{bundle.EditMunicipioLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{municipioController.selected.AUsuarioCrea}" title="#{bundle.EditMunicipioTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.EditMunicipioRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.EditMunicipioLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{municipioController.selected.AFechaCreacion}" title="#{bundle.EditMunicipioTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditMunicipioRequiredMessage_AFechaCreacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMunicipioLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{municipioController.selected.AFechaModificacion}" title="#{bundle.EditMunicipioTitle_AFechaModificacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMunicipioLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{municipioController.selected.AUsuarioModifica}" title="#{bundle.EditMunicipioTitle_AUsuarioModifica}" />
+                        <p:outputLabel value="#{bundle.EditMunicipioLabel_dpId}" for="dpId" />
+                        <p:selectOneMenu id="dpId" value="#{municipioController.selected.dpId}" required="true" requiredMessage="#{bundle.EditMunicipioRequiredMessage_dpId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{departamentoController.itemsAvailableSelectOne}"
+                                           var="dpIdItem"
+                                           itemValue="#{dpIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{municipioController.update}" value="#{bundle.Save}" update="display,:MunicipioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MunicipioEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MunicipioEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

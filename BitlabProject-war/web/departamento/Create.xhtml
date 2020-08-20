@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DepartamentoCreateDlg" widgetVar="DepartamentoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDepartamentoTitle}">
+            <h:form id="DepartamentoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{departamentoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDepartamentoLabel_dpId}" for="dpId" />
+                        <p:inputText id="dpId" value="#{departamentoController.selected.dpId}" title="#{bundle.CreateDepartamentoTitle_dpId}" required="true" requiredMessage="#{bundle.CreateDepartamentoRequiredMessage_dpId}"/>
+                        <p:outputLabel value="#{bundle.CreateDepartamentoLabel_dpNombre}" for="dpNombre" />
+                        <p:inputText id="dpNombre" value="#{departamentoController.selected.dpNombre}" title="#{bundle.CreateDepartamentoTitle_dpNombre}" required="true" requiredMessage="#{bundle.CreateDepartamentoRequiredMessage_dpNombre}"/>
+                        <p:outputLabel value="#{bundle.CreateDepartamentoLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{departamentoController.selected.AUsuarioCrea}" title="#{bundle.CreateDepartamentoTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.CreateDepartamentoRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.CreateDepartamentoLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{departamentoController.selected.AFechaCreacion}" title="#{bundle.EditDepartamentoTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditDepartamentoRequiredMessage_AFechaCreacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateDepartamentoLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{departamentoController.selected.AFechaModificacion}" title="#{bundle.EditDepartamentoTitle_AFechaModificacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateDepartamentoLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{departamentoController.selected.AUsuarioModifica}" title="#{bundle.CreateDepartamentoTitle_AUsuarioModifica}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{departamentoController.create}" value="#{bundle.Save}" update="display,:DepartamentoListForm:datalist,:growl" oncomplete="handleSubmit(args,'DepartamentoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DepartamentoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

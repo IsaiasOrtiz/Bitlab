@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DepartamentoViewDlg" widgetVar="DepartamentoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDepartamentoTitle}">
+            <h:form id="DepartamentoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{departamentoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDepartamentoLabel_dpId}"/>
+                        <h:outputText value="#{departamentoController.selected.dpId}" title="#{bundle.ViewDepartamentoTitle_dpId}"/>
+                        <h:outputText value="#{bundle.ViewDepartamentoLabel_dpNombre}"/>
+                        <h:outputText value="#{departamentoController.selected.dpNombre}" title="#{bundle.ViewDepartamentoTitle_dpNombre}"/>
+                        <h:outputText value="#{bundle.ViewDepartamentoLabel_AUsuarioCrea}"/>
+                        <h:outputText value="#{departamentoController.selected.AUsuarioCrea}" title="#{bundle.ViewDepartamentoTitle_AUsuarioCrea}"/>
+                        <h:outputText value="#{bundle.ViewDepartamentoLabel_AFechaCreacion}"/>
+                        <h:outputText value="#{departamentoController.selected.AFechaCreacion}" title="#{bundle.ViewDepartamentoTitle_AFechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewDepartamentoLabel_AFechaModificacion}"/>
+                        <h:outputText value="#{departamentoController.selected.AFechaModificacion}" title="#{bundle.ViewDepartamentoTitle_AFechaModificacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewDepartamentoLabel_AUsuarioModifica}"/>
+                        <h:outputText value="#{departamentoController.selected.AUsuarioModifica}" title="#{bundle.ViewDepartamentoTitle_AUsuarioModifica}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DepartamentoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

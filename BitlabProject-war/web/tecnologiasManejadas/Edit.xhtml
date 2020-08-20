@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TecnologiasManejadasEditDlg" widgetVar="TecnologiasManejadasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTecnologiasManejadasTitle}">
+            <h:form id="TecnologiasManejadasEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tecnologiasManejadasController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTecnologiasManejadasLabel_tgId}" for="tgId" />
+                        <p:inputText id="tgId" value="#{tecnologiasManejadasController.selected.tgId}" title="#{bundle.EditTecnologiasManejadasTitle_tgId}" required="true" requiredMessage="#{bundle.EditTecnologiasManejadasRequiredMessage_tgId}"/>
+                        <p:outputLabel value="#{bundle.EditTecnologiasManejadasLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{tecnologiasManejadasController.selected.AUsuarioCrea}" title="#{bundle.EditTecnologiasManejadasTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.EditTecnologiasManejadasRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.EditTecnologiasManejadasLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{tecnologiasManejadasController.selected.AFechaCreacion}" title="#{bundle.EditTecnologiasManejadasTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditTecnologiasManejadasRequiredMessage_AFechaCreacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTecnologiasManejadasLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{tecnologiasManejadasController.selected.AFechaModificacion}" title="#{bundle.EditTecnologiasManejadasTitle_AFechaModificacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTecnologiasManejadasLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{tecnologiasManejadasController.selected.AUsuarioModifica}" title="#{bundle.EditTecnologiasManejadasTitle_AUsuarioModifica}" />
+                        <p:outputLabel value="#{bundle.EditTecnologiasManejadasLabel_esId}" for="esId" />
+                        <p:selectOneMenu id="esId" value="#{tecnologiasManejadasController.selected.esId}" required="true" requiredMessage="#{bundle.EditTecnologiasManejadasRequiredMessage_esId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{estudianteController.itemsAvailableSelectOne}"
+                                           var="esIdItem"
+                                           itemValue="#{esIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTecnologiasManejadasLabel_nvId}" for="nvId" />
+                        <p:selectOneMenu id="nvId" value="#{tecnologiasManejadasController.selected.nvId}" required="true" requiredMessage="#{bundle.EditTecnologiasManejadasRequiredMessage_nvId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{nivelTecnologiaController.itemsAvailableSelectOne}"
+                                           var="nvIdItem"
+                                           itemValue="#{nvIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTecnologiasManejadasLabel_tgdId}" for="tgdId" />
+                        <p:selectOneMenu id="tgdId" value="#{tecnologiasManejadasController.selected.tgdId}" required="true" requiredMessage="#{bundle.EditTecnologiasManejadasRequiredMessage_tgdId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tecnologiasDisponiblesController.itemsAvailableSelectOne}"
+                                           var="tgdIdItem"
+                                           itemValue="#{tgdIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tecnologiasManejadasController.update}" value="#{bundle.Save}" update="display,:TecnologiasManejadasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TecnologiasManejadasEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TecnologiasManejadasEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

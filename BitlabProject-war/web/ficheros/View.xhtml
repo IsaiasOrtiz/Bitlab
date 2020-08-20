@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FicherosViewDlg" widgetVar="FicherosViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFicherosTitle}">
+            <h:form id="FicherosViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ficherosController.selected != null}">
+                        <h:outputText value="#{bundle.ViewFicherosLabel_fcId}"/>
+                        <h:outputText value="#{ficherosController.selected.fcId}" title="#{bundle.ViewFicherosTitle_fcId}"/>
+                        <h:outputText value="#{bundle.ViewFicherosLabel_fichero}"/>
+                        <h:outputText value="#{ficherosController.selected.fichero}" title="#{bundle.ViewFicherosTitle_fichero}"/>
+                        <h:outputText value="#{bundle.ViewFicherosLabel_AUsuarioCrea}"/>
+                        <h:outputText value="#{ficherosController.selected.AUsuarioCrea}" title="#{bundle.ViewFicherosTitle_AUsuarioCrea}"/>
+                        <h:outputText value="#{bundle.ViewFicherosLabel_AFechaCreacion}"/>
+                        <h:outputText value="#{ficherosController.selected.AFechaCreacion}" title="#{bundle.ViewFicherosTitle_AFechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewFicherosLabel_AFechaModificacion}"/>
+                        <h:outputText value="#{ficherosController.selected.AFechaModificacion}" title="#{bundle.ViewFicherosTitle_AFechaModificacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewFicherosLabel_AUsuarioModifica}"/>
+                        <h:outputText value="#{ficherosController.selected.AUsuarioModifica}" title="#{bundle.ViewFicherosTitle_AUsuarioModifica}"/>
+                        <h:outputText value="#{bundle.ViewFicherosLabel_prId}"/>
+                        <h:outputText value="#{ficherosController.selected.prId}" title="#{bundle.ViewFicherosTitle_prId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="FicherosViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

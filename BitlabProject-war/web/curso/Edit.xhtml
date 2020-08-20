@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CursoEditDlg" widgetVar="CursoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCursoTitle}">
+            <h:form id="CursoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cursoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCursoLabel_csId}" for="csId" />
+                        <p:inputText id="csId" value="#{cursoController.selected.csId}" title="#{bundle.EditCursoTitle_csId}" required="true" requiredMessage="#{bundle.EditCursoRequiredMessage_csId}"/>
+                        <p:outputLabel value="#{bundle.EditCursoLabel_csCodCurso}" for="csCodCurso" />
+                        <p:inputText id="csCodCurso" value="#{cursoController.selected.csCodCurso}" title="#{bundle.EditCursoTitle_csCodCurso}" required="true" requiredMessage="#{bundle.EditCursoRequiredMessage_csCodCurso}"/>
+                        <p:outputLabel value="#{bundle.EditCursoLabel_csNombre}" for="csNombre" />
+                        <p:inputText id="csNombre" value="#{cursoController.selected.csNombre}" title="#{bundle.EditCursoTitle_csNombre}" required="true" requiredMessage="#{bundle.EditCursoRequiredMessage_csNombre}"/>
+                        <p:outputLabel value="#{bundle.EditCursoLabel_csDescripcion}" for="csDescripcion" />
+                        <p:inputText id="csDescripcion" value="#{cursoController.selected.csDescripcion}" title="#{bundle.EditCursoTitle_csDescripcion}" required="true" requiredMessage="#{bundle.EditCursoRequiredMessage_csDescripcion}"/>
+                        <p:outputLabel value="#{bundle.EditCursoLabel_csEstado}" for="csEstado" />
+                        <p:selectBooleanCheckbox id="csEstado" value="#{cursoController.selected.csEstado}" required="true" requiredMessage="#{bundle.EditCursoRequiredMessage_csEstado}"/>
+                        <p:outputLabel value="#{bundle.EditCursoLabel_csCantidadBecados}" for="csCantidadBecados" />
+                        <p:inputText id="csCantidadBecados" value="#{cursoController.selected.csCantidadBecados}" title="#{bundle.EditCursoTitle_csCantidadBecados}" />
+                        <p:outputLabel value="#{bundle.EditCursoLabel_csFinalizacion}" for="csFinalizacion" />
+                        <p:calendar id="csFinalizacion" pattern="MM/dd/yyyy" value="#{cursoController.selected.csFinalizacion}" title="#{bundle.EditCursoTitle_csFinalizacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCursoLabel_csInicio}" for="csInicio" />
+                        <p:calendar id="csInicio" pattern="MM/dd/yyyy" value="#{cursoController.selected.csInicio}" title="#{bundle.EditCursoTitle_csInicio}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCursoLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{cursoController.selected.AUsuarioCrea}" title="#{bundle.EditCursoTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.EditCursoRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.EditCursoLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{cursoController.selected.AFechaModificacion}" title="#{bundle.EditCursoTitle_AFechaModificacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCursoLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{cursoController.selected.AFechaCreacion}" title="#{bundle.EditCursoTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditCursoRequiredMessage_AFechaCreacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCursoLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{cursoController.selected.AUsuarioModifica}" title="#{bundle.EditCursoTitle_AUsuarioModifica}" />
+                        <p:outputLabel value="#{bundle.EditCursoLabel_hrId}" for="hrId" />
+                        <p:selectOneMenu id="hrId" value="#{cursoController.selected.hrId}" required="true" requiredMessage="#{bundle.EditCursoRequiredMessage_hrId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{horarioController.itemsAvailableSelectOne}"
+                                           var="hrIdItem"
+                                           itemValue="#{hrIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cursoController.update}" value="#{bundle.Save}" update="display,:CursoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CursoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CursoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

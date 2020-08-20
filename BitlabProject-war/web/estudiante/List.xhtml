@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListEstudianteTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="EstudianteListForm">
+                <p:panel header="#{bundle.ListEstudianteTitle}">
+                    <p:dataTable id="datalist" value="#{estudianteController.items}" var="item"
+                                 selectionMode="single" selection="#{estudianteController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.esId}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esFoto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esFoto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esNombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esNombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esApellido}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esApellido}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esDui}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esDui}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esFechaNacimiento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esFechaNacimiento}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esComputadora}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.esComputadora}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esDireccion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esDireccion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esTelefono}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esTelefono}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esCorreo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esCorreo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esClave}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esClave}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esLaborando}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.esLaborando}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esAspiraciones}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esAspiraciones}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esInteres}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esInteres}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esCv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esCv}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_AUsuarioCrea}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.AUsuarioCrea}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_AFechaModificacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.AFechaModificacion}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_AFechaCreacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.AFechaCreacion}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_AUsuarioModifica}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.AUsuarioModifica}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_csId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.csId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esdId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esdId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_esnId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esnId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_ilbId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ilbId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_mpId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mpId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEstudianteTitle_rlId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rlId}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{estudianteController.prepareCreate}" update=":EstudianteCreateForm" oncomplete="PF('EstudianteCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EstudianteViewForm" oncomplete="PF('EstudianteViewDialog').show()" disabled="#{empty estudianteController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EstudianteEditForm" oncomplete="PF('EstudianteEditDialog').show()" disabled="#{empty estudianteController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{estudianteController.destroy}" update=":growl,datalist" disabled="#{empty estudianteController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

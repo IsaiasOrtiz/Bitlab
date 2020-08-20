@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FicherosCreateDlg" widgetVar="FicherosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFicherosTitle}">
+            <h:form id="FicherosCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ficherosController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateFicherosLabel_fcId}" for="fcId" />
+                        <p:inputText id="fcId" value="#{ficherosController.selected.fcId}" title="#{bundle.CreateFicherosTitle_fcId}" required="true" requiredMessage="#{bundle.CreateFicherosRequiredMessage_fcId}"/>
+                        <p:outputLabel value="#{bundle.CreateFicherosLabel_fichero}" for="fichero" />
+                        <p:inputTextarea rows="4" cols="30" id="fichero" value="#{ficherosController.selected.fichero}" title="#{bundle.CreateFicherosTitle_fichero}" required="true" requiredMessage="#{bundle.CreateFicherosRequiredMessage_fichero}"/>
+                        <p:outputLabel value="#{bundle.CreateFicherosLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{ficherosController.selected.AUsuarioCrea}" title="#{bundle.CreateFicherosTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.CreateFicherosRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.CreateFicherosLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{ficherosController.selected.AFechaCreacion}" title="#{bundle.EditFicherosTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditFicherosRequiredMessage_AFechaCreacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateFicherosLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{ficherosController.selected.AFechaModificacion}" title="#{bundle.EditFicherosTitle_AFechaModificacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateFicherosLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{ficherosController.selected.AUsuarioModifica}" title="#{bundle.CreateFicherosTitle_AUsuarioModifica}" />
+                        <p:outputLabel value="#{bundle.CreateFicherosLabel_prId}" for="prId" />
+                        <p:selectOneMenu id="prId" value="#{ficherosController.selected.prId}" required="true" requiredMessage="#{bundle.EditFicherosRequiredMessage_prId}">
+                            <f:selectItems value="#{preseleccionController.itemsAvailableSelectOne}"
+                                           var="prIdItem"
+                                           itemValue="#{prIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ficherosController.create}" value="#{bundle.Save}" update="display,:FicherosListForm:datalist,:growl" oncomplete="handleSubmit(args,'FicherosCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FicherosCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

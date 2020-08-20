@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HorarioViewDlg" widgetVar="HorarioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewHorarioTitle}">
+            <h:form id="HorarioViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{horarioController.selected != null}">
+                        <h:outputText value="#{bundle.ViewHorarioLabel_hrId}"/>
+                        <h:outputText value="#{horarioController.selected.hrId}" title="#{bundle.ViewHorarioTitle_hrId}"/>
+                        <h:outputText value="#{bundle.ViewHorarioLabel_hrDias}"/>
+                        <h:outputText value="#{horarioController.selected.hrDias}" title="#{bundle.ViewHorarioTitle_hrDias}"/>
+                        <h:outputText value="#{bundle.ViewHorarioLabel_hrHoraInicio}"/>
+                        <h:outputText value="#{horarioController.selected.hrHoraInicio}" title="#{bundle.ViewHorarioTitle_hrHoraInicio}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewHorarioLabel_hrHoraFin}"/>
+                        <h:outputText value="#{horarioController.selected.hrHoraFin}" title="#{bundle.ViewHorarioTitle_hrHoraFin}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewHorarioLabel_AUsuarioCrea}"/>
+                        <h:outputText value="#{horarioController.selected.AUsuarioCrea}" title="#{bundle.ViewHorarioTitle_AUsuarioCrea}"/>
+                        <h:outputText value="#{bundle.ViewHorarioLabel_AFechaModificacion}"/>
+                        <h:outputText value="#{horarioController.selected.AFechaModificacion}" title="#{bundle.ViewHorarioTitle_AFechaModificacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewHorarioLabel_AFechaCreacion}"/>
+                        <h:outputText value="#{horarioController.selected.AFechaCreacion}" title="#{bundle.ViewHorarioTitle_AFechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewHorarioLabel_AUsuarioModifica}"/>
+                        <h:outputText value="#{horarioController.selected.AUsuarioModifica}" title="#{bundle.ViewHorarioTitle_AUsuarioModifica}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="HorarioViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EstadoSeleccionViewDlg" widgetVar="EstadoSeleccionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEstadoSeleccionTitle}">
+            <h:form id="EstadoSeleccionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{estadoSeleccionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEstadoSeleccionLabel_esnId}"/>
+                        <h:outputText value="#{estadoSeleccionController.selected.esnId}" title="#{bundle.ViewEstadoSeleccionTitle_esnId}"/>
+                        <h:outputText value="#{bundle.ViewEstadoSeleccionLabel_esnNombre}"/>
+                        <h:outputText value="#{estadoSeleccionController.selected.esnNombre}" title="#{bundle.ViewEstadoSeleccionTitle_esnNombre}"/>
+                        <h:outputText value="#{bundle.ViewEstadoSeleccionLabel_AUsuarioCrea}"/>
+                        <h:outputText value="#{estadoSeleccionController.selected.AUsuarioCrea}" title="#{bundle.ViewEstadoSeleccionTitle_AUsuarioCrea}"/>
+                        <h:outputText value="#{bundle.ViewEstadoSeleccionLabel_AFechaModificacion}"/>
+                        <h:outputText value="#{estadoSeleccionController.selected.AFechaModificacion}" title="#{bundle.ViewEstadoSeleccionTitle_AFechaModificacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEstadoSeleccionLabel_AFechaCreacion}"/>
+                        <h:outputText value="#{estadoSeleccionController.selected.AFechaCreacion}" title="#{bundle.ViewEstadoSeleccionTitle_AFechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEstadoSeleccionLabel_AUsuarioModifica}"/>
+                        <h:outputText value="#{estadoSeleccionController.selected.AUsuarioModifica}" title="#{bundle.ViewEstadoSeleccionTitle_AUsuarioModifica}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EstadoSeleccionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TecnologiasDisponiblesEditDlg" widgetVar="TecnologiasDisponiblesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTecnologiasDisponiblesTitle}">
+            <h:form id="TecnologiasDisponiblesEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tecnologiasDisponiblesController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTecnologiasDisponiblesLabel_tgdId}" for="tgdId" />
+                        <p:inputText id="tgdId" value="#{tecnologiasDisponiblesController.selected.tgdId}" title="#{bundle.EditTecnologiasDisponiblesTitle_tgdId}" required="true" requiredMessage="#{bundle.EditTecnologiasDisponiblesRequiredMessage_tgdId}"/>
+                        <p:outputLabel value="#{bundle.EditTecnologiasDisponiblesLabel_tgdNombre}" for="tgdNombre" />
+                        <p:inputText id="tgdNombre" value="#{tecnologiasDisponiblesController.selected.tgdNombre}" title="#{bundle.EditTecnologiasDisponiblesTitle_tgdNombre}" required="true" requiredMessage="#{bundle.EditTecnologiasDisponiblesRequiredMessage_tgdNombre}"/>
+                        <p:outputLabel value="#{bundle.EditTecnologiasDisponiblesLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{tecnologiasDisponiblesController.selected.AUsuarioCrea}" title="#{bundle.EditTecnologiasDisponiblesTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.EditTecnologiasDisponiblesRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.EditTecnologiasDisponiblesLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{tecnologiasDisponiblesController.selected.AFechaCreacion}" title="#{bundle.EditTecnologiasDisponiblesTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditTecnologiasDisponiblesRequiredMessage_AFechaCreacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTecnologiasDisponiblesLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{tecnologiasDisponiblesController.selected.AFechaModificacion}" title="#{bundle.EditTecnologiasDisponiblesTitle_AFechaModificacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTecnologiasDisponiblesLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{tecnologiasDisponiblesController.selected.AUsuarioModifica}" title="#{bundle.EditTecnologiasDisponiblesTitle_AUsuarioModifica}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tecnologiasDisponiblesController.update}" value="#{bundle.Save}" update="display,:TecnologiasDisponiblesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TecnologiasDisponiblesEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TecnologiasDisponiblesEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

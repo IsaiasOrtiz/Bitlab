@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IdiomasCreateDlg" widgetVar="IdiomasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateIdiomasTitle}">
+            <h:form id="IdiomasCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{idiomasController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateIdiomasLabel_neId}" for="neId" />
+                        <p:inputText id="neId" value="#{idiomasController.selected.neId}" title="#{bundle.CreateIdiomasTitle_neId}" required="true" requiredMessage="#{bundle.CreateIdiomasRequiredMessage_neId}"/>
+                        <p:outputLabel value="#{bundle.CreateIdiomasLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{idiomasController.selected.AUsuarioCrea}" title="#{bundle.CreateIdiomasTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.CreateIdiomasRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.CreateIdiomasLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{idiomasController.selected.AFechaCreacion}" title="#{bundle.EditIdiomasTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditIdiomasRequiredMessage_AFechaCreacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateIdiomasLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{idiomasController.selected.AFechaModificacion}" title="#{bundle.EditIdiomasTitle_AFechaModificacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateIdiomasLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{idiomasController.selected.AUsuarioModifica}" title="#{bundle.CreateIdiomasTitle_AUsuarioModifica}" />
+                        <p:outputLabel value="#{bundle.CreateIdiomasLabel_idmId}" for="idmId" />
+                        <p:selectOneMenu id="idmId" value="#{idiomasController.selected.idmId}" required="true" requiredMessage="#{bundle.EditIdiomasRequiredMessage_idmId}">
+                            <f:selectItems value="#{idiomaController.itemsAvailableSelectOne}"
+                                           var="idmIdItem"
+                                           itemValue="#{idmIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateIdiomasLabel_esId}" for="esId" />
+                        <p:selectOneMenu id="esId" value="#{idiomasController.selected.esId}" required="true" requiredMessage="#{bundle.EditIdiomasRequiredMessage_esId}">
+                            <f:selectItems value="#{estudianteController.itemsAvailableSelectOne}"
+                                           var="esIdItem"
+                                           itemValue="#{esIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateIdiomasLabel_NId}" for="NId" />
+                        <p:selectOneMenu id="NId" value="#{idiomasController.selected.NId}" required="true" requiredMessage="#{bundle.EditIdiomasRequiredMessage_NId}">
+                            <f:selectItems value="#{nivelIdiomaController.itemsAvailableSelectOne}"
+                                           var="NIdItem"
+                                           itemValue="#{NIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{idiomasController.create}" value="#{bundle.Save}" update="display,:IdiomasListForm:datalist,:growl" oncomplete="handleSubmit(args,'IdiomasCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="IdiomasCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

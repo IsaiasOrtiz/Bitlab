@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PreseleccionCreateDlg" widgetVar="PreseleccionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePreseleccionTitle}">
+            <h:form id="PreseleccionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{preseleccionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePreseleccionLabel_prId}" for="prId" />
+                        <p:inputText id="prId" value="#{preseleccionController.selected.prId}" title="#{bundle.CreatePreseleccionTitle_prId}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prId}"/>
+                        <p:outputLabel value="#{bundle.CreatePreseleccionLabel_prNombre}" for="prNombre" />
+                        <p:inputText id="prNombre" value="#{preseleccionController.selected.prNombre}" title="#{bundle.CreatePreseleccionTitle_prNombre}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prNombre}"/>
+                        <p:outputLabel value="#{bundle.CreatePreseleccionLabel_prNota}" for="prNota" />
+                        <p:inputText id="prNota" value="#{preseleccionController.selected.prNota}" title="#{bundle.CreatePreseleccionTitle_prNota}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prNota}"/>
+                        <p:outputLabel value="#{bundle.CreatePreseleccionLabel_prPonderacion}" for="prPonderacion" />
+                        <p:inputText id="prPonderacion" value="#{preseleccionController.selected.prPonderacion}" title="#{bundle.CreatePreseleccionTitle_prPonderacion}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prPonderacion}"/>
+                        <p:outputLabel value="#{bundle.CreatePreseleccionLabel_prComentario}" for="prComentario" />
+                        <p:inputText id="prComentario" value="#{preseleccionController.selected.prComentario}" title="#{bundle.CreatePreseleccionTitle_prComentario}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prComentario}"/>
+                        <p:outputLabel value="#{bundle.CreatePreseleccionLabel_AUsuarioCrea}" for="AUsuarioCrea" />
+                        <p:inputText id="AUsuarioCrea" value="#{preseleccionController.selected.AUsuarioCrea}" title="#{bundle.CreatePreseleccionTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_AUsuarioCrea}"/>
+                        <p:outputLabel value="#{bundle.CreatePreseleccionLabel_AFechaModificacion}" for="AFechaModificacion" />
+                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{preseleccionController.selected.AFechaModificacion}" title="#{bundle.EditPreseleccionTitle_AFechaModificacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePreseleccionLabel_AFechaCreacion}" for="AFechaCreacion" />
+                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{preseleccionController.selected.AFechaCreacion}" title="#{bundle.EditPreseleccionTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditPreseleccionRequiredMessage_AFechaCreacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePreseleccionLabel_AUsuarioModifica}" for="AUsuarioModifica" />
+                        <p:inputText id="AUsuarioModifica" value="#{preseleccionController.selected.AUsuarioModifica}" title="#{bundle.CreatePreseleccionTitle_AUsuarioModifica}" />
+                        <p:outputLabel value="#{bundle.CreatePreseleccionLabel_csId}" for="csId" />
+                        <p:selectOneMenu id="csId" value="#{preseleccionController.selected.csId}" required="true" requiredMessage="#{bundle.EditPreseleccionRequiredMessage_csId}">
+                            <f:selectItems value="#{cursoController.itemsAvailableSelectOne}"
+                                           var="csIdItem"
+                                           itemValue="#{csIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePreseleccionLabel_esId}" for="esId" />
+                        <p:selectOneMenu id="esId" value="#{preseleccionController.selected.esId}" required="true" requiredMessage="#{bundle.EditPreseleccionRequiredMessage_esId}">
+                            <f:selectItems value="#{estudianteController.itemsAvailableSelectOne}"
+                                           var="esIdItem"
+                                           itemValue="#{esIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{preseleccionController.create}" value="#{bundle.Save}" update="display,:PreseleccionListForm:datalist,:growl" oncomplete="handleSubmit(args,'PreseleccionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PreseleccionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
