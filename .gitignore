@@ -1,2 +1,9 @@
 /BitlabProject-war/dist/
 /dist/
+/nbproject/private/
+/BitlabProject-war/nbproject/private/
+/BitlabProject-ejb/nbproject/private/
+/BitlabProject-ejb/build/
+/BitlabProject-ejb/dist/
+/BitlabProject-war/build/
+/build/
