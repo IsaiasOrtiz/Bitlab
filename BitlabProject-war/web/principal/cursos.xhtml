@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Bitlab</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <div>
+            <h:form id="form">
+                <p:dataView var="curso" value="#{cursoController.items}"
+                            gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+                    <p:dataViewGridItem>
+                        <p:panel header="#{curso.csNombre}" style="text-align:center">
+                            <h:panelGrid columns="1" style="width:100%">
+                                <p:graphicImage name="../resources/img/log.png"/> 
+                                <h:outputText value="Inicio:#{curso.csInicio}" >
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                                <h:outputText value="Descripcion: #{curso.csDescripcion}"/>
+                                <h:outputText value="Capacidad: #{curso.csCantidadBecados}"/>
+                                <h:outputText value="Hora Inicio: #{curso.hrId.hrHoraInicio}"/>
+                                <h:outputText value="Hora finalizacion: #{curso.hrId.hrHoraFin}"/>
+                                <h:outputText value="Dias: #{curso.hrId.hrDias}"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:dataViewGridItem>
+                </p:dataView>
+            </h:form>
+        </div>
+    </h:body>
+</html>

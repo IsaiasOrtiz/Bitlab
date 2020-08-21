@@ -16,7 +16,7 @@
         <ui:define name="body">
             <h:form id="IdiomaListForm">
                 <p:panel header="#{bundle.ListIdiomaTitle}">
-                    <p:dataTable id="datalist" value="#{idiomaController.items}" var="item"
+                    <p:dataTable reflow="true" id="datalist" value="#{idiomaController.items}" var="item"
                                  selectionMode="single" selection="#{idiomaController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idmId}"
