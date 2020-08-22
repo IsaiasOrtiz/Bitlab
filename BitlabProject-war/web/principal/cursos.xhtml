@@ -16,20 +16,28 @@ and open the template in the editor.
     <h:body>
         <div>
             <h:form id="form">
+                <p:growl id="message" showDetail="true" />
                 <p:dataView var="curso" value="#{cursoController.items}"
                             gridIcon="pi pi-th-large" listIcon="pi pi-bars">
                     <p:dataViewGridItem>
-                        <p:panel header="#{curso.csNombre}" style="text-align:center">
+                        <p:panel header="#{curso.csNombre}" style="text-align:center" rendered="#{curso.csEstado}">
                             <h:panelGrid columns="1" style="width:100%">
-                                <p:graphicImage name="../resources/img/log.png"/> 
+                                <p:graphicImage name="https://blog.elaniin.com/wp-content/uploads/2019/09/3.jpg"/> 
                                 <h:outputText value="Inicio:#{curso.csInicio}" >
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
                                 </h:outputText>
                                 <h:outputText value="Descripcion: #{curso.csDescripcion}"/>
                                 <h:outputText value="Capacidad: #{curso.csCantidadBecados}"/>
                                 <h:outputText value="Hora Inicio: #{curso.hrId.hrHoraInicio}"/>
                                 <h:outputText value="Hora finalizacion: #{curso.hrId.hrHoraFin}"/>
                                 <h:outputText value="Dias: #{curso.hrId.hrDias}"/>
+                                <p:commandButton  value="Inscribete" icon="pi pi-user-edit" style="margin-right:20px;" >
+                                    <p:confirm header="Confirma la inscripcion" message="Al inscribirte a un curso no puedes retirarte del proceso o inscribirte a otro curso mientras estes en un proceso. ¿esta seguro?" icon="pi pi-exclamation-triangle" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true">
+                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                                </p:confirmDialog>   
                             </h:panelGrid>
                         </p:panel>
                     </p:dataViewGridItem>

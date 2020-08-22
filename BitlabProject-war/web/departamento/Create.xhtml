@@ -5,15 +5,11 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-
     <ui:composition>
-
         <p:dialog id="DepartamentoCreateDlg" widgetVar="DepartamentoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDepartamentoTitle}">
             <h:form id="DepartamentoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{departamentoController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateDepartamentoLabel_dpId}" for="dpId" />
-                        <p:inputText id="dpId" value="#{departamentoController.selected.dpId}" title="#{bundle.CreateDepartamentoTitle_dpId}" required="true" requiredMessage="#{bundle.CreateDepartamentoRequiredMessage_dpId}"/>
                         <p:outputLabel value="#{bundle.CreateDepartamentoLabel_dpNombre}" for="dpNombre" />
                         <p:inputText id="dpNombre" value="#{departamentoController.selected.dpNombre}" title="#{bundle.CreateDepartamentoTitle_dpNombre}" required="true" requiredMessage="#{bundle.CreateDepartamentoRequiredMessage_dpNombre}"/>
                         <p:outputLabel value="#{bundle.CreateDepartamentoLabel_AUsuarioCrea}" for="AUsuarioCrea" />
@@ -30,6 +26,5 @@
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-
     </ui:composition>
 </html>

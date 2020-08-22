@@ -72,6 +72,7 @@
                         <p:selectOneMenu id="mpId" value="#{estudianteController.selected.mpId}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_mpId}">
                             <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
                                            var="mpIdItem"
+                                           itemLabel="#{mpIdItem.mpNombre}"
                                            itemValue="#{mpIdItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateEstudianteLabel_rlId}" for="rlId" />

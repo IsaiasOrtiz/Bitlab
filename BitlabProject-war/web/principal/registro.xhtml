@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Bitlab</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <body>
+        <div>
+            <p:panel id="basic" header="Formulario de registro"  style="margin-bottom:20px">
+                <h:form id="frmRg" enctype="multipart/form-data">
+                    <h3>Resgistro</h3>
+                    <div class="ui-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-6">
+                            <p:outputLabel for="Nombres" value="Nombres" />
+                            <p:inputText id="Nombres" value="#{estudianteController.selected.esNombre}" required="true" requiredMessage="Debe ingresar un nombre"/>
+                            <p:message for="Nombres" />
+                        </div>
+                        <div class="p-field p-col-12 p-md-6">
+                            <p:outputLabel for="Apellidos" value="Apellidos" />
+                            <p:inputText id="Apellidos"  value="#{estudianteController.selected.esApellido}" required="true" requiredMessage="Debe ingresar un apellido"/>
+                            <p:message for="Apellidos" />
+                        </div>
+
+                        <div class="p-field p-col-12">
+                            <p:outputLabel for="file" value="Subir foto de perfil" /><br/>
+                            <p:fileUpload id="file" value="#{estudianteController.file}" mode="simple" skinSimple="true"/>
+                        </div>
+                        <div class="p-field p-col-12 p-md-6">
+                            <p:outputLabel for="dui" value="DUI" />
+                            <p:inputText id="dui"  value="#{estudianteController.selected.esDui}" required="true" requiredMessage="Debe ingresar un DUI"/>
+                            <p:message for="dui" />
+                        </div>
+                        <div class="p-field p-col-12 p-md-6">
+                            <p:outputLabel for="fn" value="Fecha de nacimiento" />
+                            <p:calendar id="fn" value="#{estudianteController.selected.esFechaNacimiento}" pattern="dd/MM/yyyy" locale="es" navigator="true" mask="true" yearRange="c:c+1" required="true" requiredMessage="Debe ingresar la fecha de nacimiento"/>
+                            <p:message for="fn" />
+                        </div>
+                        <div class="p-field p-col-12 p-md-6">
+                            <p:outputLabel for="pc" value="¿Tiene computadora propia?" /><br/>
+                            <p:selectBooleanCheckbox id="pc" value="#{estudianteController.selected.esComputadora}" required="true"/>
+                        </div>
+                        <div class="p-field p-col-12 p-md-6">
+                        <p:outputLabel value="Municipio" for="mpId" />
+                        <p:selectOneMenu id="mpId" value="#{estudianteController.selected.mpId}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_mpId}">
+                            <f:selectItems value="#{municipioController.itemsAvailableSelectOne}"
+                                           var="mpIdItem"
+                                           itemLabel="#{mpIdItem.mpNombre}"
+                                           itemValue="#{mpIdItem}"/>
+                        </p:selectOneMenu>
+                        </div>
+                        <div class="p-field p-col-12 p-md-6">
+                            <p:outputLabel for="Dir" value="Ingrese su direccion" /><br/>
+                            <p:inputText id="Dir"  value="#{estudianteController.selected.esDireccion}" required="true" requiredMessage="Ingrese su direccion" />
+                            <p:message for="Dir" />
+                        </div>
+                        <div class="p-field p-col-12 p-md-6">
+                            <p:outputLabel for="Tel" value="Telefono" /><br/>
+                            <p:inputText id="Tel"  value="#{estudianteController.selected.esTelefono}" required="true" requiredMessage="Ingrese su numero de contacto" />
+                            <p:message for="Tel" />
+                        </div>
+                        <div class="p-field p-col-12 p-md-6">
+                            <p:outputLabel for="Corr" value="Correo electronico" /><br/>
+                            <p:inputText id="Corr"  value="#{estudianteController.selected.esCorreo}" required="true" requiredMessage="Debe ingresar su correo"/>
+                            <p:message for="Corr" />
+                        </div>
+                        <div class="p-field p-col-12 p-md-6">
+                            <p:outputLabel for="Clave" value="Clave" />
+                            <p:password id="Clave" value="#{estudianteController.selected.esClave}" feedback="true" required="true" requiredMessage="Debe ingresar una clave" />
+                            <p:message for="Clave" />
+                        </div>
+                        <p:outputLabel value="Escolaridad" for="esdId" />
+                        <p:selectOneMenu id="esdId" value="#{estudianteController.selected.esdId}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_esdId}">
+                            <f:selectItems value="#{escolaridadController.itemsAvailableSelectOne}"
+                                           var="esdIdItem"
+                                           itemLabel="#{esdIdItem.esNombre}"
+                                           itemValue="#{esdIdItem}"/>
+                        </p:selectOneMenu>
+                        <div class="p-field p-col-12 p-md-6">
+                            <p:outputLabel for="labora" value="¿Esta laborando?, en caso que no deje en blanco." /><br/>
+                            <p:selectBooleanCheckbox id="labora" value="#{estudianteController.selected.esLaborando}" required="true" />
+                        </div>
+                        <div class="p-field p-col-12">
+                            <p:outputLabel for="file2" value="Sube tu Hoja de vida (CV)" /><br/>
+                            <p:fileUpload id="file2" value="#{estudianteController.cvEs}" mode="simple" skinSimple="true"/>
+                        </div>
+                        <div class="p-field p-col-12 p-md-6">
+                            <p:outputLabel for="asp" value="¿Cuales son sus aspiraciones?" />
+                            <p:inputText id="asp"  value="#{estudianteController.selected.esAspiraciones}" required="true" requiredMessage="Ingrese sus aspiraciones"/>
+                            <p:message for="asp" />
+                        </div>
+                        <p:outputLabel value="#{bundle.CreateEstudianteLabel_esnId}" for="esnId" />
+                        <p:selectOneMenu id="esnId" value="#{estudianteController.selected.esnId}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_esnId}">
+                            <f:selectItems value="#{estadoSeleccionController.itemsAvailableSelectOne}"
+                                           var="esnIdItem"
+                                           itemValue="#{esnIdItem}"/>
+                        </p:selectOneMenu>
+                         <p:outputLabel value="#{bundle.CreateEstudianteLabel_rlId}" for="rlId" />
+                        <p:selectOneMenu id="rlId" value="#{estudianteController.selected.rlId}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_rlId}">
+                            <f:selectItems value="#{rolController.itemsAvailableSelectOne}"
+                                           var="rlIdItem"
+                                           itemValue="#{rlIdItem}"/>
+                        </p:selectOneMenu>
+                         <p:outputLabel value="#{bundle.CreateEstudianteLabel_csId}" for="csId" />
+                        <p:selectOneMenu id="csId" value="#{estudianteController.selected.csId}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_csId}">
+                            <f:selectItems value="#{cursoController.itemsAvailableSelectOne}"
+                                           var="csIdItem"
+                                           itemValue="#{csIdItem}"/>
+                        </p:selectOneMenu>
+                        <div class="p-field p-col-12 p-md-6">
+                            <p:outputLabel for="int" value="¿Cuales son sus intereses?" />
+                            <p:inputText id="int"  value="#{estudianteController.selected.esInteres}" required="true" requiredMessage="Ingrese sus intereses"/>
+                            <p:message for="int" />
+                        </div>
+                        <br/>
+                        <p:commandButton value="Registrate" actionListener="#{estudianteController.createNewStudent()}" update="frmRg" ajax="false"/>
+                    </div>
+                </h:form>
+            </p:panel>
+        </div>
+    </body>
+</html>

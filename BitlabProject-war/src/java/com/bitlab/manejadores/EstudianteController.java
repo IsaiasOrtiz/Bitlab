@@ -3,9 +3,14 @@ package com.bitlab.manejadores;
 import com.bitlab.entidades.Estudiante;
 import com.bitlab.manejadores.util.JsfUtil;
 import com.bitlab.manejadores.util.JsfUtil.PersistAction;
+import com.bitlab.session.CursoFacade;
+import com.bitlab.session.EstadoSeleccionFacade;
 import com.bitlab.session.EstudianteFacade;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,15 +23,28 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.file.UploadedFile;
 
 @Named("estudianteController")
 @SessionScoped
 public class EstudianteController implements Serializable {
 
     @EJB
+    private CursoFacade cursoFacade;
+
+    @EJB
+    private EstadoSeleccionFacade estadoSeleccionFacade;
+
+    @EJB
     private com.bitlab.session.EstudianteFacade ejbFacade;
     private List<Estudiante> items = null;
     private Estudiante selected;
+    private UploadedFile file;
+    private UploadedFile cvEs;
 
     public EstudianteController() {
     }
@@ -60,6 +78,46 @@ public class EstudianteController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+    }
+
+    /**
+     * Este metodo agrega los campos que el estudiante no puede modificar y
+     * asigna al estudiante al curso no valido y tambien lo crea en el rol de
+     * estudiante y agregamos el file convertido a tipo byte[]
+     */
+    public void createNewStudent() {
+        cursoFacade = new CursoFacade();
+        selected.setEsFoto(file.getContent());
+        selected.setAFechaCreacion(new Date());
+        selected.setAUsuarioCrea("SYSTEM");
+        selected.setEsCv(cvEs.getContent());
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EstudianteCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+
+    public void verArchivo() {
+        try {
+            Estudiante es = ejbFacade.find(selected.getEsId());
+            byte[] img = es.getEsFoto();
+            HttpServletResponse respuesta = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            respuesta.getOutputStream().write(img);
+            respuesta.getOutputStream().close();
+
+            FacesContext.getCurrentInstance().responseComplete();
+        } catch (Exception e) {
+        }
+    }
+
+    public StreamedContent imagen(byte[] imgen) {
+        try {
+            InputStream imgStream = new ByteArrayInputStream(imgen);
+            return new DefaultStreamedContent(imgStream);
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
     public void update() {
@@ -119,6 +177,22 @@ public class EstudianteController implements Serializable {
 
     public List<Estudiante> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    public UploadedFile getCvEs() {
+        return cvEs;
+    }
+
+    public void setCvEs(UploadedFile cvEs) {
+        this.cvEs = cvEs;
     }
 
     @FacesConverter(forClass = Estudiante.class)

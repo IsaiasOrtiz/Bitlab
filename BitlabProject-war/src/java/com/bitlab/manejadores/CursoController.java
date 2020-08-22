@@ -1,9 +1,11 @@
 package com.bitlab.manejadores;
 
 import com.bitlab.entidades.Curso;
+import com.bitlab.entidades.Estudiante;
 import com.bitlab.manejadores.util.JsfUtil;
 import com.bitlab.manejadores.util.JsfUtil.PersistAction;
 import com.bitlab.session.CursoFacade;
+import com.bitlab.session.EstudianteFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -25,6 +27,8 @@ public class CursoController implements Serializable {
 
     @EJB
     private com.bitlab.session.CursoFacade ejbFacade;
+    @EJB
+    private EstudianteFacade estudiante;
     private List<Curso> items = null;
     private Curso selected;
 
@@ -160,6 +164,18 @@ public class CursoController implements Serializable {
             }
         }
 
+    }
+    /**
+     * Recibe el id del estudiante que se matriculara al curso 
+     * seleccionado.
+     * @param id 
+     */
+    public void marticularCurso(Integer id)
+    {
+        estudiante=new EstudianteFacade();
+        Estudiante es=estudiante.find(id);
+        es.setCsId(selected);
+        estudiante.edit(es);
     }
 
 }
