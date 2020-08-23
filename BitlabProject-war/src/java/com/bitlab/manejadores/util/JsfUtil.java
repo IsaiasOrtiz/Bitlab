@@ -1,8 +1,10 @@
 package com.bitlab.manejadores.util;
 
+import java.io.IOException;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
@@ -65,5 +67,10 @@ public class JsfUtil {
         CREATE,
         DELETE,
         UPDATE
+    }
+    
+    public static void redireccion(String url) throws IOException{
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.redirect(context.getRequestContextPath() + "/faces/" + url + ".xhtml");
     }
 }
