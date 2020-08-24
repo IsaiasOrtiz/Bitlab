@@ -6,6 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
+
     <ui:composition template="/template.xhtml">
 
 
@@ -14,118 +15,53 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="CursoListForm">
-                <p:panel header="#{bundle.ListCursoTitle}">
-                    <p:dataTable id="datalist" value="#{cursoController.items}" var="item"
-                                 selectionMode="single" selection="#{cursoController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.csId}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+            <div>
+                <h:form id="form">
+                    <p:growl id="message" showDetail="true" />
+                    <a href="Create.xhtml" class="btn btn-primary">NUEVO CURSO</a>
+                    <br></br>
+                    <br></br>
+                    <p:dataView var="curso" value="#{cursoController.items}"
+                                rows="9" paginator="true" gridIcon="pi pi-th-large" listIcon="pi pi-bars">
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:dataViewGridItem>
+                            <div class="row clearfix">
+                                <div class="col-sm-12 col-md-12 mb-30">
+                                    <div class="card card-box">
+                                        <div class="card-header">
+                                            <h3>
+                                                <h:outputText value="#{curso.csNombre}"/></h3>
+                                        </div>
+                                        <div class="card-body text-center" >
+                                            <h:panelGrid columns="1" style="width:100%">
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCursoTitle_csId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.csId}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCursoTitle_csCodCurso}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.csCodCurso}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCursoTitle_csNombre}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.csNombre}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCursoTitle_csDescripcion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.csDescripcion}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCursoTitle_csEstado}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.csEstado}" disabled="true"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCursoTitle_csCantidadBecados}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.csCantidadBecados}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCursoTitle_csFinalizacion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.csFinalizacion}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCursoTitle_csInicio}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.csInicio}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCursoTitle_AUsuarioCrea}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.AUsuarioCrea}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCursoTitle_AFechaModificacion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.AFechaModificacion}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCursoTitle_AFechaCreacion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.AFechaCreacion}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCursoTitle_AUsuarioModifica}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.AUsuarioModifica}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCursoTitle_hrId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.hrId}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{cursoController.prepareCreate}" update=":CursoCreateForm" oncomplete="PF('CursoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CursoViewForm" oncomplete="PF('CursoViewDialog').show()" disabled="#{empty cursoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CursoEditForm" oncomplete="PF('CursoEditDialog').show()" disabled="#{empty cursoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{cursoController.destroy}" update=":growl,datalist" disabled="#{empty cursoController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
+                                                <h:outputText value="Inicio: #{curso.csInicio}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                </h:outputText>
+                                                <h:outputText value="Descripcion: #{curso.csDescripcion}"/>
+                                                <h:outputText value="Capacidad: #{curso.csCantidadBecados}"/>
+                                                <h:outputText value="Hora Inicio: #{curso.hrId.hrHoraInicio}"/>
+                                                <h:outputText value="Hora finalizacion: #{curso.hrId.hrHoraFin}"/>
+                                                <h:outputText value="Dias: #{curso.hrId.hrDias}"/>
+                                                <h:outputLabel value="Estado: Activo" rendered="#{curso.csEstado == true}" /> 
+                                                <h:outputLabel value="Estado: Inactivo" rendered="#{curso.csEstado == false}" /> 
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
+                                            </h:panelGrid>
+                                            <br></br>
+                                            <a href="../estudiante/List.xhtml" class="btn btn-primary">Ver estudiantes</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:dataViewGridItem>
+
+                     
+                    </p:dataView>
+                </h:form>
+                <ui:include src="Create.xhtml"/>
+                <ui:include src="Edit.xhtml"/>
+                <ui:include src="View.xhtml"/>
+            </div>
         </ui:define>
     </ui:composition>
 

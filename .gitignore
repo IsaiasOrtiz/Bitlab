@@ -7,3 +7,6 @@
 /BitlabProject-ejb/dist/
 /BitlabProject-war/build/
 /build/
+BitlabProject-war/nbproject/ant-deploy.xml
+BitlabProject-ejb/nbproject/ant-deploy.xml
+nbproject/ant-deploy.xml

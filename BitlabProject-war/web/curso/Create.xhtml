@@ -40,6 +40,7 @@
                         <p:selectOneMenu id="hrId" value="#{cursoController.selected.hrId}" required="true" requiredMessage="#{bundle.EditCursoRequiredMessage_hrId}">
                             <f:selectItems value="#{horarioController.itemsAvailableSelectOne}"
                                            var="hrIdItem"
+                                           itemLabel="#{hrIdItem.hrDias} #{hrIdItem.hrHoraInicio}:#{hrIdItem.hrHoraFin}"
                                            itemValue="#{hrIdItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
