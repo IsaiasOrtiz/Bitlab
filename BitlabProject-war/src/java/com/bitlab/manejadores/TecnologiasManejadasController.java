@@ -1,11 +1,14 @@
 package com.bitlab.manejadores;
 
+import com.bitlab.entidades.Estudiante;
 import com.bitlab.entidades.TecnologiasManejadas;
 import com.bitlab.manejadores.util.JsfUtil;
 import com.bitlab.manejadores.util.JsfUtil.PersistAction;
+import com.bitlab.session.EstudianteFacade;
 import com.bitlab.session.TecnologiasManejadasFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -25,6 +28,8 @@ public class TecnologiasManejadasController implements Serializable {
 
     @EJB
     private com.bitlab.session.TecnologiasManejadasFacade ejbFacade;
+    @EJB
+    private com.bitlab.session.EstudianteFacade ejbEstudiante;
     private List<TecnologiasManejadas> items = null;
     private TecnologiasManejadas selected;
 
@@ -108,7 +113,26 @@ public class TecnologiasManejadasController implements Serializable {
             }
         }
     }
-
+    public List<TecnologiasManejadas> tecnologiasDelUsuarioSesion(java.lang.Integer id)
+    {
+     return getFacade().encontrarTecnologiasUser(id);
+    }
+    public void agragarTecnologiaAlPerfil(java.lang.Integer id)
+    {
+        JsfUtil.addSuccessMessage("Entra aqui");
+        Estudiante es;
+        es=getEstudiante(id);
+        if(selected!=null)
+        {
+            selected.setEsId(es);
+            selected.setAUsuarioCrea(es.getEsNombre());
+            selected.setAFechaCreacion(new Date());    
+            create();
+            JsfUtil.addSuccessMessage("Agrego "+selected.getTgdId().getTgdNombre()+" a su perfil");
+        }else{
+        JsfUtil.addErrorMessage("Error");
+        }
+    }
     public TecnologiasManejadas getTecnologiasManejadas(java.lang.Integer id) {
         return getFacade().find(id);
     }
@@ -119,6 +143,16 @@ public class TecnologiasManejadasController implements Serializable {
 
     public List<TecnologiasManejadas> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    public Estudiante getEstudiante(java.lang.Integer id) {
+        return getEjbEstudiante().find(id);
+    }
+    public EstudianteFacade getEjbEstudiante() {
+        return ejbEstudiante;
+    }
+
+    public void setEjbEstudiante(EstudianteFacade ejbEstudiante) {
+        this.ejbEstudiante = ejbEstudiante;
     }
 
     @FacesConverter(forClass = TecnologiasManejadas.class)

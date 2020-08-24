@@ -1,5 +1,7 @@
 package com.bitlab.manejadores;
 
+import com.bitlab.entidades.Curso;
+import com.bitlab.entidades.EstadoSeleccion;
 import com.bitlab.entidades.Estudiante;
 import com.bitlab.manejadores.util.JsfUtil;
 import com.bitlab.manejadores.util.JsfUtil.PersistAction;
@@ -23,7 +25,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -94,6 +95,28 @@ public class EstudianteController implements Serializable {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EstudianteCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+
+    public void inscribir(Curso curso,java.lang.Integer idEstudiante) {
+        selected = getEstudiante(idEstudiante);
+        if (getSelected().getCsId().getCsId() == 3) {
+            if (getSelected().getEsnId().getEsnId() == 1) {
+                selected.setCsId(curso);
+                EstadoSeleccion es = new EstadoSeleccion();
+                es.setEsnId(2);
+                es.setEsnNombre("En proceso");
+                es.setAFechaCreacion(new Date());
+                es.setAFechaModificacion(new Date());
+                es.setAUsuarioCrea("SYSTEM");
+                selected.setEsnId(es);
+                update();
+                JsfUtil.addSuccessMessage("Usted se inscribio al curso: "+curso.getCsNombre());
+            } else {
+                JsfUtil.addErrorMessage("Usted ya esta en proceso con otro curso.");
+            }
+        } else {
+            JsfUtil.addErrorMessage("Usted ya esta en otro curso.");
         }
     }
 
