@@ -32,8 +32,8 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
     
     public Estudiante encontrarUsuario(Estudiante estudiante){
         try {
-            Query q = em.createQuery("SELECT e FROM Estudiante e WHERE e.esNombre = :username OR e.esCorreo = :username");
-            q.setParameter("username", estudiante.getEsNombre());
+            Query q = em.createQuery("SELECT e FROM Estudiante e WHERE e.esCorreo = :email");
+            q.setParameter("email", estudiante.getEsCorreo());
         
             return (Estudiante) q.getSingleResult();
         } catch (Exception e) {
