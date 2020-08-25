@@ -111,7 +111,7 @@
                 <p:commandButton id="createButton" update=":estudiantes, :detallesAplicaciones, :detalleCurso" value="Regresar" rendered="#{preseleccionController.historialDetalle eq 'detalles'}" class="mb-5">
                     <f:setPropertyActionListener value="cursos" target="#{preseleccionController.historialDetalle}"/>
                 </p:commandButton>
-                <p:panel header="APLICACION DE #{preseleccionController.cursosAplicados.get(0).esId.esNombre} #{preseleccionController.cursosAplicados.get(0).esId.esApellido} 
+                <p:panel header="APLICACION DE #{preseleccionController.detallesCurso.get(0).esId.esNombre} #{preseleccionController.detallesCurso.get(0).esId.esApellido} 
                          AL #{preseleccionController.detallesCurso.get(0).csId.csNombre}" rendered="#{preseleccionController.historialDetalle eq 'detalles'}">
                     
                     <p:dataTable id="datalist" value="#{preseleccionController.detallesCurso}" var="item"

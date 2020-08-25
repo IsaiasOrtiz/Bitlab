@@ -38,8 +38,9 @@ public class PreseleccionFacade extends AbstractFacade<Preseleccion> {
             Query q = em.createQuery("SELECT DISTINCT p.csId.csId FROM Preseleccion p WHERE p.esId.esId = :id");
             q.setParameter("id", id);
             for(Object l:q.getResultList()){
-                q = em.createQuery("SELECT p FROM Preseleccion p WHERE p.csId.csId = :id");
-                q.setParameter("id", l);
+                q = em.createQuery("SELECT p FROM Preseleccion p WHERE p.csId.csId = :idCurso AND p.esId.esId = :idEst");
+                q.setParameter("idCurso", l);
+                q.setParameter("idEst", id);
                 lista.add((Preseleccion) q.getResultList().get(0));
             }
 

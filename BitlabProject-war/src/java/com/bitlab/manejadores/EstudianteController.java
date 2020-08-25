@@ -48,6 +48,7 @@ public class EstudianteController implements Serializable {
     private Estudiante selected;
     private UploadedFile file;
     private UploadedFile cvEs;
+    private boolean flagRender;
 
     public EstudianteController() {
     }
@@ -172,9 +173,9 @@ public class EstudianteController implements Serializable {
     }
 
     public List<Estudiante> getEstudiantesPorCurso(int id){
-        if (estudiantesPorCurso == null) {
-            estudiantesPorCurso = getFacade().encontrarEstudiantesPorCurso(id);
-        }
+        estudiantesPorCurso = getFacade().encontrarEstudiantesPorCurso(id);
+        flagRender = true;
+        
         return estudiantesPorCurso;
     }
 
@@ -273,6 +274,22 @@ public class EstudianteController implements Serializable {
             }
         }
 
+    }
+
+    public List<Estudiante> getEstudiantesPorCurso() {
+        return estudiantesPorCurso;
+    }
+
+    public void setEstudiantesPorCurso(List<Estudiante> estudiantesPorCurso) {
+        this.estudiantesPorCurso = estudiantesPorCurso;
+    }
+
+    public boolean isFlagRender() {
+        return flagRender;
+    }
+
+    public void setFlagRender(boolean flagRender) {
+        this.flagRender = flagRender;
     }
 
 }

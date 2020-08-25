@@ -18,14 +18,14 @@
        
                 <h:panelGroup id="cursos">
                     <h:form id="formCurso">
-                        <p:panel header="Listado de Cursos" rendered="#{!cursoController.flag}">
+                        <p:panel header="Listado de Cursos" rendered="#{!estudianteController.flagRender}">
                             <p:growl id="message" showDetail="true" />
                             <a href="nuevoCurso.xhtml" class="btn btn-primary">NUEVO CURSO</a>
                             <br></br>
                             <br></br>
                             <p:dataGrid var="curso" value="#{cursoController.items}" 
                                         rows="9" paginator="true" 
-                                        rendered="#{!cursoController.flag}">
+                                        rendered="#{!estudianteController.flagRender}">
 
                                 <p:dataViewGridItem>
                                     <div class="row clearfix">
@@ -65,15 +65,15 @@
 
             <h:panelGroup id="estudiantes">
                 <h:form id="estudiantePorCurso">
-                    <p:commandButton id="createButton" update=":cursos, :estudiantes" value="Regresar" rendered="#{cursoController.flag}" class="mb-5">
-                        <f:setPropertyActionListener value="false" target="#{cursoController.flag}"/>
+                    <p:commandButton id="createButton" update=":cursos, :estudiantes" value="Regresar" rendered="#{estudianteController.flagRender}" class="mb-5">
+                        <f:setPropertyActionListener value="false" target="#{estudianteController.flagRender}"/>
                     </p:commandButton>
-                    <p:panel header="Estudiantes en proceso para curso:" rendered="#{cursoController.flag}">
-                        <p:dataTable id="datalist" value="#{estudianteController.getEstudiantesPorCurso(csId)}" var="item"
+                    <p:panel header="Estudiantes en proceso para curso:" rendered="#{estudianteController.flagRender}">
+                        <p:dataTable id="datalist" value="#{estudianteController.estudiantesPorCurso}" var="item"
                                      paginator="true"
                                      rowKey="#{item.esId}"
                                      rows="10"
-                                     rowsPerPageTemplate="10,20,30,40,50" rendered="#{!cursoController.flag}"
+                                     rowsPerPageTemplate="10,20,30,40,50" rendered="#{estudianteController.flagRender}"
                                      >
 
                             <p:column colspan="1">
