@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListEstudianteTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:panelGroup id="estudiantes">
+            <h:form id="EstudianteListForm">
+                <p:panel header="Historial de Estudiantes Becados" rendered="#{!recordController.flag}">
+                    <p:dataTable id="datalist" value="#{estudianteController.soloEstudiantes}" var="item"
+                                 paginator="true"
+                                 rowKey="#{item.esId}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50" rendered="#{!recordController.flag}"
+                                 >
+
+                        <p:column colspan="1">
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esId}"/>
+                        </p:column>
+                        
+                        <p:column colspan="2">
+                            <f:facet name="header">
+                                <h:outputText value="Nombre"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esNombre}"/>
+                        </p:column>
+                        <p:column colspan="2">
+                            <f:facet name="header">
+                                <h:outputText value="Apellido"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esApellido}"/>
+                        </p:column>
+                        
+                        <p:column colspan="2">
+                            <f:facet name="header">
+                                <h:outputText value="Teléfono"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esTelefono}"/>
+                        </p:column>
+                        <p:column colspan="2">
+                            <f:facet name="header">
+                                <h:outputText value="Email"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esCorreo}"/>
+                        </p:column>
+
+                        
+                        <p:column colspan="2" style="text-align: center">
+                            <f:facet name="header">
+                                <h:outputText value="Acción"/>
+                            </f:facet>
+                            <p:commandButton id="createButton" update=":estudiantes, :record" value="Ver Record" actionListener="#{recordController.cursosPresenciados(item.esId)}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            </h:panelGroup>
+            
+            <h:panelGroup id="record">
+            <h:form id="PreseleccionLstForm">
+                <p:commandButton id="createButton" update=":estudiantes, :record" value="Regresar" rendered="#{recordController.flag}" class="mb-5">
+                    <f:setPropertyActionListener value="false" target="#{recordController.flag}"/>
+                </p:commandButton>
+                <p:panel header="RECORD DE #{recordController.record.get(0).esId.esNombre} #{recordController.record.get(0).esId.esApellido}" rendered="#{recordController.flag}">
+                    
+                    <p:dataTable id="datalist" value="#{recordController.record}" var="item"
+                                 paginator="true"
+                                 rowKey="#{item.rcId}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50" rendered="#{recordController.flag}"
+                                 >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id Curso"/>
+                            </f:facet>
+                            <h:outputText value="#{item.csId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Curso"/>
+                            </f:facet>
+                            <h:outputText value="#{item.csId.csNombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Promedio Final"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rcPromedioFinal}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Comentarios"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rcComentario}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Profesor"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rcProfesor}"/>
+                        </p:column>
+                        
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            </h:panelGroup>
+            
+            
+        </ui:define>
+    </ui:composition>
+
+</html>
+
