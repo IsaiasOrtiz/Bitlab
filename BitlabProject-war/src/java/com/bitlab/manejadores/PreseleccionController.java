@@ -18,15 +18,19 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
 
 @Named("preseleccionController")
-@SessionScoped
+@ViewScoped
 public class PreseleccionController implements Serializable {
 
     @EJB
     private com.bitlab.session.PreseleccionFacade ejbFacade;
     private List<Preseleccion> items = null;
+    private List<Preseleccion> cursosAplicados = null;
+    private List<Preseleccion> detallesCurso = null;
     private Preseleccion selected;
+    private String historialDetalle = "estudiantes";
 
     public PreseleccionController() {
     }
@@ -47,6 +51,16 @@ public class PreseleccionController implements Serializable {
 
     private PreseleccionFacade getFacade() {
         return ejbFacade;
+    }
+    
+    public void aplicaciones(int idEstudiante){
+        cursosAplicados = getFacade().cursosAplicadosPorEstudiante(idEstudiante);
+        historialDetalle = "cursos";
+    }
+    
+    public void detalleCurso(int idEstudiante, int idCurso){
+        detallesCurso = getFacade().detallesCurso(idEstudiante, idCurso);
+        historialDetalle = "detalles";
     }
 
     public Preseleccion prepareCreate() {
@@ -160,6 +174,30 @@ public class PreseleccionController implements Serializable {
             }
         }
 
+    }
+
+    public List<Preseleccion> getCursosAplicados() {
+        return cursosAplicados;
+    }
+
+    public void setCursosAplicados(List<Preseleccion> cursosAplicados) {
+        this.cursosAplicados = cursosAplicados;
+    }
+
+    public List<Preseleccion> getDetallesCurso() {
+        return detallesCurso;
+    }
+
+    public void setDetallesCurso(List<Preseleccion> detallesCurso) {
+        this.detallesCurso = detallesCurso;
+    }
+
+    public String getHistorialDetalle() {
+        return historialDetalle;
+    }
+
+    public void setHistorialDetalle(String historialDetalle) {
+        this.historialDetalle = historialDetalle;
     }
 
 }

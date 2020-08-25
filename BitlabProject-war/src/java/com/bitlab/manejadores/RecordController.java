@@ -18,14 +18,17 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
 
 @Named("recordController")
-@SessionScoped
+@ViewScoped
 public class RecordController implements Serializable {
 
     @EJB
     private com.bitlab.session.RecordFacade ejbFacade;
     private List<Record> items = null;
+    private List<Record> record = null;
+    private boolean flag;
     private Record selected;
 
     public RecordController() {
@@ -47,6 +50,11 @@ public class RecordController implements Serializable {
 
     private RecordFacade getFacade() {
         return ejbFacade;
+    }
+    
+    public void cursosPresenciados(int idEstudiante){
+        record = getFacade().cursosAsistidos(idEstudiante);
+        flag = true;
     }
 
     public Record prepareCreate() {
@@ -160,6 +168,22 @@ public class RecordController implements Serializable {
             }
         }
 
+    }
+
+    public List<Record> getRecord() {
+        return record;
+    }
+
+    public void setRecord(List<Record> record) {
+        this.record = record;
+    }
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 
 }

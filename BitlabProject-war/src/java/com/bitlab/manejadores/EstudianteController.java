@@ -43,6 +43,7 @@ public class EstudianteController implements Serializable {
     @EJB
     private com.bitlab.session.EstudianteFacade ejbFacade;
     private List<Estudiante> items = null;
+    private List<Estudiante> soloEstudiantes = null;
     private Estudiante selected;
     private UploadedFile file;
     private UploadedFile cvEs;
@@ -160,6 +161,13 @@ public class EstudianteController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    
+    public List<Estudiante> getSoloEstudiantes() {
+        if (soloEstudiantes == null) {
+            soloEstudiantes = getFacade().encontrarSoloEstudiantes();
+        }
+        return soloEstudiantes;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
