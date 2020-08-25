@@ -101,7 +101,7 @@ public class Estudiante implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "ES_CORREO", nullable = false, length = 100)
+    @Column(name = "ES_CORREO", nullable = false, length = 100, unique = true)
     private String esCorreo;
     @Basic(optional = false)
     @NotNull
