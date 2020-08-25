@@ -10,3 +10,10 @@
 BitlabProject-war/nbproject/ant-deploy.xml
 BitlabProject-ejb/nbproject/ant-deploy.xml
 nbproject/ant-deploy.xml
+BitlabProject-war/nbproject/project.xml
+BitlabProject-war/nbproject/project.properties
+BitlabProject-war/nbproject/genfiles.properties
+BitlabProject-war/nbproject/build-impl.xml
+BitlabProject-war/nbproject/ant-deploy.xml
+BitlabProject-ejb/nbproject/ant-deploy.xml
+nbproject/ant-deploy.xml

@@ -6,49 +6,64 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Nuevo Curso"></h:outputText>
+        </ui:define>
 
-        <p:dialog id="CursoCreateDlg" widgetVar="CursoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCursoTitle}">
-            <h:form id="CursoCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{cursoController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateCursoLabel_csId}" for="csId" />
-                        <p:inputText id="csId" value="#{cursoController.selected.csId}" title="#{bundle.CreateCursoTitle_csId}" required="true" requiredMessage="#{bundle.CreateCursoRequiredMessage_csId}"/>
-                        <p:outputLabel value="#{bundle.CreateCursoLabel_csCodCurso}" for="csCodCurso" />
-                        <p:inputText id="csCodCurso" value="#{cursoController.selected.csCodCurso}" title="#{bundle.CreateCursoTitle_csCodCurso}" required="true" requiredMessage="#{bundle.CreateCursoRequiredMessage_csCodCurso}"/>
-                        <p:outputLabel value="#{bundle.CreateCursoLabel_csNombre}" for="csNombre" />
-                        <p:inputText id="csNombre" value="#{cursoController.selected.csNombre}" title="#{bundle.CreateCursoTitle_csNombre}" required="true" requiredMessage="#{bundle.CreateCursoRequiredMessage_csNombre}"/>
-                        <p:outputLabel value="#{bundle.CreateCursoLabel_csDescripcion}" for="csDescripcion" />
-                        <p:inputText id="csDescripcion" value="#{cursoController.selected.csDescripcion}" title="#{bundle.CreateCursoTitle_csDescripcion}" required="true" requiredMessage="#{bundle.CreateCursoRequiredMessage_csDescripcion}"/>
-                        <p:outputLabel value="#{bundle.CreateCursoLabel_csEstado}" for="csEstado" />
-                        <p:selectBooleanCheckbox id="csEstado" value="#{cursoController.selected.csEstado}" required="true" requiredMessage="#{bundle.EditCursoRequiredMessage_csEstado}"/>
-                        <p:outputLabel value="#{bundle.CreateCursoLabel_csCantidadBecados}" for="csCantidadBecados" />
-                        <p:inputText id="csCantidadBecados" value="#{cursoController.selected.csCantidadBecados}" title="#{bundle.CreateCursoTitle_csCantidadBecados}" />
-                        <p:outputLabel value="#{bundle.CreateCursoLabel_csFinalizacion}" for="csFinalizacion" />
-                        <p:calendar id="csFinalizacion" pattern="MM/dd/yyyy" value="#{cursoController.selected.csFinalizacion}" title="#{bundle.EditCursoTitle_csFinalizacion}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateCursoLabel_csInicio}" for="csInicio" />
-                        <p:calendar id="csInicio" pattern="MM/dd/yyyy" value="#{cursoController.selected.csInicio}" title="#{bundle.EditCursoTitle_csInicio}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateCursoLabel_AUsuarioCrea}" for="AUsuarioCrea" />
-                        <p:inputText id="AUsuarioCrea" value="#{cursoController.selected.AUsuarioCrea}" title="#{bundle.CreateCursoTitle_AUsuarioCrea}" required="true" requiredMessage="#{bundle.CreateCursoRequiredMessage_AUsuarioCrea}"/>
-                        <p:outputLabel value="#{bundle.CreateCursoLabel_AFechaModificacion}" for="AFechaModificacion" />
-                        <p:calendar id="AFechaModificacion" pattern="MM/dd/yyyy" value="#{cursoController.selected.AFechaModificacion}" title="#{bundle.EditCursoTitle_AFechaModificacion}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateCursoLabel_AFechaCreacion}" for="AFechaCreacion" />
-                        <p:calendar id="AFechaCreacion" pattern="MM/dd/yyyy" value="#{cursoController.selected.AFechaCreacion}" title="#{bundle.EditCursoTitle_AFechaCreacion}" required="true" requiredMessage="#{bundle.EditCursoRequiredMessage_AFechaCreacion}" showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateCursoLabel_AUsuarioModifica}" for="AUsuarioModifica" />
-                        <p:inputText id="AUsuarioModifica" value="#{cursoController.selected.AUsuarioModifica}" title="#{bundle.CreateCursoTitle_AUsuarioModifica}" />
-                        <p:outputLabel value="#{bundle.CreateCursoLabel_hrId}" for="hrId" />
-                        <p:selectOneMenu id="hrId" value="#{cursoController.selected.hrId}" required="true" requiredMessage="#{bundle.EditCursoRequiredMessage_hrId}">
+        <ui:define name="body">
+            <f:event listener="#{cursoController.prepareCreate()}" type="preRenderView"/>
+            <h4 class="text-blue h4">Nuevo Curso</h4>
+            <br></br>
+            <h:form id="CursoCreateForm" rendered="#{cursoController.selected != null}">
+                <div class="form-group row">
+                    <div class="col-sm-6 col-md-6 ">
+                        <label >Codigo de Curso :</label>
+                        <p:inputText class="form-control" id="csCodCurso" value="#{cursoController.selected.csCodCurso}" title="#{bundle.CreateCursoTitle_csCodCurso}" required="true" requiredMessage="#{bundle.CreateCursoRequiredMessage_csCodCurso}"/>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <label >Nombre de Curso:</label>
+                        <p:inputText class="form-control" id="csNombre" value="#{cursoController.selected.csNombre}" title="#{bundle.CreateCursoTitle_csNombre}" required="true" requiredMessage="#{bundle.CreateCursoRequiredMessage_csNombre}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 col-md-6 ">
+                        <label >Descripción:</label>
+                        <p:inputText class="form-control" id="csDescripcion" value="#{cursoController.selected.csDescripcion}" title="#{bundle.CreateCursoTitle_csDescripcion}" required="true" requiredMessage="#{bundle.CreateCursoRequiredMessage_csDescripcion}"/>
+                    </div>
+                    <div class="col-sm-6 col-md-6 ">
+                        <label >Cantidad de Becados :</label>
+                        <p:inputText  class="form-control" id="csCantidadBecados" value="#{cursoController.selected.csCantidadBecados}" title="#{bundle.CreateCursoTitle_csCantidadBecados}" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6 col-md-6 ">
+                        <label >Fecha de Inicio : </label>
+                        <p:calendar class="col-md-6 col-sm-6" id="csInicio" pattern="MM/dd/yyyy" value="#{cursoController.selected.csInicio}" title="#{bundle.EditCursoTitle_csInicio}"  showOn="button"/>
+                    </div>
+                    <div class="col-sm-6 col-md-6 ">
+                        <label >Fecha fin: </label>
+                        <p:calendar class="col-md-6 col-sm-6" id="csFinalizacion" pattern="MM/dd/yyyy" value="#{cursoController.selected.csFinalizacion}" title="#{bundle.EditCursoTitle_csFinalizacion}"  showOn="button"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+
+                    <div class="col-sm-6 col-md-6 ">
+                        <label >Horario de clase : </label>
+                        <h:selectOneMenu class="form-control" id="hrId" value="#{cursoController.selected.hrId}" required="true" requiredMessage="#{bundle.EditCursoRequiredMessage_hrId}">
                             <f:selectItems value="#{horarioController.itemsAvailableSelectOne}"
                                            var="hrIdItem"
                                            itemLabel="#{hrIdItem.hrDias} #{hrIdItem.hrHoraInicio}:#{hrIdItem.hrHoraFin}"
                                            itemValue="#{hrIdItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{cursoController.create}" value="#{bundle.Save}" update="display,:CursoListForm:datalist,:growl" oncomplete="handleSubmit(args,'CursoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="CursoCreateDialog.hide()"/>
-                </h:panelGroup>
-            </h:form>
-        </p:dialog>
+                        </h:selectOneMenu>
+                    </div>
+                </div>
 
+                <p:commandButton actionListener="#{cursoController.createCurso}" value="Guardar" update="formCurso" ajax="false" onsuccess="location.reload();" />
+                <p:commandButton value="#{bundle.Cancel}" onclick="CursoCreateDialog.hide()"/>
+
+            </h:form>
+
+        </ui:define>
     </ui:composition>
 </html>

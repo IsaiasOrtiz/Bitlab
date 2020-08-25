@@ -8,6 +8,7 @@ import com.bitlab.session.CursoFacade;
 import com.bitlab.session.EstudianteFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -20,9 +21,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
 
 @Named("cursoController")
-@SessionScoped
+@ViewScoped
 public class CursoController implements Serializable {
 
     @EJB
@@ -60,6 +62,17 @@ public class CursoController implements Serializable {
     }
 
     public void create() {
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CursoCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+
+    public void createCurso() {
+        selected.setCsId(7);
+        selected.setCsEstado(Boolean.TRUE);
+        selected.setAUsuarioCrea("SYSTEM");
+        selected.setAFechaCreacion(new Date());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CursoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -165,15 +178,15 @@ public class CursoController implements Serializable {
         }
 
     }
+
     /**
-     * Recibe el id del estudiante que se matriculara al curso 
-     * seleccionado.
-     * @param id 
+     * Recibe el id del estudiante que se matriculara al curso seleccionado.
+     *
+     * @param id
      */
-    public void marticularCurso(Integer id)
-    {
-        estudiante=new EstudianteFacade();
-        Estudiante es=estudiante.find(id);
+    public void marticularCurso(Integer id) {
+        estudiante = new EstudianteFacade();
+        Estudiante es = estudiante.find(id);
         es.setCsId(selected);
         estudiante.edit(es);
     }
