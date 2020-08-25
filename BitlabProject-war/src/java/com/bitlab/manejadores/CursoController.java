@@ -34,6 +34,15 @@ public class CursoController implements Serializable {
     private EstudianteFacade estudiante;
     private List<Curso> items = null;
     private Curso selected;
+    private boolean flag;
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
 
     public CursoController() {
     }
@@ -74,8 +83,8 @@ public class CursoController implements Serializable {
         selected.setCsEstado(Boolean.TRUE);
         selected.setAUsuarioCrea("SYSTEM");
         selected.setAFechaCreacion(new Date());
-        JsfUtil.redireccion("../faces/curso/List");
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CursoCreated"));
+        JsfUtil.redireccion("../faces/analista/cursos");
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }

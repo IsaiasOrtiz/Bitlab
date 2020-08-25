@@ -44,6 +44,7 @@ public class EstudianteController implements Serializable {
     private com.bitlab.session.EstudianteFacade ejbFacade;
     private List<Estudiante> items = null;
     private List<Estudiante> soloEstudiantes = null;
+    private List<Estudiante> estudiantesPorCurso = null;
     private Estudiante selected;
     private UploadedFile file;
     private UploadedFile cvEs;
@@ -99,7 +100,7 @@ public class EstudianteController implements Serializable {
         }
     }
 
-    public void inscribir(Curso curso,java.lang.Integer idEstudiante) {
+    public void inscribir(Curso curso, java.lang.Integer idEstudiante) {
         selected = getEstudiante(idEstudiante);
         if (getSelected().getCsId().getCsId() == 3) {
             if (getSelected().getEsnId().getEsnId() == 1) {
@@ -112,7 +113,7 @@ public class EstudianteController implements Serializable {
                 es.setAUsuarioCrea("SYSTEM");
                 selected.setEsnId(es);
                 update();
-                JsfUtil.addSuccessMessage("Usted se inscribio al curso: "+curso.getCsNombre());
+                JsfUtil.addSuccessMessage("Usted se inscribio al curso: " + curso.getCsNombre());
             } else {
                 JsfUtil.addErrorMessage("Usted ya esta en proceso con otro curso.");
             }
@@ -162,12 +163,19 @@ public class EstudianteController implements Serializable {
         }
         return items;
     }
-    
+
     public List<Estudiante> getSoloEstudiantes() {
         if (soloEstudiantes == null) {
             soloEstudiantes = getFacade().encontrarSoloEstudiantes();
         }
         return soloEstudiantes;
+    }
+
+    public List<Estudiante> getEstudiantesPorCurso(int id){
+        if (estudiantesPorCurso == null) {
+            estudiantesPorCurso = getFacade().encontrarEstudiantesPorCurso(id);
+        }
+        return estudiantesPorCurso;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
