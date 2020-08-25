@@ -6,6 +6,7 @@
 package com.bitlab.session;
 
 import com.bitlab.entidades.Estudiante;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -40,5 +41,15 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
             return null;
         }
         
+    }
+    
+    public List<Estudiante> encontrarSoloEstudiantes(){
+        try {
+            Query q = em.createQuery("SELECT e FROM Estudiante e WHERE e.rlId.rlId = 2");
+        
+            return q.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
