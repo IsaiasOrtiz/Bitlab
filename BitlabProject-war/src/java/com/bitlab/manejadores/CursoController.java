@@ -6,6 +6,7 @@ import com.bitlab.manejadores.util.JsfUtil;
 import com.bitlab.manejadores.util.JsfUtil.PersistAction;
 import com.bitlab.session.CursoFacade;
 import com.bitlab.session.EstudianteFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -68,11 +69,12 @@ public class CursoController implements Serializable {
         }
     }
 
-    public void createCurso() {
-        selected.setCsId(7);
+    public void createCurso() throws IOException {
+        selected.setCsId(8);
         selected.setCsEstado(Boolean.TRUE);
         selected.setAUsuarioCrea("SYSTEM");
         selected.setAFechaCreacion(new Date());
+        JsfUtil.redireccion("../faces/curso/List");
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CursoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
