@@ -6,9 +6,11 @@
 package com.bitlab.session;
 
 import com.bitlab.entidades.Idiomas;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,20 @@ public class IdiomasFacade extends AbstractFacade<Idiomas> {
     public IdiomasFacade() {
         super(Idiomas.class);
     }
-    
+     /**
+     * Encuentra los idiomas que un usuario especifico sabe
+     * por su id unico.
+     * @param idUsuario
+     * @return 
+     */
+     public List<Idiomas> encontrarIdiomasUser(Integer idUsuario){
+        try {
+            Query q = em.createQuery("SELECT i FROM Idiomas i WHERE i.esId.esId = :id");
+            q.setParameter("id", idUsuario);
+            return q.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+        
+    }
 }
