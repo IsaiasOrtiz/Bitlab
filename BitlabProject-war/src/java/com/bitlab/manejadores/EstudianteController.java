@@ -147,7 +147,10 @@ public class EstudianteController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    public void traerEstudiantesConEstado(Integer id)
+    {
+        items=getFacade().encontrarEstudiantesPorEstadoDeSeleccion(id);
+    }
     public void editarEstudiante(Integer student) {
         if (file.getSize() > 0 || cvEs.getSize() > 0) {
             selected = getEstudiante(student);

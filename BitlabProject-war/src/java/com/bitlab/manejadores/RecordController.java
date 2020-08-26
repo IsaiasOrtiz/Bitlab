@@ -1,11 +1,18 @@
 package com.bitlab.manejadores;
 
+import com.bitlab.entidades.Curso;
+import com.bitlab.entidades.EstadoSeleccion;
+import com.bitlab.entidades.Estudiante;
 import com.bitlab.entidades.Record;
 import com.bitlab.manejadores.util.JsfUtil;
 import com.bitlab.manejadores.util.JsfUtil.PersistAction;
+import com.bitlab.session.CursoFacade;
+import com.bitlab.session.EstadoSeleccionFacade;
+import com.bitlab.session.EstudianteFacade;
 import com.bitlab.session.RecordFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -26,6 +33,13 @@ public class RecordController implements Serializable {
 
     @EJB
     private com.bitlab.session.RecordFacade ejbFacade;
+    @EJB
+    private EstudianteFacade ejbEstudiante;
+    @EJB
+    private CursoFacade ebjCurso;
+    @EJB
+    private EstadoSeleccionFacade ebjEstadoSeleccion;
+    
     private List<Record> items = null;
     private List<Record> record = null;
     private boolean flag;
@@ -116,6 +130,19 @@ public class RecordController implements Serializable {
             }
         }
     }
+
+    public EstadoSeleccionFacade getEbjEstadoSeleccion() {
+        return ebjEstadoSeleccion;
+    }
+
+    public void setEbjEstadoSeleccion(EstadoSeleccionFacade ebjEstadoSeleccion) {
+        this.ebjEstadoSeleccion = ebjEstadoSeleccion;
+    }
+    
+    public EstadoSeleccion findEstadoSeleccion(Integer id)
+    {
+    return getEbjEstadoSeleccion().find(id);
+    }
     
     public void record(Integer student)
     {
@@ -131,6 +158,37 @@ public class RecordController implements Serializable {
 
     public List<Record> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+     public void asignarRecordAcademico(Estudiante est, String usuarioCrea)
+    {
+        selected.setEsId(est);
+        selected.setCsId(est.getCsId());
+        selected.setAFechaCreacion(new Date());
+        selected.setAUsuarioCrea(usuarioCrea);
+        create();
+        est.setCsId(findCurso(3));
+        est.setEsnId(findEstadoSeleccion(4));
+        getEjbEstudiante().edit(est);
+    }
+
+    public CursoFacade getEbjCurso() {
+        return ebjCurso;
+    }
+
+    public void setEbjCurso(CursoFacade ebjCurso) {
+        this.ebjCurso = ebjCurso;
+    }
+     
+    public Curso findCurso(Integer id) {
+        return getEbjCurso().find(id);
+    }
+    public EstudianteFacade getEjbEstudiante() {
+        return ejbEstudiante;
+    }
+
+    public void setEjbEstudiante(EstudianteFacade ejbEstudiante) {
+        this.ejbEstudiante = ejbEstudiante;
     }
 
     @FacesConverter(forClass = Record.class)
