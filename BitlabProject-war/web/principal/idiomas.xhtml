@@ -23,7 +23,7 @@ and open the template in the editor.
             <ui:define name="body">
                 <f:event listener="#{idiomasController.cargarIdiomasUsuarioSesion(loginController.estudiante.esId)}" type="preRenderView"/>
                 <h:form id="IdiomasListForm">
-                    <p:panel header="#{bundle.ListIdiomasTitle}">
+                    <p:panel header="MIS IDIOMAS">
                         <p:dataTable id="datalist" value="#{idiomasController.items}" var="item"
                                      selectionMode="single" selection="#{idiomasController.selected}"
                                      paginator="true"

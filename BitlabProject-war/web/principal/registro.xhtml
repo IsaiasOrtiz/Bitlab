@@ -38,6 +38,7 @@ and open the template in the editor.
         </script>
     </h:head>
     <h:body class="login-page">
+        <p:growl id="growl" life="3000" sticky="true"/>
         <div>
             <f:event listener="#{estudianteController.prepareCreate()}" type="preRenderView"/>
             <div class="login-header box-shadow">
