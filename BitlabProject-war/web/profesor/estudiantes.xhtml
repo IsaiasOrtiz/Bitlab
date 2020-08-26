@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Bitlab - Estudiantes"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <f:event listener="#{estudianteController.traerEstudiantesConEstado(3)}" type="preRenderView"/>
+            <h:form id="EstudianteListForm">
+                <p:panel header="#{bundle.ListEstudianteTitle}">
+                    <p:dataTable id="datalist" value="#{estudianteController.items}" var="item"
+                                 selection="#{estudianteController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.esId}"
+                                 emptyMessage="No encontramos estudiantes :("
+                                 rows="10"
+                                 reflow="true"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+                        <p:column style="width:16px">
+                            <p:rowToggler />
+                        </p:column>
+
+                        <p:column colspan="1">
+                            <f:facet name="header">
+                                <h:outputText value="Foto"/>
+                            </f:facet>
+                            <div class="user-info-dropdown">
+                                <span class="user-icon" style="overflow:hidden">
+                                    <p:graphicImage value="#{estudianteController.imagen(item.esFoto)}"  stream="false"/>
+                                </span>
+                            </div>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombre"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esNombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Apellido"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esApellido}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Curso"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esDui}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.csId.csNombre}" filterBy="#{item.csId.csNombre}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Curso"/>
+                            </f:facet>
+                            <h:outputText value="#{item.csId.csNombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha de Nacimiento"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esFechaNacimiento}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Estado"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esnId.esnNombre}"/>
+                        </p:column>
+                        <p:rowExpansion>
+                            <p:panelGrid  columns="3" layout="grid" styleClass="showcase-text-align-center">
+                                <p:column>
+                                    <h:outputText value="Tiene Computadora: "/>
+                                    <h:outputText value="SI" rendered="#{item.esComputadora == true}" /> 
+                                    <h:outputText value="NO" rendered="#{item.esComputadora == false}" /> 
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="Dirección: "/>
+                                    <h:outputText value="#{item.esDireccion}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="Telefono: "/>
+                                    <h:outputText value="#{item.esTelefono}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="Email: "/>
+                                    <h:outputText value="#{item.esCorreo}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="Esta Laborando: "/>
+                                    <h:outputText value="SI" rendered="#{item.esLaborando == true}" /> 
+                                    <h:outputText value="NO" rendered="#{item.esLaborando == false}" /> 
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="Aspiraciones: "/>
+                                    <h:outputText value="#{item.esAspiraciones}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="Intereses: "/>
+                                    <h:outputText value="#{item.esInteres}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <h:outputText value="Escolaridad: "/>
+                                    <h:outputText value="#{item.esdId.esNombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="Municipio: "/>
+                                    <h:outputText value="#{item.mpId.mpNombre}"/>
+                                </p:column>
+                            </p:panelGrid>
+                        </p:rowExpansion>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
