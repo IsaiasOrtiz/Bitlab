@@ -5,12 +5,111 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+    </h:head>
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <ui:define name="title">
+                <h:outputText value="Bitlab - Idiomas"></h:outputText>
+            </ui:define>
+
+            <ui:define name="body">
+                <f:event listener="#{idiomasController.cargarIdiomasUsuarioSesion(loginController.estudiante.esId)}" type="preRenderView"/>
+                <h:form id="IdiomasListForm">
+                    <p:panel header="#{bundle.ListIdiomasTitle}">
+                        <p:dataTable id="datalist" value="#{idiomasController.items}" var="item"
+                                     selectionMode="single" selection="#{idiomasController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.neId}"
+                                     rows="10"
+                                     emptyMessage="No se encontraron registros :("
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Idioma"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idmId.idmNombre}" />
+                            </p:column>
+                            
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nivel de dominio"/>
+                                </f:facet>
+                                <h:outputText value="#{item.NId.NNombre}" />
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{idiomasController.prepareCreate}" update=":IdiomasCreateForm" oncomplete="PF('IdiomasCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":IdiomasViewForm" oncomplete="PF('IdiomasViewDialog').show()" disabled="#{empty idiomasController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":IdiomasEditForm" oncomplete="PF('IdiomasEditDialog').show()" disabled="#{empty idiomasController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{idiomasController.destroy}" update=":growl,datalist" disabled="#{empty idiomasController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+                <p:dialog id="IdiomasCreateDlg" widgetVar="IdiomasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Agregar idioma a mi perfil">
+                    <h:form id="IdiomasCreateForm">
+                        <h:panelGroup id="display">
+                            <p:panelGrid columns="2" rendered="#{idiomasController.selected != null}">
+                               
+                                <p:outputLabel value="Idioma" for="idmId" />
+                                <h:selectOneMenu id="idmId" value="#{idiomasController.selected.idmId}" class="custom-select2 form-control" required="true" requiredMessage="#{bundle.EditIdiomasRequiredMessage_idmId}">
+                                    <f:selectItems value="#{idiomaController.itemsAvailableSelectOne}"
+                                                   var="idmIdItem"
+                                                   itemLabel="#{idmIdItem.idmNombre}"
+                                                   itemValue="#{idmIdItem}"/>
+                                </h:selectOneMenu>
+                                <p:outputLabel value="Nivel de dominio" for="NId" />
+                                <h:selectOneMenu id="NId" value="#{idiomasController.selected.NId}" required="true" class="custom-select2 form-control" requiredMessage="#{bundle.EditIdiomasRequiredMessage_NId}">
+                                    <f:selectItems value="#{nivelIdiomaController.itemsAvailableSelectOne}"
+                                                   var="NIdItem"
+                                                   itemLabel="#{NIdItem.NNombre}"
+                                                   itemValue="#{NIdItem}"/>
+                                </h:selectOneMenu>
+                            </p:panelGrid>
+                            <p:commandButton actionListener="#{idiomasController.agragarIdiomaAlPerfil(loginController.estudiante.esId)}" value="#{bundle.Save}" update="display,:IdiomasListForm:datalist,:growl" oncomplete="handleSubmit(args,'IdiomasCreateDialog');"/>
+                            <p:commandButton value="#{bundle.Cancel}" onclick="IdiomasCreateDialog.hide()"/>
+                        </h:panelGroup>
+                    </h:form>
+                </p:dialog>
+                <p:dialog id="IdiomasEditDlg" widgetVar="IdiomasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditIdiomasTitle}">
+                    <h:form id="IdiomasEditForm">
+                        <h:panelGroup id="display">
+                            <p:panelGrid columns="2" rendered="#{idiomasController.selected != null}">
+                               <p:outputLabel value="Nivel" for="NId" />
+                                <h:selectOneMenu id="NId" class="custom-select2 form-control" value="#{idiomasController.selected.NId}" required="true" requiredMessage="#{bundle.EditIdiomasRequiredMessage_NId}">
+                                <f:selectItems value="#{nivelIdiomaController.itemsAvailableSelectOne}"
+                                                   var="NIdItem"
+                                                   itemLabel="#{NIdItem.NNombre}"
+                                                   itemValue="#{NIdItem}"/>
+                                </h:selectOneMenu>
+                            </p:panelGrid>
+                            <p:commandButton actionListener="#{idiomasController.update}" value="#{bundle.Save}" update="display,:IdiomasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'IdiomasEditDialog');"/>
+                            <p:commandButton value="#{bundle.Cancel}" onclick="IdiomasEditDialog.hide()"/>
+                        </h:panelGroup>
+                    </h:form>
+                </p:dialog>
+                <p:dialog id="IdiomasViewDlg" widgetVar="IdiomasViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewIdiomasTitle}">
+                    <h:form id="IdiomasViewForm">
+                        <h:panelGroup id="display">
+                            <p:panelGrid columns="2" rendered="#{idiomasController.selected != null}">
+                                <h:outputText value="#{idiomasController.selected.idmId.idmNombre}"/>
+                                <h:outputText value="#{idiomasController.selected.NId.NNombre}"/>
+                            </p:panelGrid>
+                            <p:commandButton value="#{bundle.Close}" onclick="IdiomasViewDialog.hide()"/>
+                        </h:panelGroup>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>

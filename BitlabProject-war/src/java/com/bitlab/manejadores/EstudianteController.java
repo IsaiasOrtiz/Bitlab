@@ -3,11 +3,13 @@ package com.bitlab.manejadores;
 import com.bitlab.entidades.Curso;
 import com.bitlab.entidades.EstadoSeleccion;
 import com.bitlab.entidades.Estudiante;
+import com.bitlab.entidades.Rol;
 import com.bitlab.manejadores.util.JsfUtil;
 import com.bitlab.manejadores.util.JsfUtil.PersistAction;
 import com.bitlab.session.CursoFacade;
 import com.bitlab.session.EstadoSeleccionFacade;
 import com.bitlab.session.EstudianteFacade;
+import com.bitlab.session.RolFacade;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
@@ -42,19 +44,56 @@ public class EstudianteController implements Serializable {
 
     @EJB
     private com.bitlab.session.EstudianteFacade ejbFacade;
+
+    @EJB
+    private RolFacade rolFacade;
+
     private List<Estudiante> items = null;
     private List<Estudiante> soloEstudiantes = null;
-    private List<Estudiante> estudiantesPorCurso = null;
     private Estudiante selected;
     private UploadedFile file;
     private UploadedFile cvEs;
-    private boolean flagRender;
 
     public EstudianteController() {
     }
 
     public Estudiante getSelected() {
         return selected;
+    }
+
+    public CursoFacade getCursoFacade() {
+        return cursoFacade;
+    }
+
+    public void setCursoFacade(CursoFacade cursoFacade) {
+        this.cursoFacade = cursoFacade;
+    }
+
+    public EstadoSeleccionFacade getEstadoSeleccionFacade() {
+        return estadoSeleccionFacade;
+    }
+
+    public void setEstadoSeleccionFacade(EstadoSeleccionFacade estadoSeleccionFacade) {
+        this.estadoSeleccionFacade = estadoSeleccionFacade;
+    }
+
+    public RolFacade getRolFacade() {
+        return rolFacade;
+    }
+
+    public void setRolFacade(RolFacade rolFacade) {
+        this.rolFacade = rolFacade;
+    }
+    public EstadoSeleccion findEstadoSeleccion(Integer id)
+    {
+    return getEstadoSeleccionFacade().find(id);
+    }
+    public Curso findCurso(Integer id)
+    {
+        return getCursoFacade().find(id);
+    }
+    public Rol findRol(Integer id) {
+        return getRolFacade().find(id);
     }
 
     public void setSelected(Estudiante selected) {
@@ -90,12 +129,34 @@ public class EstudianteController implements Serializable {
      * estudiante y agregamos el file convertido a tipo byte[]
      */
     public void createNewStudent() {
-        cursoFacade = new CursoFacade();
         selected.setEsFoto(file.getContent());
+        selected.setCsId(findCurso(3));
+        selected.setRlId(findRol(2));
+        selected.setEsnId(findEstadoSeleccion(1));
         selected.setAFechaCreacion(new Date());
         selected.setAUsuarioCrea("SYSTEM");
         selected.setEsCv(cvEs.getContent());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EstudianteCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+
+    public void editarEstudiante(Integer student) {
+        if (file.getSize() > 0 || cvEs.getSize() > 0) {
+            selected = getEstudiante(student);
+            if (file.getSize() > 0) {
+                selected.setEsFoto(file.getContent());
+            }
+            if (cvEs.getSize() > 0) {
+                selected.setEsCv(cvEs.getContent());
+            }
+            selected.setAFechaModificacion(new Date());
+            selected.setAUsuarioModifica(selected.getEsNombre());
+            update();
+        } else {
+            JsfUtil.addErrorMessage("No selecciono ningun archivo");
+        }
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
@@ -170,13 +231,6 @@ public class EstudianteController implements Serializable {
             soloEstudiantes = getFacade().encontrarSoloEstudiantes();
         }
         return soloEstudiantes;
-    }
-
-    public List<Estudiante> getEstudiantesPorCurso(int id){
-        estudiantesPorCurso = getFacade().encontrarEstudiantesPorCurso(id);
-        flagRender = true;
-        
-        return estudiantesPorCurso;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -274,22 +328,6 @@ public class EstudianteController implements Serializable {
             }
         }
 
-    }
-
-    public List<Estudiante> getEstudiantesPorCurso() {
-        return estudiantesPorCurso;
-    }
-
-    public void setEstudiantesPorCurso(List<Estudiante> estudiantesPorCurso) {
-        this.estudiantesPorCurso = estudiantesPorCurso;
-    }
-
-    public boolean isFlagRender() {
-        return flagRender;
-    }
-
-    public void setFlagRender(boolean flagRender) {
-        this.flagRender = flagRender;
     }
 
 }

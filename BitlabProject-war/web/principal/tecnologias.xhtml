@@ -19,10 +19,11 @@ and open the template in the editor.
 
 
             <ui:define name="title">
-                <h:outputText value="Bitlab - Perfil"></h:outputText>
+                <h:outputText value="Bitlab - Tecnologias"></h:outputText>
             </ui:define>
 
             <ui:define name="body">
+                <f:event listener="#{tecnologiasManejadasController.tecnologiasSesionUsuario(loginController.estudiante.esId)}" type="preRenderView"/>
                 <h:form id="TecnologiasManejadasListForm">
                     <p:panel header="Mis tecnologias">
                         <p:dataTable id="datalist" value="#{tecnologiasManejadasController.items}" var="item"
@@ -30,6 +31,7 @@ and open the template in the editor.
                                      paginator="true"
                                      rowKey="#{item.tgId}"
                                      rows="10"
+                                     emptyMessage="No tenemos registros :("
                                      rowsPerPageTemplate="10,20,30,40,50"
                                      
                                     >
@@ -39,7 +41,7 @@ and open the template in the editor.
 
 
 
-                            <p:column  rendered="#{loginController.estudiante.esId == item.esId.esId}">
+                            <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Agregada el"/>
                                 </f:facet>
@@ -47,13 +49,13 @@ and open the template in the editor.
                                     <f:convertDateTime pattern="MM/dd/yyyy" />
                                 </h:outputText>
                             </p:column>
-                            <p:column  rendered="#{loginController.estudiante.esId == item.esId.esId}">
+                            <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Nombre de la tecnologia"/>
                                 </f:facet>
                                 <h:outputText value="#{item.tgdId.tgdNombre}"/>
                             </p:column>
-                            <p:column  rendered="#{loginController.estudiante.esId == item.esId.esId}">
+                            <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Nivel de dominio"/>
                                 </f:facet>
