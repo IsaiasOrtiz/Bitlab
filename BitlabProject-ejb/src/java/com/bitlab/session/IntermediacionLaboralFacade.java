@@ -5,10 +5,13 @@
  */
 package com.bitlab.session;
 
+import com.bitlab.entidades.Estudiante;
 import com.bitlab.entidades.IntermediacionLaboral;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +30,28 @@ public class IntermediacionLaboralFacade extends AbstractFacade<IntermediacionLa
 
     public IntermediacionLaboralFacade() {
         super(IntermediacionLaboral.class);
+    }
+    
+    public List<IntermediacionLaboral> estudiantesLaborandoPorCurso(int id){
+        try {
+            Query q = em.createQuery("SELECT i FROM IntermediacionLaboral i WHERE i.esId.csId.csId = :id");
+            q.setParameter("id", id);
+
+            return q.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public List<Estudiante> estudiantesPorCurso(int id){
+        try {
+            Query q = em.createQuery("SELECT e FROM Estudiante e WHERE e.csId.csId = :id AND e.rlId.rlId = 2");
+            q.setParameter("id", id);
+
+            return q.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
     }
     
 }

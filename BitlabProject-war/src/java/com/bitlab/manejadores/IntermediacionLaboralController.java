@@ -1,11 +1,14 @@
 package com.bitlab.manejadores;
 
+import com.bitlab.entidades.Estudiante;
 import com.bitlab.entidades.IntermediacionLaboral;
 import com.bitlab.manejadores.util.JsfUtil;
 import com.bitlab.manejadores.util.JsfUtil.PersistAction;
 import com.bitlab.session.IntermediacionLaboralFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,15 +21,21 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
 
 @Named("intermediacionLaboralController")
-@SessionScoped
+@ViewScoped
 public class IntermediacionLaboralController implements Serializable {
 
     @EJB
     private com.bitlab.session.IntermediacionLaboralFacade ejbFacade;
     private List<IntermediacionLaboral> items = null;
+    private List<IntermediacionLaboral> estudiantesLaborando = null;
+    private List<Estudiante> estudiantesDesempleados = null;
+    private List<Estudiante> estudiantesPorCurso = null;
     private IntermediacionLaboral selected;
+    private String flagRender = "cursos";
+    private boolean accionRealizar;
 
     public IntermediacionLaboralController() {
     }
@@ -54,6 +63,25 @@ public class IntermediacionLaboralController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    
+    public void agregarIntermediacion(Estudiante idEstudiante, boolean accion){
+        selected = new IntermediacionLaboral();
+        selected.setEsId(idEstudiante);
+        selected.setAUsuarioCrea("oscarT");
+        selected.setAFechaCreacion(new Date());
+        
+        initializeEmbeddableKey();
+        flagRender = "crearIntermediacion";
+        accionRealizar = accion;
+    }
+    
+    public void eliminarIntermediacion(IntermediacionLaboral i, int idCurso){
+        selected = new IntermediacionLaboral();
+        selected = i;
+        
+        destroy();
+        laborandoPorCurso(idCurso);
+    }
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("IntermediacionLaboralCreated"));
@@ -62,8 +90,15 @@ public class IntermediacionLaboralController implements Serializable {
         }
     }
 
-    public void update() {
+    public void update(int idCurso) {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("IntermediacionLaboralUpdated"));
+        
+        if(accionRealizar){
+            desempleadosPorCurso(idCurso);
+        }
+        else{
+            laborandoPorCurso(idCurso);
+        }
     }
 
     public void destroy() {
@@ -79,6 +114,31 @@ public class IntermediacionLaboralController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    
+    public void laborandoPorCurso(int idCurso){
+        estudiantesLaborando = getFacade().estudiantesLaborandoPorCurso(idCurso);
+        flagRender = "estLaborando";
+    }
+    
+    public void desempleadosPorCurso(int idCurso){
+        int j = 0;
+        estudiantesLaborando = getFacade().estudiantesLaborandoPorCurso(idCurso);
+        estudiantesPorCurso = getFacade().estudiantesPorCurso(idCurso);
+        estudiantesDesempleados = new ArrayList<Estudiante>();
+        
+        for(Estudiante e:estudiantesPorCurso){
+            j=0;
+            for(IntermediacionLaboral i: estudiantesLaborando){
+                if(e.getEsId() == i.getEsId().getEsId()){
+                    j++;
+                }
+            }
+            if(j==0){
+                estudiantesDesempleados.add(e);
+            }
+        }
+        flagRender = "estDesempleados";
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -160,6 +220,38 @@ public class IntermediacionLaboralController implements Serializable {
             }
         }
 
+    }
+
+    public List<IntermediacionLaboral> getEstudiantesLaborando() {
+        return estudiantesLaborando;
+    }
+
+    public void setEstudiantesLaborando(List<IntermediacionLaboral> estudiantesLaborando) {
+        this.estudiantesLaborando = estudiantesLaborando;
+    }
+
+    public List<Estudiante> getEstudiantesPorCurso() {
+        return estudiantesPorCurso;
+    }
+
+    public void setEstudiantesPorCurso(List<Estudiante> estudiantesPorCurso) {
+        this.estudiantesPorCurso = estudiantesPorCurso;
+    }
+
+    public List<Estudiante> getEstudiantesDesempleados() {
+        return estudiantesDesempleados;
+    }
+
+    public void setEstudiantesDesempleados(List<Estudiante> estudiantesDesempleados) {
+        this.estudiantesDesempleados = estudiantesDesempleados;
+    }
+
+    public String getFlagRender() {
+        return flagRender;
+    }
+
+    public void setFlagRender(String flagRender) {
+        this.flagRender = flagRender;
     }
 
 }
