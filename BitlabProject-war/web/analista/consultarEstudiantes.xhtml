@@ -23,13 +23,13 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
-
                         <p:column style="width:16px">
                             <p:rowToggler />
                         </p:column>
+
                         <p:column colspan="1">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstudianteTitle_esFoto}"/>
+                                <h:outputText value="Foto"/>
                             </f:facet>
                             <div class="user-info-dropdown">
                                 <span class="user-icon" style="overflow:hidden">
@@ -39,23 +39,23 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstudianteTitle_esNombre}"/>
+                                <h:outputText value="Nombre"/>
                             </f:facet>
                             <h:outputText value="#{item.esNombre}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstudianteTitle_esApellido}"/>
+                                <h:outputText value="Apellido"/>
                             </f:facet>
                             <h:outputText value="#{item.esApellido}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstudianteTitle_esDui}"/>
+                                <h:outputText value="Curso"/>
                             </f:facet>
                             <h:outputText value="#{item.esDui}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.csId}" filterBy="#{item.csId}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Curso"/>
                             </f:facet>
@@ -63,7 +63,7 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstudianteTitle_esFechaNacimiento}"/>
+                                <h:outputText value="Fecha de Nacimiento"/>
                             </f:facet>
                             <h:outputText value="#{item.esFechaNacimiento}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -71,7 +71,7 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstudianteTitle_esnId}"/>
+                                <h:outputText value="Estado"/>
                             </f:facet>
                             <h:outputText value="#{item.esnId.esnNombre}"/>
                         </p:column>
@@ -104,22 +104,16 @@
                                     <h:outputText value="#{item.esAspiraciones}"/>
                                 </p:column>
                                 <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Intereses: "/>
-                                    </f:facet>
+                                    <h:outputText value="Intereses: "/>
                                     <h:outputText value="#{item.esInteres}"/>
                                 </p:column>
 
                                 <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Escolaridad: "/>
-                                    </f:facet>
+                                    <h:outputText value="Escolaridad: "/>
                                     <h:outputText value="#{item.esdId.esNombre}"/>
                                 </p:column>
                                 <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Municipio: "/>
-                                    </f:facet>
+                                    <h:outputText value="Municipio: "/>
                                     <h:outputText value="#{item.mpId.mpNombre}"/>
                                 </p:column>
                             </p:panelGrid>
