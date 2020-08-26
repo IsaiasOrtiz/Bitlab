@@ -1,11 +1,14 @@
 package com.bitlab.manejadores;
 
+import com.bitlab.entidades.Estudiante;
 import com.bitlab.entidades.Idiomas;
 import com.bitlab.manejadores.util.JsfUtil;
 import com.bitlab.manejadores.util.JsfUtil.PersistAction;
+import com.bitlab.session.EstudianteFacade;
 import com.bitlab.session.IdiomasFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -25,6 +28,8 @@ public class IdiomasController implements Serializable {
 
     @EJB
     private com.bitlab.session.IdiomasFacade ejbFacade;
+    @EJB
+    private com.bitlab.session.EstudianteFacade ejbEstudiante;
     private List<Idiomas> items = null;
     private Idiomas selected;
 
@@ -81,6 +86,27 @@ public class IdiomasController implements Serializable {
         return items;
     }
 
+    public Estudiante getEstudiante(java.lang.Integer id) {
+        return getEjbEstudiante().find(id);
+    }
+
+    public void agragarIdiomaAlPerfil(java.lang.Integer id) {
+        Estudiante es;
+        es = getEstudiante(id);
+        if (selected != null) {
+            selected.setEsId(es);
+            selected.setAUsuarioCrea(es.getEsNombre());
+            selected.setAFechaCreacion(new Date());
+            create();
+        } else {
+            JsfUtil.addErrorMessage("Error");
+        }
+    }
+    public void cargarIdiomasUsuarioSesion(Integer id)
+    {
+        items=getFacade().encontrarIdiomasUser(id);
+    }
+
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
@@ -107,6 +133,14 @@ public class IdiomasController implements Serializable {
                 JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
         }
+    }
+
+    public EstudianteFacade getEjbEstudiante() {
+        return ejbEstudiante;
+    }
+
+    public void setEjbEstudiante(EstudianteFacade ejbEstudiante) {
+        this.ejbEstudiante = ejbEstudiante;
     }
 
     public Idiomas getIdiomas(java.lang.Integer id) {

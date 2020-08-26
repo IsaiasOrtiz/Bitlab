@@ -116,7 +116,11 @@ public class RecordController implements Serializable {
             }
         }
     }
-
+    
+    public void record(Integer student)
+    {
+     items=getFacade().cursosAsistidos(student);
+    }
     public Record getRecord(java.lang.Integer id) {
         return getFacade().find(id);
     }
