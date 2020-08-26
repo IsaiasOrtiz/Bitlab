@@ -147,6 +147,10 @@ public class TecnologiasManejadasController implements Serializable {
     public Estudiante getEstudiante(java.lang.Integer id) {
         return getEjbEstudiante().find(id);
     }
+    public void tecnologiasSesionUsuario(Integer id)
+    {
+        items=getFacade().encontrarTecnologiasUser(id);
+    }
     public EstudianteFacade getEjbEstudiante() {
         return ejbEstudiante;
     }

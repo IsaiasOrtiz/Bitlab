@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
 
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/principal/template.xhtml">
 
 
         <ui:define name="title">
@@ -15,74 +15,77 @@
         </ui:define>
 
         <ui:define name="body">
-       
-                <h:panelGroup id="cursos">
-                    <h:form id="formCurso">
-                        <p:panel header="Listado de Cursos" rendered="#{!estudianteController.flagRender}">
-                            <p:growl id="message" showDetail="true" />
-                            <a href="nuevoCurso.xhtml" class="btn btn-primary">NUEVO CURSO</a>
-                            <br></br>
-                            <br></br>
-                            <p:dataGrid var="curso" value="#{cursoController.items}" 
-                                        rows="9" paginator="true" 
-                                        rendered="#{!estudianteController.flagRender}">
 
-                                <p:dataViewGridItem>
-                                    <div class="row clearfix">
-                                        <div class="col-sm-12 col-md-12 mb-30">
-                                            <div class="card card-box">
-                                                <div class="card-header">
-                                                    <h3>
-                                                        <h:outputText value="#{curso.csNombre}"/></h3>
-                                                </div>
-                                                <div class="card-body text-center" >
-                                                    <h:panelGrid columns="1" style="width:100%">
+            <h:panelGroup id="cursos">
+                <h:form id="formCurso">
+                    <p:panel header="Listado de Cursos" rendered="#{!estudianteController.flagRender}">
+                        <p:growl id="message" showDetail="true" />
+                        <a href="nuevoCurso.xhtml" class="btn btn-primary">NUEVO CURSO</a>
+                        <br></br>
+                        <br></br>
+                        <p:dataGrid var="curso" value="#{cursoController.items}" 
+                                    rows="9" paginator="true" 
+                                    rendered="#{!estudianteController.flagRender}">
 
-                                                        <h:outputText value="Inicio: #{curso.csInicio}" >
-                                                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                                                        </h:outputText>
-                                                        <h:outputText value="Descripcion: #{curso.csDescripcion}"/>
-                                                        <h:outputText value="Capacidad: #{curso.csCantidadBecados}"/>
-                                                        <h:outputText value="Hora Inicio: #{curso.hrId.hrHoraInicio}"/>
-                                                        <h:outputText value="Hora finalizacion: #{curso.hrId.hrHoraFin}"/>
-                                                        <h:outputText value="Dias: #{curso.hrId.hrDias}"/>
-                                                        <h:outputLabel value="Estado: Activo" rendered="#{curso.csEstado == true}" /> 
-                                                        <h:outputLabel value="Estado: Inactivo" rendered="#{curso.csEstado == false}" /> 
+                            <p:dataViewGridItem>
+                                <div class="row clearfix">
+                                    <div class="col-sm-12 col-md-12 mb-30">
+                                        <div class="card card-box">
+                                            <div class="card-header">
+                                                <h3>
+                                                    <h:outputText value="#{curso.csNombre}"/></h3>
+                                            </div>
+                                            <div class="card-body text-center" >
+                                                <h:panelGrid columns="1" style="width:100%">
 
-                                                    </h:panelGrid>
-                                                    <br></br>
-                                                    <p:commandButton id="createButton" update=":cursos,:estudiantes" value="Ver Estudiantes" actionListener="#{estudianteController.getEstudiantesPorCurso(curso.csId)}"/>
-                                                </div>
+                                                    <h:outputText value="Inicio: #{curso.csInicio}" >
+                                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                    </h:outputText>
+                                                    <h:outputText value="Descripcion: #{curso.csDescripcion}"/>
+                                                    <h:outputText value="Capacidad: #{curso.csCantidadBecados}"/>
+                                                    <h:outputText value="Hora Inicio: #{curso.hrId.hrHoraInicio}"/>
+                                                    <h:outputText value="Hora finalizacion: #{curso.hrId.hrHoraFin}"/>
+                                                    <h:outputText value="Dias: #{curso.hrId.hrDias}"/>
+                                                    <h:outputLabel value="Estado: Activo" rendered="#{curso.csEstado == true}" /> 
+                                                    <h:outputLabel value="Estado: Inactivo" rendered="#{curso.csEstado == false}" /> 
+
+                                                </h:panelGrid>
+                                                <br></br>
+                                                <p:commandButton class="btn btn-primary" id="createButton" update=":cursos,:estudiantes" value="Ver Aspirantes" actionListener="#{estudianteController.getEstudiantesPorCurso(curso.csId)}"/>
                                             </div>
                                         </div>
                                     </div>
-                                </p:dataViewGridItem>
-                            </p:dataGrid>
-                        </p:panel>
-                    </h:form>
-                </h:panelGroup>
-            
+                                </div>
+                            </p:dataViewGridItem>
+                        </p:dataGrid>
+                    </p:panel>
+                </h:form>
+            </h:panelGroup>
+
 
             <h:panelGroup id="estudiantes">
                 <h:form id="estudiantePorCurso">
                     <p:commandButton id="createButton" update=":cursos, :estudiantes" value="Regresar" rendered="#{estudianteController.flagRender}" class="mb-5">
                         <f:setPropertyActionListener value="false" target="#{estudianteController.flagRender}"/>
                     </p:commandButton>
-                    <p:panel header="Estudiantes en proceso para curso:" rendered="#{estudianteController.flagRender}">
+                    <p:panel header="Estudiantes en proceso para el curso de: #{estudianteController.estudiantesPorCurso.get(1).csId.csNombre} " 
+                             rendered="#{estudianteController.flagRender}">
                         <p:dataTable id="datalist" value="#{estudianteController.estudiantesPorCurso}" var="item"
                                      paginator="true"
                                      rowKey="#{item.esId}"
                                      rows="10"
                                      rowsPerPageTemplate="10,20,30,40,50" rendered="#{estudianteController.flagRender}"
                                      >
-
                             <p:column colspan="1">
                                 <f:facet name="header">
-                                    <h:outputText value="Id"/>
+                                    <h:outputText value="Foto"/>
                                 </f:facet>
-                                <h:outputText value="#{item.esId}"/>
+                                <div class="user-info-dropdown">
+                                    <span class="user-icon" style="overflow:hidden">
+                                        <p:graphicImage value="#{estudianteController.imagen(item.esFoto)}"  stream="false"/>
+                                    </span>
+                                </div>
                             </p:column>
-
                             <p:column colspan="2">
                                 <f:facet name="header">
                                     <h:outputText value="Nombre"/>
@@ -108,13 +111,17 @@
                                 </f:facet>
                                 <h:outputText value="#{item.esCorreo}"/>
                             </p:column>
-
-
+                            <p:column colspan="1">
+                                <f:facet name="header">
+                                    <h:outputText value="Laborando"/>
+                                </f:facet>
+                                <h:outputText value="SI" rendered="#{item.esLaborando == true}" /> 
+                                <h:outputText value="NO" rendered="#{item.esLaborando == false}" /> 
+                            </p:column>
                             <p:column colspan="2" style="text-align: center">
                                 <f:facet name="header">
                                     <h:outputText value="Acción"/>
                                 </f:facet>
-
                             </p:column>
 
                         </p:dataTable>

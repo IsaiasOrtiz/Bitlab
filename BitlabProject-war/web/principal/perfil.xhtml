@@ -25,14 +25,14 @@ and open the template in the editor.
             <ui:define name="body">
 
                 <div class="profile-photo">
-                    <a href="modal" data-toggle="modal" data-target="#modal" class="edit-avatar"><i class="fa fa-pencil"></i></a>
+
                     <div style="overflow:hidden">
-                    <p:graphicImage id="image"   value="#{estudianteController.imagen(loginController.estudiante.esFoto)}" alt="Picture"/>
+                        <p:graphicImage id="image"   value="#{estudianteController.imagen(loginController.estudiante.esFoto)}" alt="Picture" stream="false"/>
                     </div>
                     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
-                  
+
                                 <div class="modal-footer">
                                     <input type="submit" value="Update" class="btn btn-primary"/>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -50,11 +50,11 @@ and open the template in the editor.
                         <ul>
                             <li>
                                 <span>Inscrito en el curso:</span>
-                               #{loginController.estudiante.csId.csNombre}
+                                #{loginController.estudiante.csId.csNombre}
                             </li>
                             <li>
                                 <span>Correo:</span>
-                               #{loginController.estudiante.esCorreo}
+                                #{loginController.estudiante.esCorreo}
                             </li>
                             <li>
                                 <span>Numero de contacto:</span>
@@ -66,7 +66,7 @@ and open the template in the editor.
                             </li>
                             <li>
                                 <span>Direccion:</span>
-                               #{loginController.estudiante.esDireccion}
+                                #{loginController.estudiante.esDireccion}
                             </li>
                             <li>
                                 <span>Escolaridad:</span>
@@ -80,11 +80,18 @@ and open the template in the editor.
                     </center>
                 </div>
                 <div class="profile-skills">
-                    <h5 class="mb-20 h5 text-blue">Habilidades</h5>
-                    <h6 class="mb-5 font-14">HTML</h6>
-                    <div class="progress mb-20" style="height: 6px;">
-                        <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                    <h:form id="editar" enctype="multipart/form-data">
+                        <h5 class="mb-20 h5 text-blue">Editar:</h5>
+                        <div class="p-field p-col-12">
+                            <p:outputLabel for="file" value="Foto de perfil" /><br/>
+                            <p:fileUpload id="file" value="#{estudianteController.file}" mode="simple" accept="image/*" skinSimple="true"/>
+                        </div>
+                        <div class="p-field p-col-12">
+                            <p:outputLabel for="file2" value="Sube tu Hoja de vida (CV)" /><br/>
+                            <p:fileUpload id="file2" value="#{estudianteController.cvEs}" accept="application/pdf" mode="simple" skinSimple="true"/>
+                        </div>
+                        <p:commandButton value="Guardar cambios" actionListener="#{estudianteController.editarEstudiante(loginController.estudiante.esId)}" update="frmRg" ajax="false"/>
+                    </h:form>
                 </div>
             </ui:define>
         </ui:composition>
