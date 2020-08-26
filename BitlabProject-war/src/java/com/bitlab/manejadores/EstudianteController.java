@@ -6,6 +6,7 @@ import com.bitlab.entidades.Estudiante;
 import com.bitlab.entidades.Rol;
 import com.bitlab.manejadores.util.JsfUtil;
 import com.bitlab.manejadores.util.JsfUtil.PersistAction;
+import com.bitlab.propiedades.Encriptador;
 import com.bitlab.session.CursoFacade;
 import com.bitlab.session.EstadoSeleccionFacade;
 import com.bitlab.session.EstudianteFacade;
@@ -86,14 +87,15 @@ public class EstudianteController implements Serializable {
     public void setRolFacade(RolFacade rolFacade) {
         this.rolFacade = rolFacade;
     }
-    public EstadoSeleccion findEstadoSeleccion(Integer id)
-    {
-    return getEstadoSeleccionFacade().find(id);
+
+    public EstadoSeleccion findEstadoSeleccion(Integer id) {
+        return getEstadoSeleccionFacade().find(id);
     }
-    public Curso findCurso(Integer id)
-    {
+
+    public Curso findCurso(Integer id) {
         return getCursoFacade().find(id);
     }
+
     public Rol findRol(Integer id) {
         return getRolFacade().find(id);
     }
@@ -137,6 +139,8 @@ public class EstudianteController implements Serializable {
         selected.setEsnId(findEstadoSeleccion(1));
         selected.setAFechaCreacion(new Date());
         selected.setAUsuarioCrea("SYSTEM");
+        Encriptador encriptador = new Encriptador();
+        selected.setEsClave(encriptador.encriptador(selected.getEsClave()));
         selected.setEsCv(cvEs.getContent());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EstudianteCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -234,11 +238,11 @@ public class EstudianteController implements Serializable {
         }
         return soloEstudiantes;
     }
-    
-   public List<Estudiante> getEstudiantesPorCurso(int id){
+
+    public List<Estudiante> getEstudiantesPorCurso(int id) {
         estudiantesPorCurso = getFacade().encontrarEstudiantesPorCurso(id);
         flagRender = true;
-        
+
         return estudiantesPorCurso;
     }
 
@@ -338,7 +342,7 @@ public class EstudianteController implements Serializable {
         }
 
     }
-    
+
     public List<Estudiante> getEstudiantesPorCurso() {
         return estudiantesPorCurso;
     }

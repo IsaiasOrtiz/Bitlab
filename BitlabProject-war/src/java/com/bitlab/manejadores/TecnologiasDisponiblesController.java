@@ -6,6 +6,7 @@ import com.bitlab.manejadores.util.JsfUtil.PersistAction;
 import com.bitlab.session.TecnologiasDisponiblesFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -56,6 +57,15 @@ public class TecnologiasDisponiblesController implements Serializable {
     }
 
     public void create() {
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TecnologiasDisponiblesCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+
+    public void crearTecnologia(String usuario) {
+        selected.setAFechaCreacion(new Date());
+        selected.setAUsuarioCrea(usuario);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TecnologiasDisponiblesCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
