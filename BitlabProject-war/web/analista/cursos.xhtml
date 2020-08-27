@@ -8,7 +8,7 @@
 
 
 
-    <ui:composition template="/principal/template.xhtml">
+    <ui:composition template="template.xhtml">
 
 
         <ui:define name="title">
@@ -40,19 +40,23 @@
                                                 <h:panelGrid columns="1" style="width:100%">
 
                                                     <h:outputText value="Inicio: #{curso.csInicio}" >
-                                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                        <f:convertDateTime pattern="dd-MM-yyyy" />
                                                     </h:outputText>
                                                     <h:outputText value="Descripcion: #{curso.csDescripcion}"/>
                                                     <h:outputText value="Capacidad: #{curso.csCantidadBecados}"/>
-                                                    <h:outputText value="Hora Inicio: #{curso.hrId.hrHoraInicio}"/>
-                                                    <h:outputText value="Hora finalizacion: #{curso.hrId.hrHoraFin}"/>
+                                                    <h:outputText value="Hora Inicio: #{curso.hrId.hrHoraInicio}">
+                                                        <f:convertDateTime pattern="HH:mm" />
+                                                    </h:outputText>
+                                                    <h:outputText value="Hora finalizacion: #{curso.hrId.hrHoraFin}">
+                                                        <f:convertDateTime pattern="HH:mm" />
+                                                    </h:outputText>
                                                     <h:outputText value="Dias: #{curso.hrId.hrDias}"/>
                                                     <h:outputLabel value="Estado: Activo" rendered="#{curso.csEstado == true}" /> 
                                                     <h:outputLabel value="Estado: Inactivo" rendered="#{curso.csEstado == false}" /> 
                                                     <h:outputLabel value="#{curso.csId}"/> 
                                                     <p:commandButton id="createButton" update=":cursos,:estudiantes, :proceso" 
                                                                      value="Ver Aspirantes" action="#{estudianteController.getEstudiantesPorCurso(curso.csId)}">
-                                                     <f:param name="csId" value="#{curso.csId}" />
+                                                        <f:param name="csId" value="#{curso.csId}" />
                                                     </p:commandButton>
                                                     <p:commandButton id="cambiarEstadoButton" update=":cursos,:estudiantes, :proceso" 
                                                                      value="Cambiar Estado" action="#{cursoController.cambiarEstado(curso)}"/>
@@ -78,11 +82,15 @@
                     <p:panel header="Estudiantes en proceso para el curso de: #{estudianteController.curso.csNombre}" 
                              rendered="#{estudianteController.flagRender eq 'estudiantes'}">
                         <p:dataTable id="datalist" value="#{estudianteController.estudiantesPorCurso}" var="item"
-                                     paginator="true"
+                                     paginator="true" 
+                                     selectionMode="single" selection="#{estudianteController.selected}"
                                      rowKey="#{item.esId}"
                                      rows="10"
                                      rowsPerPageTemplate="10,20,30,40,50" rendered="#{estudianteController.flagRender eq 'estudiantes'}"
                                      >
+                            <p:ajax event="rowSelect"   update="createButton  editButton estudiantes"/>
+                            <p:ajax event="rowUnselect" update="createButton  editButton estudiantes"/>
+
                             <p:column colspan="1" style="text-align: center">
                                 <f:facet name="header">
                                     <h:outputText value="Foto"/>
@@ -137,10 +145,17 @@
                                 </f:facet>
                                 <p:commandButton id="createButton" update=":cursos,:estudiantes, :proceso"  value="Ver Proceso"
                                                  actionListener="#{estudianteController.getDetallePreseleccion(item.esId)}"/>
+                                <p:commandButton id="editButton" value="Cambiar Estado" update=":estudiantePorCurso" style="background-color: #e0a800;border:#e0a800  ;color: #000"
+                                                 oncomplete="PF('EstudianteEditDialog').show()" disabled="#{empty estudianteController.selected}"/>
+
                             </p:column>
+                            <f:facet name="footer">
+                               
+                            </f:facet>
                         </p:dataTable>
                     </p:panel>
                 </h:form>
+                <ui:include src="EditEstadoProceso.xhtml"/>
             </h:panelGroup>
 
 
@@ -200,10 +215,10 @@
                                 <h:outputText value="#{item.prComentario}"/>
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="Nuevo" actionListener="#{preseleccionController.prepareCreate(estudianteController.selected.esId,estudianteController.curso.csId)}" update=":PreseleccionCreateForm" oncomplete="PF('PreseleccionCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="Ver" update=":PreseleccionViewForm" oncomplete="PF('PreseleccionViewDialog').show()" disabled="#{empty preseleccionController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Editar" update=":PreseleccionEditForm" oncomplete="PF('PreseleccionEditDialog').show()" disabled="#{empty preseleccionController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Eliminar" actionListener="#{preseleccionController.destroy}" update=":growl,datalist" disabled="#{empty preseleccionController.selected}"/>
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="Nuevo" actionListener="#{preseleccionController.prepareCreate(estudianteController.selected.esId,estudianteController.curso.csId)}" update=":PreseleccionCreateForm,:cursos,:estudiantes, :proceso" oncomplete="PF('PreseleccionCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="Ver" update=":PreseleccionViewForm,:cursos,:estudiantes, :proceso" oncomplete="PF('PreseleccionViewDialog').show()" disabled="#{empty preseleccionController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Editar" update=":PreseleccionEditForm,:cursos,:estudiantes, :proceso" oncomplete="PF('PreseleccionEditDialog').show()" disabled="#{empty preseleccionController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Eliminar" actionListener="#{preseleccionController.destroy}" update=":growl,datalist,:cursos,:estudiantes, :proceso" disabled="#{empty preseleccionController.selected}"/>
                             </f:facet>
                         </p:dataTable>
 

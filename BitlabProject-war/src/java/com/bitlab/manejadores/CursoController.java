@@ -125,7 +125,7 @@ public class CursoController implements Serializable {
 
     public List<Curso> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().cursos();
         }
         return items;
     }

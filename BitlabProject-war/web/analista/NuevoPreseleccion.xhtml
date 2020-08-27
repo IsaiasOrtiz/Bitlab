@@ -19,7 +19,7 @@
                         <p:outputLabel value="#{bundle.CreatePreseleccionLabel_prComentario}" for="prComentario" />
                         <p:inputText id="prComentario" value="#{preseleccionController.selected.prComentario}" title="#{bundle.CreatePreseleccionTitle_prComentario}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prComentario}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{preseleccionController.create()}" value="#{bundle.Save}" update="display,:PreseleccionListForm:datalist,:growl" oncomplete="handleSubmit(args,'PreseleccionCreateDialog');"/>
+                    <p:commandButton actionListener="#{preseleccionController.create()}" value="#{bundle.Save}" update="display,:PreseleccionListForm:datalist,:growl,:cursos,:estudiantes, :proceso" oncomplete="handleSubmit(args,'PreseleccionCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PreseleccionCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
