@@ -6,6 +6,7 @@ import com.bitlab.entidades.Estudiante;
 import com.bitlab.entidades.Rol;
 import com.bitlab.manejadores.util.JsfUtil;
 import com.bitlab.manejadores.util.JsfUtil.PersistAction;
+import com.bitlab.propiedades.Encriptador;
 import com.bitlab.session.CursoFacade;
 import com.bitlab.session.EstadoSeleccionFacade;
 import com.bitlab.session.EstudianteFacade;
@@ -138,13 +139,18 @@ public class EstudianteController implements Serializable {
         selected.setEsnId(findEstadoSeleccion(1));
         selected.setAFechaCreacion(new Date());
         selected.setAUsuarioCrea("SYSTEM");
+        Encriptador encriptador = new Encriptador();
+        selected.setEsClave(encriptador.encriptador(selected.getEsClave()));
         selected.setEsCv(cvEs.getContent());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EstudianteCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    public void traerEstudiantesConEstado(Integer id)
+    {
+        items=getFacade().encontrarEstudiantesPorEstadoDeSeleccion(id);
+    }
     public void editarEstudiante(Integer student) {
         if (file.getSize() > 0 || cvEs.getSize() > 0) {
             selected = getEstudiante(student);
@@ -238,7 +244,9 @@ public class EstudianteController implements Serializable {
 
     public List<Estudiante> getEstudiantesPorCurso(int id) {
         estudiantesPorCurso = getFacade().encontrarEstudiantesPorCurso(id);
+
         flagRender = "estudiantes";
+
 
         return estudiantesPorCurso;
     }

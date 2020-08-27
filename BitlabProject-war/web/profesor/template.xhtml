@@ -43,7 +43,10 @@
     </h:head>
 
     <h:body>
-
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <h:outputText value="---CARGANDO---"/>
+        </p:dialog>
         <p:growl id="growl" life="3000" sticky="true"/>
         <p:layout fullPage="true">
             <p:layoutUnit position="south" size="60">
@@ -73,11 +76,8 @@
                                 <span class="user-name"><h:outputLabel value="#{loginController.estudiante.esNombre}"/></span>           
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                <a class="dropdown-item" href="perfil.xhtml"><i class="dw dw-user1"></i> Perfil</a>
-                                <a class="dropdown-item" href="cursos.xhtml"><i class="dw dw-edit-2"></i> Cursos</a>
-                                <a class="dropdown-item" href="tecnologias.xhtml"><i class="dw dw-browser2"></i> Tecnologias</a>
-                                <a class="dropdown-item" href="idiomas.xhtml"><i class="dw dw-invoice"></i> Idiomas</a>
-                                <a class="dropdown-item" href="record.xhtml"><i class="dw dw-analytics-21"></i> Record academico</a>
+                                <a class="dropdown-item" href="estudiantes.xhtml"><i class="dw dw-user1"></i>Estudiantes</a>                           
+                                <a class="dropdown-item" href="record.xhtml"><i class="dw dw-analytics-21"></i>Asignar record</a>
                                 <h:form>
                                     <h:commandLink action="#{loginController.cerrarSesion()}" class="nav-link collapsed" >
                                         <i class="dw dw-logout"></i> Cerrar sesion
@@ -133,40 +133,21 @@
                 <div class="menu-block customscroll" href="javascript:;">
                     <div class="sidebar-menu">
                         <ul id="accordion-menu"> 
+
                             <li>
-                                <a href="inicio.xhtml" class="dropdown-toggle no-arrow">
-                                    <span class="micon dw dw-house-1"></span><span class="mtext">Inicio</span>
-                                </a>
-                            </li>         
-                            <li>
-                                <a href="perfil.xhtml" class="dropdown-toggle no-arrow">
-                                    <span class="micon dw dw-user1"></span><span class="mtext">Perfil</span>
-                                </a>
-                            </li>         
-                            <li>
-                                <a href="cursos.xhtml" class="dropdown-toggle no-arrow">
-                                    <span class="micon dw dw-edit-2"></span><span class="mtext">Cursos</span>
-                                </a>
-                            </li>         
-                            <li>
-                                <a href="tecnologias.xhtml" class="dropdown-toggle no-arrow">
-                                    <span class="micon dw dw-browser2"></span><span class="mtext">Tecnologías</span>
-                                </a>
-                            </li>         
-                            <li>
-                                <a href="idiomas.xhtml" class="dropdown-toggle no-arrow">
-                                    <span class="micon dw dw-invoice"></span><span class="mtext">Idiomas</span>
-                                </a>
-                            </li>         
-                            <li>
-                                <a href="record.xhtml" class="dropdown-toggle no-arrow">
-                                    <span class="micon dw dw-analytics-21"></span><span class="mtext">Record Academico</span>
+                                <a href="estudiantes.xhtml" class="dropdown-toggle no-arrow">
+                                    <span class="micon dw dw-user1"></span><span class="mtext">Estudiantes</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="record.xhtml" class="dropdown-toggle no-arrow">
+                                    <span class="micon dw dw-analytics-21"></span><span class="mtext">Asignar record</span>
+                                </a>
+                            </li>   
                             <li><h:form>
-                                <h:commandLink action="#{loginController.cerrarSesion()}" class="nav-link collapsed" >
-                                    <span class="micon dw dw-logout"></span><span class="mtext">Cerrar sesion</span>
-                                </h:commandLink>
+                                    <h:commandLink action="#{loginController.cerrarSesion()}" class="nav-link collapsed" >
+                                        <span class="micon dw dw-logout"></span><span class="mtext">Cerrar sesion</span>
+                                    </h:commandLink>
                                 </h:form>
                             </li>
                         </ul>
@@ -190,12 +171,12 @@
                     </div>
                 </div>
             </div>
-
             <!-- js async="async"-->
             <script src="../resources/vendors/scripts/core.js" async="async"></script>
             <script src="../resources/vendors/scripts/script.min.js"></script>
             <script src="../resources/vendors/scripts/process.js"></script>
             <script src="../resources/vendors/scripts/layout-settings.js"></script>
+
 
 
         </p:layout>
