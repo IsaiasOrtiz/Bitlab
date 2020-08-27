@@ -35,6 +35,15 @@ public class CursoController implements Serializable {
     private List<Curso> items = null;
     private Curso selected;
     private boolean flag;
+    private String flagRender = "cursos";
+
+    public String getFlagRender() {
+        return flagRender;
+    }
+
+    public void setFlagRender(String flagRender) {
+        this.flagRender = flagRender;
+    }
 
     public boolean isFlag() {
         return flag;
@@ -189,6 +198,7 @@ public class CursoController implements Serializable {
         }
 
     }
+    
 
     /**
      * Recibe el id del estudiante que se matriculara al curso seleccionado.

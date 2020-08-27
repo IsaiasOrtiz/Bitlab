@@ -54,7 +54,7 @@ public class EstudianteController implements Serializable {
     private Estudiante selected;
     private UploadedFile file;
     private UploadedFile cvEs;
-    private boolean flagRender;
+    private String flagRender = "cursos";
     private List<Estudiante> estudiantesPorCurso = null;
 
     public EstudianteController() {
@@ -147,7 +147,10 @@ public class EstudianteController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    public void traerEstudiantesConEstado(Integer id)
+    {
+        items=getFacade().encontrarEstudiantesPorEstadoDeSeleccion(id);
+    }
     public void editarEstudiante(Integer student) {
         if (file.getSize() > 0 || cvEs.getSize() > 0) {
             selected = getEstudiante(student);
@@ -241,9 +244,16 @@ public class EstudianteController implements Serializable {
 
     public List<Estudiante> getEstudiantesPorCurso(int id) {
         estudiantesPorCurso = getFacade().encontrarEstudiantesPorCurso(id);
-        flagRender = true;
+
+        flagRender = "estudiantes";
+
 
         return estudiantesPorCurso;
+    }
+
+    public void detallePreseleccion() {
+
+        flagRender = "proceso";
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -351,12 +361,15 @@ public class EstudianteController implements Serializable {
         this.estudiantesPorCurso = estudiantesPorCurso;
     }
 
-    public boolean isFlagRender() {
+    public String getFlagRender() {
         return flagRender;
     }
 
-    public void setFlagRender(boolean flagRender) {
+    public void setFlagRender(String flagRender) {
         this.flagRender = flagRender;
     }
 
+    public void vaciarLista() {
+        estudiantesPorCurso = null;
+    }
 }

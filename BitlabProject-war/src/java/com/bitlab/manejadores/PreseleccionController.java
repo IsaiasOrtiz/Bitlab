@@ -6,6 +6,7 @@ import com.bitlab.manejadores.util.JsfUtil.PersistAction;
 import com.bitlab.session.PreseleccionFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -70,6 +71,16 @@ public class PreseleccionController implements Serializable {
     }
 
     public void create() {
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PreseleccionCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    
+    public void createPreseleccion() {
+        selected.setPrPonderacion(25);
+        selected.setAUsuarioCrea("SYSTEM");
+        selected.setAFechaCreacion(new Date());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PreseleccionCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -198,6 +209,12 @@ public class PreseleccionController implements Serializable {
 
     public void setHistorialDetalle(String historialDetalle) {
         this.historialDetalle = historialDetalle;
+    }
+    
+      
+    public String irProceso(){
+        
+        return "preseleccion.xhtml";
     }
 
 }
