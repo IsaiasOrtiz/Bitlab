@@ -42,4 +42,15 @@ public class RecordFacade extends AbstractFacade<Record> {
         }
     }
     
+    public List<Record> registrosPorCurso(int id){
+        try {
+            Query q = em.createQuery("SELECT r FROM Record r WHERE r.csId.csId = :id");
+            q.setParameter("id", id);
+
+            return q.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
 }
