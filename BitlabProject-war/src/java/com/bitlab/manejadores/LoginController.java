@@ -129,7 +129,7 @@ public class LoginController implements Serializable{
     
     public void validarEstudiante() throws IOException{
         
-        if(!validarSesion()){
+        if(estudiante.getRlId() != null){
             switch(estudiante.getRlId().getRlId()){
                 case 1:
                     JsfUtil.redireccion("index");
@@ -141,6 +141,8 @@ public class LoginController implements Serializable{
                     JsfUtil.redireccion("profesor/inicio");
                     break;
             }
+        }else{
+            JsfUtil.redireccion("login");
         }
     }
     

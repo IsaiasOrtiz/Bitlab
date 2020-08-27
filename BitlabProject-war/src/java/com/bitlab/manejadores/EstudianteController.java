@@ -252,6 +252,11 @@ public class EstudianteController implements Serializable {
 
         return estudiantesPorCurso;
     }
+    public List<Estudiante> getEstudiantePorCursoAndProceso(int id)
+    {
+     estudiantesPorCurso = getFacade().encontrarEstudiantesPorEstadoDeSeleccionAndCurso(3, id);
+     return estudiantesPorCurso;
+    }
 
     public List<Preseleccion> getDetallePreseleccion(int id) {
         Estudiante es = getFacade().find(id);
