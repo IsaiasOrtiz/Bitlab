@@ -114,11 +114,8 @@
                 <p:panel header="APLICACION DE #{preseleccionController.detallesCurso.get(0).esId.esNombre} #{preseleccionController.detallesCurso.get(0).esId.esApellido} 
                          AL #{preseleccionController.detallesCurso.get(0).csId.csNombre}" rendered="#{preseleccionController.historialDetalle eq 'detalles'}">
                     
-                    <p:dataTable id="datalist" value="#{preseleccionController.detallesCurso}" var="item"
-                                 paginator="true"
-                                 rowKey="#{item.prId}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50" rendered="#{preseleccionController.historialDetalle eq 'detalles'}"
+                    <p:dataTable id="datalist" value="#{preseleccionController.detallesCurso}" var="item" sortBy="#{item.csId.csId}"
+                                 rowKey="#{item.prId}" rendered="#{preseleccionController.historialDetalle eq 'detalles'}"
                                  >
 
                         <p:column>
@@ -145,7 +142,14 @@
                             </f:facet>
                             <h:outputText value="#{item.prComentario}"/>
                         </p:column>
-                        
+                        <p:summaryRow>
+                            <p:column>
+                                <h:outputText value="Nota Final:" />
+                            </p:column>
+                            <p:column colspan="3" style="text-align:left">
+                                <h:outputText value="#{preseleccionController.notaFinal}"/>
+                            </p:column>
+                        </p:summaryRow>
                     </p:dataTable>
                 </p:panel>
             </h:form>

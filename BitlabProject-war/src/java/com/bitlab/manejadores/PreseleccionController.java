@@ -32,6 +32,7 @@ public class PreseleccionController implements Serializable {
     private List<Preseleccion> detallesCurso = null;
     private Preseleccion selected;
     private String historialDetalle = "estudiantes";
+    private double notaFinal;
 
     public PreseleccionController() {
     }
@@ -61,6 +62,11 @@ public class PreseleccionController implements Serializable {
     
     public void detalleCurso(int idEstudiante, int idCurso){
         detallesCurso = getFacade().detallesCurso(idEstudiante, idCurso);
+
+        notaFinal = 0;
+        for(Preseleccion p:detallesCurso){
+            notaFinal = notaFinal + p.getPrNota()*(p.getPrPonderacion()/100);
+        }
         historialDetalle = "detalles";
     }
 
@@ -210,7 +216,14 @@ public class PreseleccionController implements Serializable {
     public void setHistorialDetalle(String historialDetalle) {
         this.historialDetalle = historialDetalle;
     }
-    
+
+    public double getNotaFinal() {
+        return notaFinal;
+    }
+
+    public void setNotaFinal(double notaFinal) {
+        this.notaFinal = notaFinal;
+    }
       
     public String irProceso(){
         

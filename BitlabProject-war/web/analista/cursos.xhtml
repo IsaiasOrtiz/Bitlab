@@ -47,8 +47,10 @@
                                                     <h:outputLabel value="Estado: Activo" rendered="#{curso.csEstado == true}" /> 
                                                     <h:outputLabel value="Estado: Inactivo" rendered="#{curso.csEstado == false}" /> 
                                                     <h:outputLabel value="#{curso.csId}"/> 
-                                                    <p:commandButton class="btn btn-primary" id="createButton" update=":cursos,:estudiantes, :proceso" 
+                                                    <p:commandButton id="createButton" update=":cursos,:estudiantes, :proceso" 
                                                                      value="Ver Aspirantes" action="#{estudianteController.getEstudiantesPorCurso(curso.csId)}"/>
+                                                    <p:commandButton id="cambiarEstadoButton" update=":cursos,:estudiantes, :proceso" 
+                                                                     value="Cambiar Estado" action="#{cursoController.cambiarEstado(curso)}"/>
                                                 </h:panelGrid>
                                                 <br></br>
 
@@ -76,13 +78,13 @@
                                      rows="10"
                                      rowsPerPageTemplate="10,20,30,40,50" rendered="#{estudianteController.flagRender eq 'estudiantes'}"
                                      >
-                            <p:column colspan="1">
+                            <p:column colspan="1" style="text-align: center">
                                 <f:facet name="header">
                                     <h:outputText value="Foto"/>
                                 </f:facet>
                                 <div class="user-info-dropdown">
                                     <span class="user-icon" style="overflow:hidden">
-                                        <p:graphicImage value="#{estudianteController.imagen(item.esFoto)}"  stream="false"/>
+                                        <p:graphicImage value="#{estudianteController.imagen(item.esFoto)}" style="border-radius: 50px; width: 75%; height: 75%" stream="false"/>
                                     </span>
                                 </div>
                             </p:column>

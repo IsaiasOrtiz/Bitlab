@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 @Named("loginController")
@@ -32,34 +33,39 @@ public class LoginController implements Serializable{
         estudiante = new Estudiante();
         flagCodigo = false;
         codigo = 0;
+        numero = 1;
     }
     
     public void validarUsuario() throws IOException{
         Estudiante estudianteRegistrado = ejbFacade.encontrarUsuario(estudiante);
         
         if(estudianteRegistrado != null){
-            if(estudiante.getEsClave().equals(encriptador.desencriptador(estudianteRegistrado.getEsClave()))){
-                estudiante = estudianteRegistrado;
-                if(flagEstudiante){
-                    if(estudiante.getRlId().getRlId() == 2){
-                        JsfUtil.redireccion("principal/inicio");
+            try {
+                if(estudiante.getEsClave().equals(encriptador.desencriptador(estudianteRegistrado.getEsClave()))){
+                    estudiante = estudianteRegistrado;
+                    if(flagEstudiante){
+                        if(estudiante.getRlId().getRlId() == 2){
+                            JsfUtil.redireccion("principal/inicio");
+                        }
+                        else{
+                            JsfUtil.addErrorMessage("No eres estudiante");
+                        }
                     }
                     else{
-                        JsfUtil.addErrorMessage("No eres estudiante");
+                        if(estudiante.getRlId().getRlId() != 2){
+                            mandarCorreo();
+                        }
+                        else{
+                            JsfUtil.addErrorMessage("No eres empleado");
+                        }
                     }
+
                 }
                 else{
-                    if(estudiante.getRlId().getRlId() != 2){
-                        mandarCorreo();
-                    }
-                    else{
-                        JsfUtil.addErrorMessage("No eres empleado");
-                    }
+                    JsfUtil.addErrorMessage("Contraseña incorrecta");
                 }
-                
-            }
-            else{
-                JsfUtil.addErrorMessage("Contraseña incorrecta");
+            } catch (Exception e) {
+                JsfUtil.addErrorMessage("Contraseña no se puede desencriptar");
             }
         }
         else{
@@ -82,10 +88,12 @@ public class LoginController implements Serializable{
             if(estudiante.getRlId().getRlId() == 1){
                 JsfUtil.redireccion("index");
             }
-//            else if(usuarioEncontrado.getRolId().getRolId() == 3){
-//                avisoPagoPlanilla();
-//                Utilidades.redireccion("catalogos/usuario");
-//            }
+            else if(estudiante.getRlId().getRlId() == 3){
+                JsfUtil.redireccion("analista/inicio");
+            }
+            else if(estudiante.getRlId().getRlId() == 4){
+                JsfUtil.redireccion("profesor/inicio");
+            }
             flagCodigo = false;
         }
         else{
@@ -94,17 +102,86 @@ public class LoginController implements Serializable{
     }
     
     //Valida la sesión del usuario, negando el acceso al sistema si aun no ha iniciado sesión
-    public void validarSesion() throws IOException{
+    public boolean validarSesion() throws IOException{
+        boolean sinSesion = false;
         if(estudiante.getRlId() == null || numero != codigo){
             cerrarSesion();
-            JsfUtil.redireccion("login");
+            sinSesion = true;
+        }
+        return sinSesion;
+    }
+    
+    public void validarAdmin() throws IOException{
+        if(!validarSesion()){
+            switch(estudiante.getRlId().getRlId()){
+                case 2:
+                    JsfUtil.redireccion("principal/inicio");
+                    break;
+                case 3:
+                    JsfUtil.redireccion("analista/inicio");
+                    break;
+                case 4:
+                    JsfUtil.redireccion("profesor/inicio");
+                    break;
+            }
         }
     }
     
-    public void cerrarSesion(){
+    public void validarEstudiante() throws IOException{
+        
+        if(!validarSesion()){
+            switch(estudiante.getRlId().getRlId()){
+                case 1:
+                    JsfUtil.redireccion("index");
+                    break;
+                case 3:
+                    JsfUtil.redireccion("analista/inicio");
+                    break;
+                case 4:
+                    JsfUtil.redireccion("profesor/inicio");
+                    break;
+            }
+        }
+    }
+    
+    public void validarAnalista() throws IOException{
+        if(!validarSesion()){
+            switch(estudiante.getRlId().getRlId()){
+                case 1:
+                    JsfUtil.redireccion("principal/inicio");
+                    break;
+                case 2:
+                    JsfUtil.redireccion("principal/inicio");
+                    break;
+                case 4:
+                    JsfUtil.redireccion("profesor/inicio");
+                    break;
+            }
+        }
+    }
+    
+    public void validarProfesor() throws IOException{
+        if(!validarSesion()){
+            switch(estudiante.getRlId().getRlId()){
+                case 1:
+                    JsfUtil.redireccion("index");
+                    break;
+                case 2:
+                    JsfUtil.redireccion("principal/inicio");
+                    break;
+                case 3:
+                    JsfUtil.redireccion("analista/inicio");
+                    break;
+            }
+        }
+    }
+    
+    public void cerrarSesion() throws IOException{
         estudiante = new Estudiante();
         flagCodigo = false;
         codigo = 0;
+        numero = 1;
+        JsfUtil.redireccion("login");
     }
 
     public EstudianteFacade getEjbFacade() {

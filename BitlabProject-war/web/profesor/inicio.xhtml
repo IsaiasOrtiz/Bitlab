@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <ui:define name="title">
+                <h:outputText value="Bitlab - Inicio"></h:outputText>
+            </ui:define>
+
+            <ui:define name="body">
+
+                <div class="row align-items-center">
+                    <div class="col-md-4">
+                        <img src="../resources/vendors/images/banner-img.png" alt=""/>
+                    </div>
+                    <div class="col-md-8">
+                        <h4 class="font-20 weight-500 mb-10 text-capitalize">
+                            Bienvenido #{loginController.estudiante.esNombre} <div class="weight-600 font-30 text-blue">Bitlab Skills Academy</div>
+                        </h4>
+                        <p class="font-18 max-width-600">Somos una academia de entrenamiento tecnológico orientada a desarrollar las habilidades necesarias para un trabajo en la industria tecnológica. Nuestros programas están orientados a aprender con proyectos reales y han sido creados por líderes de la industria.</p>
+                        <a href="https://bitlab.edu.sv/" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-next"></span><span class="mtext">Conoce mas sobre nosotros</span>
+                        </a>
+                    </div>
+                </div>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
