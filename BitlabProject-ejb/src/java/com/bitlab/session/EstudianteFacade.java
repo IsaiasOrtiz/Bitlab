@@ -63,7 +63,16 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
             return null;
         }
     }
-
+    public List<Estudiante> encontrarEstudiantesPorEstadoDeSeleccionAndCurso(Integer id, Integer idc) {
+        try {
+            Query q = em.createQuery("SELECT e FROM Estudiante e WHERE e.esnId.esnId  = :id AND e.csId.csId = :idC");
+            q.setParameter("id", id);
+            q.setParameter("idC", idc);
+            return q.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
     public List<Estudiante> encontrarEstudiantesPorCurso(int id) {
         try {
             Query q = em.createQuery("SELECT e FROM Estudiante e WHERE e.csId.csId = :id");

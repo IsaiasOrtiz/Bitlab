@@ -9,6 +9,7 @@
                 
             </ui:define>
             <ui:define name="menu">
+                <f:event listener="#{loginController.validarEstudiante()}" type="preRenderView"/>
                 <li>
                     <a href="inicio.xhtml" class="dropdown-toggle no-arrow">
                         <span class="micon dw dw-house-1"></span><span class="mtext">Inicio</span>

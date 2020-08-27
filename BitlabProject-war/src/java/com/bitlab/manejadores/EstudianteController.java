@@ -252,6 +252,11 @@ public class EstudianteController implements Serializable {
         flagRender = "estudiantes";
         return estudiantesPorCurso;
     }
+    public List<Estudiante> getEstudiantePorCursoAndProceso(int id)
+    {
+     estudiantesPorCurso = getFacade().encontrarEstudiantesPorEstadoDeSeleccionAndCurso(3, id);
+     return estudiantesPorCurso;
+    }
 
     /*Metodo para obtener el listado de preseleccion por curso de los estudiantes*/
     public List<Preseleccion> getDetallePreseleccion(int id) {
