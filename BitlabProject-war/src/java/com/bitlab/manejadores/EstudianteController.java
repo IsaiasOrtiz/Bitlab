@@ -58,6 +58,7 @@ public class EstudianteController implements Serializable {
     private String flagRender = "cursos";
     private List<Estudiante> estudiantesPorCurso = null;
     private List<Preseleccion> preseleccionDetalle = null;
+    private Curso curso = new Curso();
 
     public EstudianteController() {
     }
@@ -244,19 +245,21 @@ public class EstudianteController implements Serializable {
         return soloEstudiantes;
     }
 
+    /*Metodo para obtener los estudiantes por curso*/
     public List<Estudiante> getEstudiantesPorCurso(int id) {
         estudiantesPorCurso = getFacade().encontrarEstudiantesPorCurso(id);
-
+        curso = cursoFacade.find(id);
         flagRender = "estudiantes";
-
-
         return estudiantesPorCurso;
     }
 
+    /*Metodo para obtener el listado de preseleccion por curso de los estudiantes*/
     public List<Preseleccion> getDetallePreseleccion(int id) {
-        Estudiante es = getFacade().find(id);
-        Curso cs = es.getCsId();
+        selected  = getFacade().find(id);
+        Curso cs = selected.getCsId();
         preseleccionDetalle = getFacade().detallePreseleccion(id,cs.getCsId());
+        
+        curso = cs;
         
         flagRender = "proceso";
         
@@ -386,6 +389,14 @@ public class EstudianteController implements Serializable {
 
     public void setPreseleccionDetalle(List<Preseleccion> preseleccionDetalle) {
         this.preseleccionDetalle = preseleccionDetalle;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
     
     

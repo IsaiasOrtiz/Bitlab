@@ -1,8 +1,12 @@
 package com.bitlab.manejadores;
 
+import com.bitlab.entidades.Curso;
+import com.bitlab.entidades.Estudiante;
 import com.bitlab.entidades.Preseleccion;
 import com.bitlab.manejadores.util.JsfUtil;
 import com.bitlab.manejadores.util.JsfUtil.PersistAction;
+import com.bitlab.session.CursoFacade;
+import com.bitlab.session.EstudianteFacade;
 import com.bitlab.session.PreseleccionFacade;
 
 import java.io.Serializable;
@@ -25,6 +29,10 @@ import javax.faces.view.ViewScoped;
 @ViewScoped
 public class PreseleccionController implements Serializable {
 
+    @EJB
+    private CursoFacade cursoFacade;
+    @EJB
+    private EstudianteFacade estudianteFacade;
     @EJB
     private com.bitlab.session.PreseleccionFacade ejbFacade;
     private List<Preseleccion> items = null;
@@ -54,35 +62,40 @@ public class PreseleccionController implements Serializable {
     private PreseleccionFacade getFacade() {
         return ejbFacade;
     }
-    
-    public void aplicaciones(int idEstudiante){
+
+    public void aplicaciones(int idEstudiante) {
         cursosAplicados = getFacade().cursosAplicadosPorEstudiante(idEstudiante);
         historialDetalle = "cursos";
     }
-    
-    public void detalleCurso(int idEstudiante, int idCurso){
+
+    public void detalleCurso(int idEstudiante, int idCurso) {
         detallesCurso = getFacade().detallesCurso(idEstudiante, idCurso);
 
         notaFinal = 0;
-        for(Preseleccion p:detallesCurso){
-            notaFinal = notaFinal + p.getPrNota()*(p.getPrPonderacion()/100);
+        for (Preseleccion p : detallesCurso) {
+            notaFinal = notaFinal + p.getPrNota() * (p.getPrPonderacion() / 100);
         }
         historialDetalle = "detalles";
     }
 
-    public Preseleccion prepareCreate() {
+    public Preseleccion prepareCreate(int esId, int csId) {
         selected = new Preseleccion();
+        selected.setCsId(findCurso(csId));
+        selected.setEsId(findEstudiante(esId));
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
+        selected.setPrPonderacion(25);
+        selected.setAUsuarioCrea("SYSTEM");
+        selected.setAFechaCreacion(new Date());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PreseleccionCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
+
     public void createPreseleccion() {
         selected.setPrPonderacion(25);
         selected.setAUsuarioCrea("SYSTEM");
@@ -150,6 +163,10 @@ public class PreseleccionController implements Serializable {
 
     public List<Preseleccion> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    private Estudiante findEstudiante(int id) {
+        return getEstudianteFacade().find(id);
     }
 
     @FacesConverter(forClass = Preseleccion.class)
@@ -224,10 +241,21 @@ public class PreseleccionController implements Serializable {
     public void setNotaFinal(double notaFinal) {
         this.notaFinal = notaFinal;
     }
-      
-    public String irProceso(){
-        
+
+    public String irProceso() {
+
         return "preseleccion.xhtml";
     }
 
+    public Curso findCurso(Integer id) {
+        return getCursoFacade().find(id);
+    }
+
+    public CursoFacade getCursoFacade() {
+        return cursoFacade;
+    }
+
+    public EstudianteFacade getEstudianteFacade() {
+        return estudianteFacade;
+    }
 }
