@@ -26,7 +26,10 @@ import javax.faces.view.ViewScoped;
 @Named("intermediacionLaboralController")
 @ViewScoped
 public class IntermediacionLaboralController implements Serializable {
-
+    
+    @EJB
+    private com.bitlab.session.EstudianteFacade estudianteFacade;
+    
     @EJB
     private com.bitlab.session.IntermediacionLaboralFacade ejbFacade;
     private List<IntermediacionLaboral> items = null;
@@ -65,6 +68,9 @@ public class IntermediacionLaboralController implements Serializable {
     }
     
     public void agregarIntermediacion(Estudiante idEstudiante, boolean accion){
+        idEstudiante.setEsLaborando(true);
+        estudianteFacade.edit(idEstudiante);
+        
         selected = new IntermediacionLaboral();
         selected.setEsId(idEstudiante);
         selected.setAUsuarioCrea("oscarT");
@@ -78,6 +84,10 @@ public class IntermediacionLaboralController implements Serializable {
     public void eliminarIntermediacion(IntermediacionLaboral i, int idCurso){
         selected = new IntermediacionLaboral();
         selected = i;
+        
+        Estudiante estudiante = selected.getEsId();
+        estudiante.setEsLaborando(false);
+        estudianteFacade.edit(estudiante);
         
         destroy();
         laborandoPorCurso(idCurso);

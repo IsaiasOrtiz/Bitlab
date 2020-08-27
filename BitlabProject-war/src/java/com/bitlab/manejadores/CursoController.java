@@ -79,6 +79,18 @@ public class CursoController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    
+    public void cambiarEstado(Curso curso) {
+        selected = curso;
+        
+        if(selected.getCsEstado()){
+            selected.setCsEstado(false);
+        }
+        else{
+            selected.setCsEstado(true);
+        }
+        update();
+    }
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CursoCreated"));

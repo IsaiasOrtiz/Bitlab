@@ -6,6 +6,7 @@ import com.bitlab.manejadores.util.JsfUtil.PersistAction;
 import com.bitlab.session.EstadoIntermedicacionFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -51,6 +52,8 @@ public class EstadoIntermedicacionController implements Serializable {
 
     public EstadoIntermedicacion prepareCreate() {
         selected = new EstadoIntermedicacion();
+        selected.setAFechaCreacion(new Date());
+        selected.setAUsuarioCrea("SYSTEM");
         initializeEmbeddableKey();
         return selected;
     }

@@ -2,204 +2,52 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <h:head>
-        <title><ui:insert name="title">Default Title</ui:insert></title>
-        <h:outputStylesheet library="css" name="jsfcrud.css"/>
-        <h:outputScript library="js" name="jsfcrud.js"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-        <meta name="apple-mobile-web-app-capable" content="yes"/>
-        <!-- Site favicon -->
-        <link rel="apple-touch-icon" sizes="180x180" href="../resources/img/favicon.png"/>
-        <link rel="icon" type="image/png" sizes="32x32" href="../resources/img/favicon.png"/>
-        <link rel="icon" type="image/png" sizes="16x16" href="../resources/img/favicon.png"/>
-
-        <!-- Mobile Specific Metas -->
-
-
-        <!-- Google Font -->
-
-        <!-- CSS -->
-        <link rel="stylesheet" type="text/css" href="../resources/vendors/styles/core.css"/>
-        <link rel="stylesheet" type="text/css" href="../resources/vendors/styles/icon-font.min.css"/>
-        <link rel="stylesheet" type="text/css" href="../resources/vendors/styles/style.css"/>
-
-
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag('js', new Date());
-
-            gtag('config', 'UA-119386393-1');
-        </script>
-    </h:head>
-
-    <h:body>
-
-        <p:growl id="growl" life="3000" sticky="true"/>
-        <p:layout fullPage="true">
-            <p:layoutUnit position="south" size="60">
-                <ui:insert name="footer"/>
-            </p:layoutUnit>
-            <div class="header">
-                <div class="header-left">
-                    <div class="menu-icon dw dw-menu"></div>
-                    <div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
-                    <div class="header-search">
-                    </div>
-                </div>
-                <div class="header-right">
-                    <div class="dashboard-setting user-notification">
-                        <div class="dropdown">
-                            <a class="dropdown-toggle no-arrow" href="javascript:;" data-toggle="right-sidebar">
-                                <i class="dw dw-settings2"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="user-info-dropdown">
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                <span class="user-icon" style="overflow:hidden">
-                                    <p:graphicImage value="#{estudianteController.imagen(loginController.estudiante.esFoto)}"  stream="false"/>
-                                </span>
-                                <span class="user-name"><h:outputLabel value="#{loginController.estudiante.esNombre}"/></span>           
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                <a class="dropdown-item" href="perfil.xhtml"><i class="dw dw-user1"></i> Perfil</a>
-                                <a class="dropdown-item" href="cursos.xhtml"><i class="dw dw-edit-2"></i> Cursos</a>
-                                <a class="dropdown-item" href="tecnologias.xhtml"><i class="dw dw-browser2"></i> Tecnologias</a>
-                                <a class="dropdown-item" href="idiomas.xhtml"><i class="dw dw-invoice"></i> Idiomas</a>
-                                <a class="dropdown-item" href="record.xhtml"><i class="dw dw-analytics-21"></i> Record academico</a>
-                                <h:form>
-                                    <h:commandLink action="#{loginController.cerrarSesion()}" class="nav-link collapsed" >
-                                        <i class="dw dw-logout"></i> Cerrar sesion
-                                    </h:commandLink>
-                                </h:form>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="right-sidebar">
-                <div class="sidebar-title">
-                    <h3 class="weight-600 font-16 text-blue">
-                        Opciones de diseño
-                        <span class="btn-block font-weight-400 font-12">Configuración de la interfaz de usuario</span>
-                    </h3>
-                    <div class="close-sidebar" data-toggle="right-sidebar-close">
-                        <i class="icon-copy ion-close-round"></i>
-                    </div>
-                </div>
-                <div class="right-sidebar-body customscroll">
-                    <div class="right-sidebar-body-content">
-                        <h4 class="weight-600 font-18 pb-10">Color del encabezado</h4>
-                        <div class="sidebar-btn-group pb-30 mb-10">
-                            <a href="javascript:void(0);" class="btn btn-outline-primary header-white active">Claro</a>
-                            <a href="javascript:void(0);" class="btn btn-outline-primary header-dark">Oscuro</a>
-                        </div>
-
-                        <h4 class="weight-600 font-18 pb-10">Color del menu</h4>
-                        <div class="sidebar-btn-group pb-30 mb-10">
-                            <a href="javascript:void(0);" class="btn btn-outline-primary sidebar-light ">Claro</a>
-                            <a href="javascript:void(0);" class="btn btn-outline-primary sidebar-dark active">Oscuro</a>
-                        </div>
-                        <div class="reset-options pt-30 text-center">
-                            <button class="btn btn-danger" id="reset-settings">Restaurar configuracion</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="left-side-bar">
-                <div class="brand-logo">
-                    <a href="inicio.xhtml">
-                        <img src="../resources/img/logWhite.png" alt="" class="dark-logo"/>
-                        <img src="../resources/img/logFinal.png" alt="" class="light-logo"/>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="validacion">
+                
+            </ui:define>
+            <ui:define name="menu">
+                <li>
+                    <a href="inicio.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-house-1"></span><span class="mtext">Inicio</span>
                     </a>
-                    <div class="close-sidebar" data-toggle="left-sidebar-close">
-                        <i class="ion-close-round"></i>
-                    </div>
-                </div>
-                <!-- Menu bar --> 
-                <div class="menu-block customscroll" href="javascript:;">
-                    <div class="sidebar-menu">
-                        <ul id="accordion-menu"> 
-                            <li>
-                                <a href="inicio.xhtml" class="dropdown-toggle no-arrow">
-                                    <span class="micon dw dw-house-1"></span><span class="mtext">Inicio</span>
-                                </a>
-                            </li>         
-                            <li>
-                                <a href="perfil.xhtml" class="dropdown-toggle no-arrow">
-                                    <span class="micon dw dw-user1"></span><span class="mtext">Perfil</span>
-                                </a>
-                            </li>         
-                            <li>
-                                <a href="cursos.xhtml" class="dropdown-toggle no-arrow">
-                                    <span class="micon dw dw-edit-2"></span><span class="mtext">Cursos</span>
-                                </a>
-                            </li>         
-                            <li>
-                                <a href="tecnologias.xhtml" class="dropdown-toggle no-arrow">
-                                    <span class="micon dw dw-browser2"></span><span class="mtext">Tecnologías</span>
-                                </a>
-                            </li>         
-                            <li>
-                                <a href="idiomas.xhtml" class="dropdown-toggle no-arrow">
-                                    <span class="micon dw dw-invoice"></span><span class="mtext">Idiomas</span>
-                                </a>
-                            </li>         
-                            <li>
-                                <a href="record.xhtml" class="dropdown-toggle no-arrow">
-                                    <span class="micon dw dw-analytics-21"></span><span class="mtext">Record Academico</span>
-                                </a>
-                            </li>
-                            <li><h:form>
-                                <h:commandLink action="#{loginController.cerrarSesion()}" class="nav-link collapsed" >
-                                    <span class="micon dw dw-logout"></span><span class="mtext">Cerrar sesion</span>
-                                </h:commandLink>
-                                </h:form>
-                            </li>
-                        </ul>
-
-                    </div>
-                </div>
-                <!-- Final menu bar --> 
-            </div>
-            <div class="mobile-menu-overlay"></div>
-
-            <div class="main-container">
-                <div class="pd-ltr-20 xs-pd-20-10">
-                    <div class="min-height-200px">
-
-                        <div class="pd-20 bg-white border-radius-4 box-shadow mb-30">
-                            <ui:insert name="body"/>
-                        </div>
-                    </div>
-                    <div class="footer-wrap pd-20 mb-20 card-box">
-                        Bitlab
-                    </div>
-                </div>
-            </div>
-
-            <!-- js async="async"-->
-            <script src="../resources/vendors/scripts/core.js" async="async"></script>
-            <script src="../resources/vendors/scripts/script.min.js"></script>
-            <script src="../resources/vendors/scripts/process.js"></script>
-            <script src="../resources/vendors/scripts/layout-settings.js"></script>
-
-
-        </p:layout>
-
-    </h:body>
+                </li>         
+                <li>
+                    <a href="perfil.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-user1"></span><span class="mtext">Perfil</span>
+                    </a>
+                </li>         
+                <li>
+                    <a href="cursos.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-edit-2"></span><span class="mtext">Cursos</span>
+                    </a>
+                </li>         
+                <li>
+                    <a href="tecnologias.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-browser2"></span><span class="mtext">Tecnologías</span>
+                    </a>
+                </li>         
+                <li>
+                    <a href="idiomas.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-invoice"></span><span class="mtext">Idiomas</span>
+                    </a>
+                </li>         
+                <li>
+                    <a href="record.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-analytics-21"></span><span class="mtext">Record Academico</span>
+                    </a>
+                </li>
+            </ui:define>
+            
+            <ui:define name="menu2">
+                <a class="dropdown-item" href="perfil.xhtml"><i class="dw dw-user1"></i> Perfil</a>
+                <a class="dropdown-item" href="cursos.xhtml"><i class="dw dw-edit-2"></i> Cursos</a>
+                <a class="dropdown-item" href="tecnologias.xhtml"><i class="dw dw-browser2"></i> Tecnologias</a>
+                <a class="dropdown-item" href="idiomas.xhtml"><i class="dw dw-invoice"></i> Idiomas</a>
+                <a class="dropdown-item" href="record.xhtml"><i class="dw dw-analytics-21"></i> Record academico</a>
+            </ui:define>
+        </ui:composition>
 
 </html>

@@ -45,7 +45,7 @@
                             <h:outputText value="#{es.csId.csNombre}"/>
                         </p:column>
                         <p:column headerText="Record">
-                            <p:commandButton value="Aignar" actionListener="#{recordController.asignarRecordAcademico(es, loginController.estudiante.esNombre)}" update=":formEstudiantesCurso" rendered="#{es.csId.csId != 3}"/>
+                            <p:commandButton value="Asignar" actionListener="#{recordController.asignarRecordAcademico(es, loginController.estudiante.esNombre)}" update=":formEstudiantesCurso" rendered="#{es.csId.csId != 3}"/>
                             <p:commandButton value="No se puede asignar" rendered="#{es.csId.csId == 3}"/>
                         </p:column>
                     </p:dataTable>

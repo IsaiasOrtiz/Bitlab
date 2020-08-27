@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/principal/template.xhtml">
+    <ui:composition template="template.xhtml">
 
 
         <ui:define name="title">
@@ -27,13 +27,13 @@
                             <p:rowToggler />
                         </p:column>
 
-                        <p:column colspan="1">
+                        <p:column colspan="1" style="text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="Foto"/>
                             </f:facet>
                             <div class="user-info-dropdown">
                                 <span class="user-icon" style="overflow:hidden">
-                                    <p:graphicImage value="#{estudianteController.imagen(item.esFoto)}"  stream="false"/>
+                                    <p:graphicImage value="#{estudianteController.imagen(item.esFoto)}" style="border-radius: 50px; width: 75%; height: 75%" stream="false"/>
                                 </span>
                             </div>
                         </p:column>
