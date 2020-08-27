@@ -53,7 +53,7 @@ public class EstudianteController implements Serializable {
     private Estudiante selected;
     private UploadedFile file;
     private UploadedFile cvEs;
-    private boolean flagRender;
+    private String flagRender = "cursos";
     private List<Estudiante> estudiantesPorCurso = null;
 
     public EstudianteController() {
@@ -86,14 +86,15 @@ public class EstudianteController implements Serializable {
     public void setRolFacade(RolFacade rolFacade) {
         this.rolFacade = rolFacade;
     }
-    public EstadoSeleccion findEstadoSeleccion(Integer id)
-    {
-    return getEstadoSeleccionFacade().find(id);
+
+    public EstadoSeleccion findEstadoSeleccion(Integer id) {
+        return getEstadoSeleccionFacade().find(id);
     }
-    public Curso findCurso(Integer id)
-    {
+
+    public Curso findCurso(Integer id) {
         return getCursoFacade().find(id);
     }
+
     public Rol findRol(Integer id) {
         return getRolFacade().find(id);
     }
@@ -234,12 +235,17 @@ public class EstudianteController implements Serializable {
         }
         return soloEstudiantes;
     }
-    
-   public List<Estudiante> getEstudiantesPorCurso(int id){
+
+    public List<Estudiante> getEstudiantesPorCurso(int id) {
         estudiantesPorCurso = getFacade().encontrarEstudiantesPorCurso(id);
-        flagRender = true;
-        
+        flagRender = "estudiantes";
+
         return estudiantesPorCurso;
+    }
+
+    public void detallePreseleccion() {
+
+        flagRender = "proceso";
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -338,7 +344,7 @@ public class EstudianteController implements Serializable {
         }
 
     }
-    
+
     public List<Estudiante> getEstudiantesPorCurso() {
         return estudiantesPorCurso;
     }
@@ -347,12 +353,15 @@ public class EstudianteController implements Serializable {
         this.estudiantesPorCurso = estudiantesPorCurso;
     }
 
-    public boolean isFlagRender() {
+    public String getFlagRender() {
         return flagRender;
     }
 
-    public void setFlagRender(boolean flagRender) {
+    public void setFlagRender(String flagRender) {
         this.flagRender = flagRender;
     }
 
+    public void vaciarLista() {
+        estudiantesPorCurso = null;
+    }
 }
