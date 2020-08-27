@@ -19,7 +19,7 @@
                         <p:dataViewGridItem>
                             <p:panel header="#{curso.csNombre}" style="text-align:center">
                                 <h:panelGrid columns="1" style="width:100%">  
-                                    <p:commandButton value="Ver estudiantes"  update=":estudiantes, :form" actionListener="#{estudianteController.getEstudiantesPorCurso(curso.csId)}"/>
+                                    <p:commandButton value="Ver estudiantes"  update=":estudiantes, :form" actionListener="#{estudianteController.getEstudiantePorCursoAndProceso(curso.csId)}"/>
                                 </h:panelGrid>
                             </p:panel>
                         </p:dataViewGridItem>
