@@ -72,7 +72,7 @@ and open the template in the editor.
 
                             <div class="p-field p-col-12">
                                 <p:outputLabel for="file" value="Subir foto de perfil" /><br/>
-                                <p:fileUpload id="file" value="#{estudianteController.file}" mode="simple" skinSimple="true"/>
+                                <p:fileUpload id="file" value="#{estudianteController.file}"  accept="image/*" mode="simple" skinSimple="true"/>
                             </div>
                             <div class="p-field p-col-12 p-md-6">
                                 <p:outputLabel for="dui" value="DUI" />
@@ -130,7 +130,7 @@ and open the template in the editor.
                             </div>
                             <div class="p-field p-col-12">
                                 <p:outputLabel for="file2" value="Sube tu Hoja de vida (CV)" /><br/>
-                                <p:fileUpload id="file2" value="#{estudianteController.cvEs}" mode="simple" skinSimple="true"/>
+                                <p:fileUpload id="file2" value="#{estudianteController.cvEs}" mode="simple" accept="application/pdf" skinSimple="true"/>
                             </div>
                             <div class="p-field p-col-12 p-md-6">
                                 <p:outputLabel for="asp" value="¿Cuales son sus aspiraciones?"  class="form-control" />
