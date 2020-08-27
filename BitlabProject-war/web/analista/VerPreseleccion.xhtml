@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PreseleccionViewDlg" widgetVar="PreseleccionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPreseleccionTitle}">
+            <h:form id="PreseleccionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{preseleccionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPreseleccionLabel_prId}"/>
+                        <h:outputText value="#{preseleccionController.selected.prId}" title="#{bundle.ViewPreseleccionTitle_prId}"/>
+                        <h:outputText value="#{bundle.ViewPreseleccionLabel_prNombre}"/>
+                        <h:outputText value="#{preseleccionController.selected.prNombre}" title="#{bundle.ViewPreseleccionTitle_prNombre}"/>
+                        <h:outputText value="#{bundle.ViewPreseleccionLabel_prNota}"/>
+                        <h:outputText value="#{preseleccionController.selected.prNota}" title="#{bundle.ViewPreseleccionTitle_prNota}"/>
+                        <h:outputText value="#{bundle.ViewPreseleccionLabel_prPonderacion}"/>
+                        <h:outputText value="#{preseleccionController.selected.prPonderacion}" title="#{bundle.ViewPreseleccionTitle_prPonderacion}"/>
+                        <h:outputText value="#{bundle.ViewPreseleccionLabel_prComentario}"/>
+                        <h:outputText value="#{preseleccionController.selected.prComentario}" title="#{bundle.ViewPreseleccionTitle_prComentario}"/>
+                        <h:outputText value="#{bundle.ViewPreseleccionLabel_AUsuarioCrea}"/>
+                        <h:outputText value="#{preseleccionController.selected.AUsuarioCrea}" title="#{bundle.ViewPreseleccionTitle_AUsuarioCrea}"/>
+                        <h:outputText value="#{bundle.ViewPreseleccionLabel_AFechaModificacion}"/>
+                        <h:outputText value="#{preseleccionController.selected.AFechaModificacion}" title="#{bundle.ViewPreseleccionTitle_AFechaModificacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPreseleccionLabel_AFechaCreacion}"/>
+                        <h:outputText value="#{preseleccionController.selected.AFechaCreacion}" title="#{bundle.ViewPreseleccionTitle_AFechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPreseleccionLabel_AUsuarioModifica}"/>
+                        <h:outputText value="#{preseleccionController.selected.AUsuarioModifica}" title="#{bundle.ViewPreseleccionTitle_AUsuarioModifica}"/>
+                        <h:outputText value="#{bundle.ViewPreseleccionLabel_csId}"/>
+                        <h:outputText value="#{preseleccionController.selected.csId}" title="#{bundle.ViewPreseleccionTitle_csId}"/>
+                        <h:outputText value="#{bundle.ViewPreseleccionLabel_esId}"/>
+                        <h:outputText value="#{preseleccionController.selected.esId}" title="#{bundle.ViewPreseleccionTitle_esId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PreseleccionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

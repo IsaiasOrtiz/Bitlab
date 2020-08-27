@@ -7,18 +7,6 @@
       xmlns:p="http://primefaces.org/ui">
 
 
-    <!-- Site favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="../resources/vendors/images/apple-touch-icon.png"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="../resources/vendors/images/favicon-32x32.png"/>
-    <link rel="icon" type="image/png" sizes="16x16" href="../resources/vendors/images/favicon-16x16.png"/>
-
-    <!-- Mobile Specific Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-
-    <link rel="stylesheet" type="text/css" href="../resources/plugins/jquery-steps/jquery.steps.css"/>
-    <link rel="stylesheet" type="text/css" href="../resources/vendors/styles/style.css"/>
-
     <ui:composition template="/principal/template.xhtml">
 
 
@@ -143,7 +131,7 @@
                                     <h:outputText value="Acción"/>
                                 </f:facet>
                                 <p:commandButton id="createButton" update=":cursos,:estudiantes, :proceso"  value="Ver Proceso"
-                                                 actionListener="#{estudianteController.detallePreseleccion()}"/>
+                                                 actionListener="#{estudianteController.getDetallePreseleccion(item.esId)}"/>
                             </p:column>
                         </p:dataTable>
                     </p:panel>
@@ -153,162 +141,83 @@
 
 
             <h:panelGroup id="proceso">
-                <h:form><p:commandButton id="createButton" update=":cursos, :estudiantes, :proceso" value="Regresar" rendered="#{estudianteController.flagRender eq 'proceso'}" class="mb-5">
+                <h:form>
+                    <p:commandButton id="createButton" update=":cursos, :estudiantes, :proceso" value="Regresar" rendered="#{estudianteController.flagRender eq 'proceso'}" class="mb-5">
                         <f:setPropertyActionListener value="estudiantes" target="#{estudianteController.flagRender}"/>
                     </p:commandButton>
                 </h:form>
-                <p:panel class="tab-wizard wizard-circle wizard" header="Proceso de Seleccion" 
-                         rendered="#{estudianteController.flagRender eq 'proceso'}">
+                <h:form id="PreseleccionListForm">
+                    <p:panel class="tab-wizard wizard-circle wizard" header="Proceso de Seleccion para" 
+                             rendered="#{estudianteController.flagRender eq 'proceso'}">
 
 
-                    <div class="pd-20 card-box mb-30" rendered="#{estudianteController.flagRender eq 'proceso'}">
-                        <div class="clearfix">
-                            <h4 class="text-blue h4">Proceso de Selección</h4>
-                            <p class="mb-30"></p>
-                        </div>
+                        <p:dataTable id="datalist" value="#{estudianteController.preseleccionDetalle}" var="item"
+                                     selectionMode="single" selection="#{preseleccionController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.prId}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
 
-                        <div class="wizard-content">
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                            <h:form  class="tab-wizard wizard-circle wizard" id="PreseleccionCreateForm">
-                                <h5>Primera fase</h5>
-                                <section>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Nombre de Fase:</label>
-                                                <p:inputText class="form-control" id="prNombre" value="#{preseleccionController.selected.prNombre}" title="#{bundle.CreatePreseleccionTitle_prNombre}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prNombre}"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label >Nota: </label>
-                                                <h:panelGrid columns="1" style="margin-bottom: 10px">
-                                                    <p:inputText class="form-control" id="prNota" value="#{preseleccionController.selected.prNota}" title="#{bundle.CreatePreseleccionTitle_prNota}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prNota}" />
-                                                    <p:slider for="prNota" minValue="0.1" maxValue="10.0" step="0.1" />
-                                                </h:panelGrid>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label>Observación:</label>
-                                                <p:inputTextarea id="prComentario" class="form-control" value="#{preseleccionController.selected.prComentario}" title="#{bundle.CreatePreseleccionTitle_prComentario}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prComentario}" 
-                                                                 rows="5" cols="30" counter="display" maxlength="200" counterTemplate="{0} caracteres faltantes." autoResize="false" />
-                                                <h:outputText id="display" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                                <!-- Step 2 -->
-                                <h5>Segunda Fase</h5>
-                                <section>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Nombre de Fase:</label>
-                                                <p:inputText class="form-control" id="prNombre2" value="#{preseleccionController.selected.prNombre}" title="#{bundle.CreatePreseleccionTitle_prNombre}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prNombre}"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label >Nota: </label>
-                                                <h:panelGrid columns="1" style="margin-bottom: 10px">
-                                                    <p:inputText class="form-control" id="prNota2" value="#{preseleccionController.selected.prNota}" title="#{bundle.CreatePreseleccionTitle_prNota}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prNota}" />
-                                                    <p:slider for="prNota2" minValue="0.1" maxValue="10.0" step="0.1" />
-                                                </h:panelGrid>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label>Observación:</label>
-                                                <p:inputTextarea id="prComentario2" class="form-control" value="#{preseleccionController.selected.prComentario}" title="#{bundle.CreatePreseleccionTitle_prComentario}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prComentario}" 
-                                                                 rows="5" cols="30" counter="display2" maxlength="200" counterTemplate="{0} caracteres faltantes." autoResize="false" />
-                                                <h:outputText id="display2" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                                <!-- Step 3 -->
-                                <h5>Tercera Fase</h5>
-                                <section>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Nombre de Fase:</label>
-                                                <p:inputText class="form-control" id="prNombre3" value="#{preseleccionController.selected.prNombre}" title="#{bundle.CreatePreseleccionTitle_prNombre}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prNombre}"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label >Nota: </label>
-                                                <h:panelGrid columns="1" style="margin-bottom: 10px">
-                                                    <p:inputText class="form-control" id="prNota3" value="#{preseleccionController.selected.prNota}" title="#{bundle.CreatePreseleccionTitle_prNota}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prNota}" />
-                                                    <p:slider for="prNota3" minValue="0.1" maxValue="10.0" step="0.1" />
-                                                </h:panelGrid>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label>Observación:</label>
-                                                <p:inputTextarea id="prComentario3" class="form-control" value="#{preseleccionController.selected.prComentario}" title="#{bundle.CreatePreseleccionTitle_prComentario}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prComentario}" 
-                                                                 rows="5" cols="30" counter="display3" maxlength="200" counterTemplate="{0} caracteres faltantes." autoResize="false" />
-                                                <h:outputText id="display3" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                                <!-- Step 4 -->
-                                <h5>Cuarta Fase</h5>
-                                <section>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Nombre de Fase:</label>
-                                                <p:inputText class="form-control" id="prNombre4" value="#{preseleccionController.selected.prNombre}" title="#{bundle.CreatePreseleccionTitle_prNombre}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prNombre}"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label >Nota: </label>
-                                                <h:panelGrid columns="1" style="margin-bottom: 10px">
-                                                    <p:inputText class="form-control" id="prNota4" value="#{preseleccionController.selected.prNota}" title="#{bundle.CreatePreseleccionTitle_prNota}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prNota}" />
-                                                    <p:slider for="prNota4" minValue="0.1" maxValue="10.0" step="0.1" />
-                                                </h:panelGrid>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label>Observación:</label>
-                                                <p:inputTextarea id="prComentario4" class="form-control" value="#{preseleccionController.selected.prComentario}" title="#{bundle.CreatePreseleccionTitle_prComentario}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prComentario}" 
-                                                                 rows="5" cols="30" counter="display4" maxlength="200" counterTemplate="{0} caracteres faltantes." autoResize="false" />
-                                                <h:outputText id="display4" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </h:form>
-                        </div>
-                    </div>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPreseleccionTitle_prId}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prId}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPreseleccionTitle_prNombre}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prNombre}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPreseleccionTitle_prNota}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prNota}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPreseleccionTitle_prPonderacion}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prPonderacion}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPreseleccionTitle_prComentario}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prComentario}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPreseleccionTitle_csId}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.csId}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListPreseleccionTitle_esId}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.esId}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="Nuevo" actionListener="#{preseleccionController.prepareCreate}" update=":PreseleccionCreateForm" oncomplete="PF('PreseleccionCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="Ver" update=":PreseleccionViewForm" oncomplete="PF('PreseleccionViewDialog').show()" disabled="#{empty preseleccionController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Editar" update=":PreseleccionEditForm" oncomplete="PF('PreseleccionEditDialog').show()" disabled="#{empty preseleccionController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Eliminar" actionListener="#{preseleccionController.destroy}" update=":growl,datalist" disabled="#{empty preseleccionController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
 
-
-                </p:panel>
+                    </p:panel>
+                </h:form>
+                <ui:include src="NuevoPreseleccion.xhtml"/>
+                <ui:include src="EditPreseleccion.xhtml"/>
+                <ui:include src="VerPreseleccion.xhtml"/>
             </h:panelGroup>
-
-<script src="vendors/scripts/script.min.js"></script>
-	<script src="vendors/scripts/process.js"></script>
-	<script src="vendors/scripts/layout-settings.js"></script>
-	<script src="src/plugins/jquery-steps/jquery.steps.js"></script>
-	<script src="vendors/scripts/steps-setting.js"></script>
-
-
-
         </ui:define>
     </ui:composition>
 

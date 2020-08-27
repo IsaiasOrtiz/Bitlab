@@ -3,6 +3,7 @@ package com.bitlab.manejadores;
 import com.bitlab.entidades.Curso;
 import com.bitlab.entidades.EstadoSeleccion;
 import com.bitlab.entidades.Estudiante;
+import com.bitlab.entidades.Preseleccion;
 import com.bitlab.entidades.Rol;
 import com.bitlab.manejadores.util.JsfUtil;
 import com.bitlab.manejadores.util.JsfUtil.PersistAction;
@@ -56,6 +57,7 @@ public class EstudianteController implements Serializable {
     private UploadedFile cvEs;
     private String flagRender = "cursos";
     private List<Estudiante> estudiantesPorCurso = null;
+    private List<Preseleccion> preseleccionDetalle = null;
 
     public EstudianteController() {
     }
@@ -251,9 +253,14 @@ public class EstudianteController implements Serializable {
         return estudiantesPorCurso;
     }
 
-    public void detallePreseleccion() {
-
+    public List<Preseleccion> getDetallePreseleccion(int id) {
+        Estudiante es = getFacade().find(id);
+        Curso cs = es.getCsId();
+        preseleccionDetalle = getFacade().detallePreseleccion(id,cs.getCsId());
+        
         flagRender = "proceso";
+        
+        return preseleccionDetalle;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -372,4 +379,14 @@ public class EstudianteController implements Serializable {
     public void vaciarLista() {
         estudiantesPorCurso = null;
     }
+
+    public List<Preseleccion> getPreseleccionDetalle() {
+        return preseleccionDetalle;
+    }
+
+    public void setPreseleccionDetalle(List<Preseleccion> preseleccionDetalle) {
+        this.preseleccionDetalle = preseleccionDetalle;
+    }
+    
+    
 }
