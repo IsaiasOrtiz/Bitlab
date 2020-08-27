@@ -4,6 +4,7 @@ package com.bitlab.manejadores;
 import com.bitlab.correo.CorreoElectronico;
 import com.bitlab.entidades.Estudiante;
 import com.bitlab.manejadores.util.JsfUtil;
+import com.bitlab.propiedades.Encriptador;
 import com.bitlab.session.EstudianteFacade;
 import java.io.IOException;
 import java.io.Serializable;
@@ -21,6 +22,7 @@ public class LoginController implements Serializable{
     private com.bitlab.session.EstudianteFacade ejbFacade;
     private Estudiante estudiante;
     private CorreoElectronico correoElectronico = new CorreoElectronico();
+    private Encriptador encriptador = new Encriptador();
     private int codigo;
     private int numero;
     private boolean flagEstudiante;
@@ -36,11 +38,11 @@ public class LoginController implements Serializable{
         Estudiante estudianteRegistrado = ejbFacade.encontrarUsuario(estudiante);
         
         if(estudianteRegistrado != null){
-            if(estudiante.getEsClave().equals(estudianteRegistrado.getEsClave())){
+            if(estudiante.getEsClave().equals(encriptador.desencriptador(estudianteRegistrado.getEsClave()))){
                 estudiante = estudianteRegistrado;
                 if(flagEstudiante){
                     if(estudiante.getRlId().getRlId() == 2){
-                        JsfUtil.redireccion("index");
+                        JsfUtil.redireccion("principal/inicio");
                     }
                     else{
                         JsfUtil.addErrorMessage("No eres estudiante");

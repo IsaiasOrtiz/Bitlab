@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListEstudianteTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:panelGroup id="estudiantes">
+            <h:form id="EstudianteListForm">
+                <p:panel header="Historial de Estudiantes que han Aplicado a Cursos" rendered="#{preseleccionController.historialDetalle eq 'estudiantes'}">
+                    <p:dataTable id="datalist" value="#{estudianteController.soloEstudiantes}" var="item"
+                                 paginator="true"
+                                 rowKey="#{item.esId}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50" rendered="#{preseleccionController.historialDetalle eq 'estudiantes'}"
+                                 >
+
+                        <p:column colspan="1">
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esId}"/>
+                        </p:column>
+                        
+                        <p:column colspan="2">
+                            <f:facet name="header">
+                                <h:outputText value="Nombre"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esNombre}"/>
+                        </p:column>
+                        <p:column colspan="2">
+                            <f:facet name="header">
+                                <h:outputText value="Apellido"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esApellido}"/>
+                        </p:column>
+                        
+                        <p:column colspan="2">
+                            <f:facet name="header">
+                                <h:outputText value="Teléfono"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esTelefono}"/>
+                        </p:column>
+                        <p:column colspan="2">
+                            <f:facet name="header">
+                                <h:outputText value="Email"/>
+                            </f:facet>
+                            <h:outputText value="#{item.esCorreo}"/>
+                        </p:column>
+
+                        
+                        <p:column colspan="2" style="text-align: center">
+                            <f:facet name="header">
+                                <h:outputText value="Acción"/>
+                            </f:facet>
+                            <p:commandButton id="createButton" update=":estudiantes, :detallesAplicaciones, :detalleCurso" value="Ver historial" actionListener="#{preseleccionController.aplicaciones(item.esId)}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            </h:panelGroup>
+            
+            <h:panelGroup id="detallesAplicaciones">
+            <h:form id="CursoListForm">
+                <p:commandButton id="createButton" update=":estudiantes, :detallesAplicaciones, :detalleCurso" value="Regresar" rendered="#{preseleccionController.historialDetalle eq 'cursos'}" class="mb-5">
+                    <f:setPropertyActionListener value="estudiantes" target="#{preseleccionController.historialDetalle}"/>
+                </p:commandButton>
+                <p:panel header="APLICACIONES DE #{preseleccionController.cursosAplicados.get(0).esId.esNombre} #{preseleccionController.cursosAplicados.get(0).esId.esApellido}" rendered="#{preseleccionController.historialDetalle eq 'cursos'}">
+                    <p:dataTable id="datalist" value="#{preseleccionController.cursosAplicados}" var="item"
+                                 paginator="true"
+                                 rowKey="#{item.prId}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50" rendered="#{preseleccionController.historialDetalle eq 'cursos'}"
+                                 >
+                        <p:column colspan="1">
+                            <f:facet name="header">
+                                <h:outputText value="Id Curso"/>
+                            </f:facet>
+                            <h:outputText value="#{item.csId}"/>
+                        </p:column>
+                        <p:column colspan="3">
+                            <f:facet name="header">
+                                <h:outputText value="Cursos Aplicados"/>
+                            </f:facet>
+                            <h:outputText value="#{item.csId.csNombre}"/>
+                        </p:column>
+                        <p:column colspan="1" style="text-align: center">
+                            <f:facet name="header">
+                                <h:outputText value="Acción"/>
+                            </f:facet>
+                            <p:commandButton id="createButton" update=":estudiantes, :detallesAplicaciones, :detalleCurso" value="Ver detalles" actionListener="#{preseleccionController.detalleCurso(item.esId.esId, item.csId.csId)}"/>
+                        </p:column>
+                        
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            </h:panelGroup>
+            
+            <h:panelGroup id="detalleCurso">
+            <h:form id="PreseleccionLstForm">
+                <p:commandButton id="createButton" update=":estudiantes, :detallesAplicaciones, :detalleCurso" value="Regresar" rendered="#{preseleccionController.historialDetalle eq 'detalles'}" class="mb-5">
+                    <f:setPropertyActionListener value="cursos" target="#{preseleccionController.historialDetalle}"/>
+                </p:commandButton>
+                <p:panel header="APLICACION DE #{preseleccionController.detallesCurso.get(0).esId.esNombre} #{preseleccionController.detallesCurso.get(0).esId.esApellido} 
+                         AL #{preseleccionController.detallesCurso.get(0).csId.csNombre}" rendered="#{preseleccionController.historialDetalle eq 'detalles'}">
+                    
+                    <p:dataTable id="datalist" value="#{preseleccionController.detallesCurso}" var="item"
+                                 paginator="true"
+                                 rowKey="#{item.prId}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50" rendered="#{preseleccionController.historialDetalle eq 'detalles'}"
+                                 >
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Prueba"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prNombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nota"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prNota}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Ponderación"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prPonderacion}%"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Comentarios"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prComentario}"/>
+                        </p:column>
+                        
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            </h:panelGroup>
+            
+            
+        </ui:define>
+    </ui:composition>
+
+</html>
+

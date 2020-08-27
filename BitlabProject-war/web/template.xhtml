@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <title><ui:insert name="title">Default Title</ui:insert></title>
@@ -15,9 +14,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
         <meta name="apple-mobile-web-app-capable" content="yes"/>
         <!-- Site favicon -->
-        <link rel="apple-touch-icon" sizes="180x180" href="../resources/vendors/images/apple-touch-icon.png"/>
-        <link rel="icon" type="image/png" sizes="32x32" href="../resources/vendors/images/favicon-32x32.png"/>
-        <link rel="icon" type="image/png" sizes="16x16" href="../resources/vendors/images/favicon-16x16.png"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="../resources/img/favicon.png"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="../resources/img/favicon.png"/>
+        <link rel="icon" type="image/png" sizes="16x16" href="../resources/img/favicon.png"/>
 
         <!-- Mobile Specific Metas -->
 
@@ -49,56 +48,16 @@
             
         </ui:insert>
         -->
-        <p:growl id="growl" life="3000" />
-
+        <p:growl id="growl" life="3000" sticky="true"/>
         <p:layout fullPage="true">
-
-
-
             <p:layoutUnit position="south" size="60">
                 <ui:insert name="footer"/>
             </p:layoutUnit>
-
-
             <div class="header">
                 <div class="header-left">
                     <div class="menu-icon dw dw-menu"></div>
                     <div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
                     <div class="header-search">
-                        <form>
-                            <div class="form-group mb-0">
-                                <i class="dw dw-search2 search-icon"></i>
-                                <input type="text" class="form-control search-input" placeholder="Search Here"/>
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
-                                        <i class="ion-arrow-down-c"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <div class="form-group row">
-                                            <label class="col-sm-12 col-md-2 col-form-label">From</label>
-                                            <div class="col-sm-12 col-md-10">
-                                                <input class="form-control form-control-sm form-control-line" type="text"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-12 col-md-2 col-form-label">To</label>
-                                            <div class="col-sm-12 col-md-10">
-                                                <input class="form-control form-control-sm form-control-line" type="text"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-12 col-md-2 col-form-label">Subject</label>
-                                            <div class="col-sm-12 col-md-10">
-                                                <input class="form-control form-control-sm form-control-line" type="text"/>
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <button class="btn btn-primary">Search</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
                 <div class="header-right">
@@ -109,32 +68,35 @@
                             </a>
                         </div>
                     </div>
-
                     <div class="user-info-dropdown">
                         <div class="dropdown">
                             <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                <span class="user-icon">
-                                    <img src="../resources/vendors/images/photo1.jpg" alt=""/>
+                                <span class="user-icon" style="overflow:hidden">
+                                    <p:graphicImage value="#{estudianteController.imagen(loginController.estudiante.esFoto)}"  stream="false"/>
                                 </span>
-                                <span class="user-name"><h:outputLabel value="#{loginController.estudiante.esNombre}"/></span>
+                                <span class="user-name"><h:outputLabel value="#{loginController.estudiante.esNombre}"/></span>           
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
-                                <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
-                                <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
-                                <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
+                                <ui:insert name="menu2">
+                                    Menu2
+                                </ui:insert>
+                                <h:form>
+                                    <h:commandLink action="#{loginController.cerrarSesion()}" class="nav-link collapsed" >
+                                        <i class="dw dw-logout"></i> Cerrar Sesión
+                                    </h:commandLink>
+                                </h:form>
+
                             </div>
                         </div>
                     </div>
 
                 </div>
             </div>
-
             <div class="right-sidebar">
                 <div class="sidebar-title">
                     <h3 class="weight-600 font-16 text-blue">
-                        Layout Settings
-                        <span class="btn-block font-weight-400 font-12">User Interface Settings</span>
+                        Opciones de diseño
+                        <span class="btn-block font-weight-400 font-12">Configuración de la interfaz de usuario</span>
                     </h3>
                     <div class="close-sidebar" data-toggle="right-sidebar-close">
                         <i class="icon-copy ion-close-round"></i>
@@ -142,130 +104,58 @@
                 </div>
                 <div class="right-sidebar-body customscroll">
                     <div class="right-sidebar-body-content">
-                        <h4 class="weight-600 font-18 pb-10">Header Background</h4>
+                        <h4 class="weight-600 font-18 pb-10">Color del encabezado</h4>
                         <div class="sidebar-btn-group pb-30 mb-10">
-                            <a href="javascript:void(0);" class="btn btn-outline-primary header-white active">White</a>
-                            <a href="javascript:void(0);" class="btn btn-outline-primary header-dark">Dark</a>
+                            <a href="javascript:void(0);" class="btn btn-outline-primary header-white active">Claro</a>
+                            <a href="javascript:void(0);" class="btn btn-outline-primary header-dark">Oscuro</a>
                         </div>
 
-                        <h4 class="weight-600 font-18 pb-10">Sidebar Background</h4>
+                        <h4 class="weight-600 font-18 pb-10">Color del menu</h4>
                         <div class="sidebar-btn-group pb-30 mb-10">
-                            <a href="javascript:void(0);" class="btn btn-outline-primary sidebar-light ">White</a>
-                            <a href="javascript:void(0);" class="btn btn-outline-primary sidebar-dark active">Dark</a>
+                            <a href="javascript:void(0);" class="btn btn-outline-primary sidebar-light ">Claro</a>
+                            <a href="javascript:void(0);" class="btn btn-outline-primary sidebar-dark active">Oscuro</a>
                         </div>
-
-                        <h4 class="weight-600 font-18 pb-10">Menu Dropdown Icon</h4>
-                        <div class="sidebar-radio-group pb-10 mb-10">
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="sidebaricon-1" name="menu-dropdown-icon" class="custom-control-input" value="icon-style-1" checked=""/>
-                                <label class="custom-control-label" for="sidebaricon-1"><i class="fa fa-angle-down"></i></label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="sidebaricon-2" name="menu-dropdown-icon" class="custom-control-input" value="icon-style-2"/>
-                                <label class="custom-control-label" for="sidebaricon-2"><i class="ion-plus-round"></i></label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="sidebaricon-3" name="menu-dropdown-icon" class="custom-control-input" value="icon-style-3"/>
-                                <label class="custom-control-label" for="sidebaricon-3"><i class="fa fa-angle-double-right"></i></label>
-                            </div>
-                        </div>
-
-                        <h4 class="weight-600 font-18 pb-10">Menu List Icon</h4>
-                        <div class="sidebar-radio-group pb-30 mb-10">
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="sidebariconlist-1" name="menu-list-icon" class="custom-control-input" value="icon-list-style-1" checked=""/>
-                                <label class="custom-control-label" for="sidebariconlist-1"><i class="ion-minus-round"></i></label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="sidebariconlist-2" name="menu-list-icon" class="custom-control-input" value="icon-list-style-2"/>
-                                <label class="custom-control-label" for="sidebariconlist-2"><i class="fa fa-circle-o" aria-hidden="true"></i></label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="sidebariconlist-3" name="menu-list-icon" class="custom-control-input" value="icon-list-style-3"/>
-                                <label class="custom-control-label" for="sidebariconlist-3"><i class="dw dw-check"></i></label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="sidebariconlist-4" name="menu-list-icon" class="custom-control-input" value="icon-list-style-4" checked=""/>
-                                <label class="custom-control-label" for="sidebariconlist-4"><i class="icon-copy dw dw-next-2"></i></label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="sidebariconlist-5" name="menu-list-icon" class="custom-control-input" value="icon-list-style-5"/>
-                                <label class="custom-control-label" for="sidebariconlist-5"><i class="dw dw-fast-forward-1"></i></label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="sidebariconlist-6" name="menu-list-icon" class="custom-control-input" value="icon-list-style-6"/>
-                                <label class="custom-control-label" for="sidebariconlist-6"><i class="dw dw-next"></i></label>
-                            </div>
-                        </div>
-
                         <div class="reset-options pt-30 text-center">
-                            <button class="btn btn-danger" id="reset-settings">Reset Settings</button>
+                            <button class="btn btn-danger" id="reset-settings">Restaurar configuracion</button>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="left-side-bar">
                 <div class="brand-logo">
-                    <a href="index.html">
-                        <img src="../resources/vendors/images/deskapp-logo.svg" alt="" class="dark-logo"/>
-                        <img src="../resources/vendors/images/deskapp-logo-white.svg" alt="" class="light-logo"/>
+                    <a href="inicio.xhtml">
+                        <img src="../resources/img/logWhite.png" alt="" class="dark-logo"/>
+                        <img src="../resources/img/logFinal.png" alt="" class="light-logo"/>
                     </a>
                     <div class="close-sidebar" data-toggle="left-sidebar-close">
                         <i class="ion-close-round"></i>
                     </div>
                 </div>
-                <div class="menu-block customscroll">
+                <!-- Menu bar --> 
+                <div class="menu-block customscroll" href="javascript:;">
                     <div class="sidebar-menu">
-                        <ul id="accordion-menu">
-                            <li class="dropdown">
-                                <a href="../curso/List.xhtml" class="dropdown-toggle">
-                                    <span class="micon dw dw-house-1"></span><span class="mtext">Cursos</span>
-                                </a>
-                                <a href="intermediacionLaboral.xhtml" class="dropdown-toggle">
-                                    <span class="micon dw dw-house-1"></span><span class="mtext">Intermediación Laboral</span>
-                                </a>
-                                <ul class="submenu">
-                                    <li><a href="index.html">Dashboard style 1</a></li>
-                                    <li><a href="index2.html">Dashboard style 2</a></li>
-                                </ul>
+                        <ul id="accordion-menu"> 
+                            <ui:insert name="menu">
+                                Menu
+                            </ui:insert>
+                            <li><h:form>
+                                <h:commandLink action="#{loginController.cerrarSesion()}" class="nav-link collapsed" >
+                                    <span class="micon dw dw-logout"></span><span class="mtext">Cerrar Sesión</span>
+                                </h:commandLink>
+                                </h:form>
                             </li>
                         </ul>
+
                     </div>
                 </div>
+                <!-- Final menu bar --> 
             </div>
             <div class="mobile-menu-overlay"></div>
 
             <div class="main-container">
                 <div class="pd-ltr-20 xs-pd-20-10">
                     <div class="min-height-200px">
-                        <div class="page-header">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="title">
-                                        <h4>blank</h4>
-                                    </div>
-                                    <nav aria-label="breadcrumb" role="navigation">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">blank</li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                                <div class="col-md-6 col-sm-12 text-right">
-                                    <div class="dropdown">
-                                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                            January 2018
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">Export List</a>
-                                            <a class="dropdown-item" href="#">Policies</a>
-                                            <a class="dropdown-item" href="#">View Assets</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="pd-20 bg-white border-radius-4 box-shadow mb-30">
                             <ui:insert name="body"/>
                         </div>
@@ -276,7 +166,7 @@
                 </div>
             </div>
 
-            <!-- js -->
+            <!-- js async="async"-->
             <script src="../resources/vendors/scripts/core.js" async="async"></script>
             <script src="../resources/vendors/scripts/script.min.js"></script>
             <script src="../resources/vendors/scripts/process.js"></script>
