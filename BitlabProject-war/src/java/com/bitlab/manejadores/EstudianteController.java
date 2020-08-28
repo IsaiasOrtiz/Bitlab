@@ -26,6 +26,7 @@ import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -62,7 +63,18 @@ public class EstudianteController implements Serializable {
 
     public EstudianteController() {
     }
-
+    public boolean renderedArchivo(byte[] archivo)
+    {
+    return archivo.length>0;
+    }
+    public StreamedContent descargar(byte[] archivo)
+    {   InputStream imgStream = new ByteArrayInputStream(archivo);
+         return DefaultStreamedContent.builder()
+                .name("curriculum vitae.pdf")
+                .contentType("iapplication/pdf")
+                .stream(() -> imgStream)
+                .build();
+    }
     public Estudiante getSelected() {
         return selected;
     }

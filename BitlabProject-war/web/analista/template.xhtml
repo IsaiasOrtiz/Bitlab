@@ -9,6 +9,7 @@
                 
             </ui:define>
             <ui:define name="menu">
+                <f:event listener="#{loginController.validarAnalista()}" type="preRenderView"/>
                 <li>
                     <a href="consultarEstudiantes.xhtml" class="dropdown-toggle no-arrow">
                         <span class="micon dw dw-user1"></span><span class="mtext">Estudiantes</span>
