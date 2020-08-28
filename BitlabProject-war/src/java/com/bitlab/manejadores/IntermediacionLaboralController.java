@@ -40,7 +40,6 @@ public class IntermediacionLaboralController implements Serializable {
     private List<IntermediacionLaboral> estudiantesLaborando = null;
     private List<Estudiante> estudiantesDesempleados = null;
     private List<Estudiante> estudiantesPorCurso = null;
-    private List<Record> estudiantesGraduadosPorCurso = null;
     private IntermediacionLaboral selected;
     private String flagRender = "cursos";
     private boolean accionRealizar;
@@ -140,7 +139,6 @@ public class IntermediacionLaboralController implements Serializable {
         int j = 0;
         estudiantesLaborando = getFacade().estudiantesLaborandoPorCurso(idCurso);
         estudiantesPorCurso = getFacade().estudiantesPorCurso(idCurso);
-        estudiantesGraduadosPorCurso = recordFacade.registrosPorCurso(idCurso);
         estudiantesDesempleados = new ArrayList<Estudiante>();
         
         for(Estudiante e:estudiantesPorCurso){
@@ -155,17 +153,6 @@ public class IntermediacionLaboralController implements Serializable {
             }
         }
         
-        for(Record r:estudiantesGraduadosPorCurso){
-            j=0;
-            for(IntermediacionLaboral i: estudiantesLaborando){
-                if(r.getEsId().getEsId() == i.getEsId().getEsId()){
-                    j++;
-                }
-            }
-            if(j==0){
-                estudiantesDesempleados.add(r.getEsId());
-            }
-        }
         flagRender = "estDesempleados";
     }
 
