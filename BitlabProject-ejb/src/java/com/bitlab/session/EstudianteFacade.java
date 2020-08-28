@@ -46,7 +46,7 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
 
     public List<Estudiante> encontrarSoloEstudiantes() {
         try {
-            Query q = em.createQuery("SELECT e FROM Estudiante e WHERE e.rlId.rlId = 2");
+            Query q = em.createQuery("SELECT e FROM Estudiante e WHERE e.rlId.rlId = 2 AND e.esnId.esnId = 4");
 
             return q.getResultList();
         } catch (Exception e) {
@@ -75,7 +75,7 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
     }
     public List<Estudiante> encontrarEstudiantesPorCurso(int id) {
         try {
-            Query q = em.createQuery("SELECT e FROM Estudiante e WHERE e.csId.csId = :id");
+            Query q = em.createQuery("SELECT e FROM Estudiante e WHERE e.csId.csId = :id AND e.rlId.rlId = 2");
             q.setParameter("id", id);
 
             return q.getResultList();

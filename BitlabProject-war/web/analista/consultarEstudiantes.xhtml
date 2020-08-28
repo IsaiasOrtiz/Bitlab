@@ -15,7 +15,7 @@
 
         <ui:define name="body">
             <h:form id="EstudianteListForm">
-                <p:panel header="#{bundle.ListEstudianteTitle}">
+                <p:panel header="Listado de Estudiantes">
                     <p:dataTable id="datalist" value="#{estudianteController.items}" var="item"
                                  selection="#{estudianteController.selected}"
                                  paginator="true"
@@ -37,13 +37,13 @@
                                 </span>
                             </div>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.esNombre}" filterBy="#{item.esNombre}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Nombre"/>
                             </f:facet>
                             <h:outputText value="#{item.esNombre}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.esApellido}" filterBy="#{item.esApellido}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Apellido"/>
                             </f:facet>
@@ -51,17 +51,17 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Curso"/>
+                                <h:outputText value="DUI"/>
                             </f:facet>
                             <h:outputText value="#{item.esDui}"/>
                         </p:column>
-                        <p:column sortBy="#{item.csId}" filterBy="#{item.csId}" filterMatchMode="contains">
+                        <p:column sortBy="#{item.csId.csNombre}" filterBy="#{item.csId.csNombre}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Curso"/>
                             </f:facet>
                             <h:outputText value="#{item.csId.csNombre}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.esFechaNacimiento}" filterBy="#{item.esFechaNacimiento}" filterMatchMode="lte">
                             <f:facet name="header">
                                 <h:outputText value="Fecha de Nacimiento"/>
                             </f:facet>

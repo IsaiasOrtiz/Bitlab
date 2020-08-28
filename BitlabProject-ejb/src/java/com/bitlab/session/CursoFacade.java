@@ -41,4 +41,5 @@ public class CursoFacade extends AbstractFacade<Curso> {
         }
     }
     
+    
 }

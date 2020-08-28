@@ -8,18 +8,16 @@
 
     <ui:composition>
 
-        <p:dialog id="PreseleccionEditDlg" widgetVar="PreseleccionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPreseleccionTitle}">
+        <p:dialog id="PreseleccionEditDlg" widgetVar="PreseleccionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar Prueba">
             <h:form id="PreseleccionEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{preseleccionController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditPreseleccionLabel_prId}" for="prId" />
-                        <p:inputText id="prId" value="#{preseleccionController.selected.prId}" title="#{bundle.EditPreseleccionTitle_prId}" required="true" requiredMessage="#{bundle.EditPreseleccionRequiredMessage_prId}"/>
-                        <p:outputLabel value="#{bundle.EditPreseleccionLabel_prNombre}" for="prNombre" />
+                        <p:outputLabel value="Nombre de Prueba" for="prNombre" />
                         <p:inputText id="prNombre" value="#{preseleccionController.selected.prNombre}" title="#{bundle.EditPreseleccionTitle_prNombre}" required="true" requiredMessage="#{bundle.EditPreseleccionRequiredMessage_prNombre}"/>
-                        <p:outputLabel value="#{bundle.EditPreseleccionLabel_prNota}" for="prNota" />
+                        <p:outputLabel value="Nota Obtenida" for="prNota" />
                         <p:inputText id="prNota" value="#{preseleccionController.selected.prNota}" title="#{bundle.EditPreseleccionTitle_prNota}" required="true" requiredMessage="#{bundle.EditPreseleccionRequiredMessage_prNota}"/>
-                       <p:outputLabel value="#{bundle.EditPreseleccionLabel_prComentario}" for="prComentario" />
-                        <p:inputText id="prComentario" value="#{preseleccionController.selected.prComentario}" title="#{bundle.EditPreseleccionTitle_prComentario}" required="true" requiredMessage="#{bundle.EditPreseleccionRequiredMessage_prComentario}"/>
+                       <p:outputLabel value="Comentario" for="prComentario" />
+                        <p:inputTextarea id="prComentario" value="#{preseleccionController.selected.prComentario}" title="#{bundle.EditPreseleccionTitle_prComentario}" required="true" requiredMessage="#{bundle.EditPreseleccionRequiredMessage_prComentario}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{preseleccionController.update}" value="#{bundle.Save}" update="display,:PreseleccionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PreseleccionEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PreseleccionEditDialog.hide()"/>

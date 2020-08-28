@@ -244,6 +244,11 @@ public class EstudianteController implements Serializable {
         }
         return soloEstudiantes;
     }
+    
+    /*Metodo para traer estudiantes en curso */
+    public void estudiantesEnCurso(){
+        soloEstudiantes = getFacade().encontrarEstudiantesPorEstadoDeSeleccion(4);
+    }
 
     /*Metodo para obtener los estudiantes por curso*/
     public List<Estudiante> getEstudiantesPorCurso(int id) {

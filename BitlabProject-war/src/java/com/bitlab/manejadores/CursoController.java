@@ -100,7 +100,8 @@ public class CursoController implements Serializable {
     }
 
     public void createCurso() throws IOException {
-        selected.setCsId(8);
+        List<Curso> cursos =  ejbFacade.findAll();
+        selected.setCsId((cursos.get(cursos.size()-1).getCsId())+1);
         selected.setCsEstado(Boolean.TRUE);
         selected.setAUsuarioCrea("SYSTEM");
         selected.setAFechaCreacion(new Date());
