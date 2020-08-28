@@ -11,7 +11,7 @@
             <h:outputText value="Bitlab - Record"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <f:event listener="#{recordController.prepareCreate()}" type="preRenderView"/>
+            <f:event id="listenerAction" listener="#{recordController.prepareCreate()}" type="preRenderView"/>
             <div>
                 <h:form id="form">
                     <p:growl id="message" showDetail="true" />
@@ -46,7 +46,7 @@
                         </p:column>
                         <p:column headerText="Record">
                             <p:commandButton value="Asignar" actionListener="#{recordController.asignarRecordAcademico(es, loginController.estudiante.esNombre)}" update=":formEstudiantesCurso" rendered="#{es.csId.csId != 3}"/>
-                            <p:commandButton value="No se puede asignar" rendered="#{es.csId.csId == 3}"/>
+                            <p:commandButton value="Ya tiene promedio" rendered="#{es.esnId.esnId == 4}"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>

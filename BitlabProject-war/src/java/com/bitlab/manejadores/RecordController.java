@@ -167,7 +167,6 @@ public class RecordController implements Serializable {
         selected.setAFechaCreacion(new Date());
         selected.setAUsuarioCrea(usuarioCrea);
         create();
-        est.setCsId(findCurso(3));
         est.setEsnId(findEstadoSeleccion(4));
         getEjbEstudiante().edit(est);
     }

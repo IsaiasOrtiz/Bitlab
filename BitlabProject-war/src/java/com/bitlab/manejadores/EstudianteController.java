@@ -24,19 +24,18 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
 import javax.servlet.http.HttpServletResponse;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
 
 @Named("estudianteController")
-@SessionScoped
+@ViewScoped
 public class EstudianteController implements Serializable {
 
     @EJB
@@ -188,7 +187,7 @@ public class EstudianteController implements Serializable {
 
     public void inscribir(Curso curso, java.lang.Integer idEstudiante) {
         selected = getEstudiante(idEstudiante);
-        if (getSelected().getCsId().getCsId() == 3) {
+        if (getSelected().getCsId().getCsId() == 3 || getSelected().getEsnId().getEsnId() == 4) {
             if (getSelected().getEsnId().getEsnId() == 1) {
                 selected.setCsId(curso);
                 EstadoSeleccion es = new EstadoSeleccion();
