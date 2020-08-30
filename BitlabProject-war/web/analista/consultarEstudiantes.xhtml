@@ -12,22 +12,7 @@
         <ui:define name="title">
             <h:outputText value="Listado de estudiantes"></h:outputText>
         </ui:define>
-<script type="text/javascript">
-    //<![CDATA[
-function start() {
-    PF('statusDialog').show();
-}
- 
-function stop() {
-    PF('statusDialog').hide();
-}
-    //]]>
-</script>    
- 
         <ui:define name="body">
-            <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
-                <h:outputText value="Descargando"/>
-            </p:dialog>
             <h:form id="EstudianteListForm">
                 <p:panel header="Listado de Estudiantes">
                     <p:dataTable id="datalist" value="#{estudianteController.items}" var="item"
@@ -83,12 +68,12 @@ function stop() {
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </p:column>
-                        
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Descargar CV"/>
                             </f:facet>
-                         
+
                             <p:commandButton value="Download" ajax="false" icon="pi pi-arrow-down" rendered="#{estudianteController.renderedArchivo(item.esCv)}">
                                 <p:fileDownload value="#{estudianteController.descargar(item.esCv)}" />
                             </p:commandButton>

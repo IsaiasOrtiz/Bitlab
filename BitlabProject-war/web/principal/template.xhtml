@@ -2,14 +2,52 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
         <ui:composition template="/template.xhtml">
             <ui:define name="validacion">
-                
+                 <f:event listener="#{loginController.validarEstudiante()}" type="preRenderView"/>
             </ui:define>
+            <ui:define name="menuMovil">
+                <li>
+                    <a href="inicio.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-house-1"></span><span class="mtext">Inicio</span>
+                    </a>
+                </li>         
+                <li>
+                    <a href="perfil.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-user1"></span><span class="mtext">Perfil</span>
+                    </a>
+                </li>         
+                <li>
+                    <a href="cursos.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-edit-2"></span><span class="mtext">Cursos</span>
+                    </a>
+                </li>         
+                <li>
+                    <a href="tecnologias.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-browser2"></span><span class="mtext">Tecnologías</span>
+                    </a>
+                </li>         
+                <li>
+                    <a href="idiomas.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-invoice"></span><span class="mtext">Idiomas</span>
+                    </a>
+                </li>         
+                <li>
+                    <a href="record.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-analytics-21"></span><span class="mtext">Record Academico</span>
+                    </a>
+                </li>
+            <h:form>
+                <h:commandLink action="#{loginController.cerrarSesion()}" class="dropdown-toggle no-arrow" >
+                    <span class="micon dw dw-logout"></span><span class="mtext">Cerrar Sesión</span>
+                </h:commandLink>
+            </h:form>
+        </ui:define>
             <ui:define name="menu">
-                <f:event listener="#{loginController.validarEstudiante()}" type="preRenderView"/>
+               
                 <li>
                     <a href="inicio.xhtml" class="dropdown-toggle no-arrow">
                         <span class="micon dw dw-house-1"></span><span class="mtext">Inicio</span>

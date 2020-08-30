@@ -2,14 +2,66 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
         <ui:composition template="/template.xhtml">
             <ui:define name="validacion">
-                
+                <f:event listener="#{loginController.validarAnalista()}" type="preRenderView"/>  
+            </ui:define>
+            <ui:define name="menuMovil">
+                 <li>
+                    <a href="consultarEstudiantes.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-user1"></span><span class="mtext">Estudiantes</span>
+                    </a>
+                </li>         
+                <li>
+                    <a href="cursos.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-user1"></span><span class="mtext">Proceso de Selección</span>
+                    </a>
+                </li>         
+                <li>
+                    <a href="historialAplicaciones.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-invoice"></span><span class="mtext"><div>Historial de Aplicaciones</div> 
+                                                                                      <div>de Estudiantes</div></span>
+                    </a>
+                </li>         
+                <li>
+                    <a href="recordAcademico.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-invoice"></span><span class="mtext"><div>Récord Académico</div>
+                                                                                    <div>de Estudiantes</div></span>
+                    </a>
+                </li>         
+                <li>
+                    <a href="intermediacionLaboral.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-invoice"></span><span class="mtext"><div>Gestión de</div>
+                                                                                          <div>Intermediación Laboral</div></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="ListInt.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-invoice"></span><span class="mtext"><div>Gestión de Estados</div>
+                                                                                     <div>Laborales</div></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="ListEmp.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-invoice"></span><span class="mtext">Gestión de Empresas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="graficoBarra.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-analytics-21"></span>Estadistica de Curso<span class="mtext"></span>
+                    </a>
+                </li> 
+                 <h:form>
+                <h:commandLink action="#{loginController.cerrarSesion()}" class="dropdown-toggle no-arrow" >
+                    <span class="micon dw dw-logout"></span><span class="mtext">Cerrar Sesión</span>
+                </h:commandLink>
+            </h:form>
             </ui:define>
             <ui:define name="menu">
-                <f:event listener="#{loginController.validarAnalista()}" type="preRenderView"/>
+              
                 <li>
                     <a href="consultarEstudiantes.xhtml" class="dropdown-toggle no-arrow">
                         <span class="micon dw dw-user1"></span><span class="mtext">Estudiantes</span>

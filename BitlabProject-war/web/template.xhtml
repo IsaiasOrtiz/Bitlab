@@ -43,10 +43,23 @@
     </h:head>
 
     <h:body>
+        <h:form>
+            <p:sidebar  style="background-color: #0B132B ; width: 90% ; overflow: scroll;" widgetVar="sidebar1" baseZIndex="10000">
+                <br/>
+                <div class="menu-block customscroll">
+                    <div class="sidebar-menu">
+                        <ul id="accordion-menu">
+                            <ui:insert name="menuMovil">
+                            </ui:insert>
+                        </ul> </div></div>
+            </p:sidebar>
+
+
+        </h:form>
         <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
 
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-           
+
             <div class="spinner-grow text-primary" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -56,14 +69,21 @@
         </ui:insert>
 
         <p:growl id="growl" life="3000" sticky="true"/>
+
         <p:layout fullPage="true">
             <p:layoutUnit position="south" size="60">
                 <ui:insert name="footer"/>
             </p:layoutUnit>
             <div class="header">
                 <div class="header-left">
-                    <div class="menu-icon dw dw-menu"></div>
-                    <div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
+                    <h:form>
+                        <p:commandLink oncomplete="PF('sidebar1').show()" value="">
+                            <div class="menu-icon dw dw-menu">
+                            </div>
+                        </p:commandLink>
+                    </h:form>
+
+
                     <div class="header-search">
                     </div>
                 </div>
@@ -174,7 +194,6 @@
             </div>
 
             <!-- js async="async"-->
-
 
             <script src="../resources/vendors/scripts/script.min.js"></script>
             <script src="../resources/vendors/scripts/process.js"></script>
