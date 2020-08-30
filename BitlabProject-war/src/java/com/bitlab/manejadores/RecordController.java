@@ -76,7 +76,14 @@ public class RecordController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+    public Record prepareCreate(Curso c, Estudiante es) {
+        selected = new Record();
+        selected.setCsId(c);
+        selected.setRcPromedioFinal(8);
+        selected.setEsId(es);
+        initializeEmbeddableKey();
+        return selected;
+    }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("RecordCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -162,8 +169,6 @@ public class RecordController implements Serializable {
     
      public void asignarRecordAcademico(Estudiante est, String usuarioCrea)
     {
-        selected.setEsId(est);
-        selected.setCsId(est.getCsId());
         selected.setAFechaCreacion(new Date());
         selected.setAUsuarioCrea(usuarioCrea);
         create();

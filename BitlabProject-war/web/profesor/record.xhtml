@@ -11,47 +11,151 @@
             <h:outputText value="Bitlab - Record"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <f:event id="listenerAction" listener="#{recordController.prepareCreate()}" type="preRenderView"/>
-            <div>
-                <h:form id="form">
-                    <p:growl id="message" showDetail="true" />
-                    <p:dataGrid var="curso" value="#{cursoController.items}" columns="5" >
-                        <p:dataViewGridItem>
-                            <p:panel header="#{curso.csNombre}" style="text-align:center">
-                                <h:panelGrid columns="1" style="width:100%">  
-                                    <p:commandButton value="Ver estudiantes"  update=":estudiantes, :form" actionListener="#{estudianteController.getEstudiantePorCursoAndProceso(curso.csId)}"/>
-                                </h:panelGrid>
-                            </p:panel>
-                        </p:dataViewGridItem>
-                    </p:dataGrid>
-                </h:form> 
-            </div>
-            <h:panelGroup id="estudiantes">
-                <h:form id="formEstudiantesCurso" >
-                    <center>
-                        <p:panelGrid columns="2" rendered="#{estudianteController.estudiantesPorCurso.size() > 0}">
-                            <h:outputText value="Nota :"/>
-                            <p:inputText value="#{recordController.selected.rcPromedioFinal}"/>
-                            <h:outputText value="Comentario :"/>
-                            <p:inputText value="#{recordController.selected.rcComentario}"/>
-                            <h:outputText value="Profesor :"/>
-                            <p:inputText value="#{recordController.selected.rcProfesor}"/>
-                        </p:panelGrid> </center>
-                    <p:dataTable rendered="#{estudianteController.estudiantesPorCurso.size() > 0}" id="estudiantesCurso" var="es" value="#{estudianteController.estudiantesPorCurso}" emptyMessage="Seleccione un curso">
-                        <p:column headerText="Nombre">
-                            <h:outputText value="#{es.esNombre} #{es.esApellido}"/>
-                        </p:column>
-                        <p:column headerText="Curso actual">
-                            <h:outputText value="#{es.csId.csNombre}"/>
-                        </p:column>
-                        <p:column headerText="Record">
-                            <p:commandButton value="Asignar" actionListener="#{recordController.asignarRecordAcademico(es, loginController.estudiante.esNombre)}" update=":formEstudiantesCurso" rendered="#{es.csId.csId != 3}"/>
-                            <p:commandButton value="Ya tiene promedio" rendered="#{es.esnId.esnId == 4}"/>
-                        </p:column>
-                    </p:dataTable>
-                </h:form>
 
+
+            <h:panelGroup id="cursos">
+                <h:form id="formCurso">
+                    <p:panel header="Listado de Cursos" rendered="#{estudianteController.flagRender eq 'cursos'}">
+                        <p:growl id="message" showDetail="true" />
+                        <p:dataGrid var="curso" value="#{cursoController.items}" 
+                                    rows="9" paginator="true" 
+                                    rendered="#{estudianteController.flagRender eq 'cursos'}">
+
+                            <p:dataViewGridItem>
+                                <div class="row clearfix">
+                                    <div class="col-sm-12 col-md-12 mb-30">
+                                        <div class="card card-box">
+                                            <div class="card-header">
+                                                <h3>
+                                                    <h:outputText value="#{curso.csNombre}"/></h3>
+                                            </div>
+                                            <div class="card-body text-center" >
+                                                <h:panelGrid columns="1" style="width:100%">
+
+                                                    <h:outputText value="Inicio: #{curso.csInicio}" >
+                                                        <f:convertDateTime pattern="dd-MM-yyyy" />
+                                                    </h:outputText>
+                                                    <h:outputText value="Descripcion: #{curso.csDescripcion}"/>
+                                                    <h:outputText value="Capacidad: #{curso.csCantidadBecados}"/>
+                                                    <h:outputText value="Hora Inicio: #{curso.hrId.hrHoraInicio}">
+                                                        <f:convertDateTime pattern="HH:mm" />
+                                                    </h:outputText>
+                                                    <h:outputText value="Hora finalizacion: #{curso.hrId.hrHoraFin}">
+                                                        <f:convertDateTime pattern="HH:mm" />
+                                                    </h:outputText>
+                                                    <h:outputText value="Dias: #{curso.hrId.hrDias}"/>
+                                                    <p:commandButton id="createButton" update=":cursos,:estudiantes, " 
+                                                                     value="Ver Estudiantes" action="#{estudianteController.getEstudiantePorCursoAndProceso(curso.csId)}">
+                                                        <f:param name="csId" value="#{curso.csId}" />
+                                                    </p:commandButton>
+                                                </h:panelGrid>
+                                                <br></br>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:dataViewGridItem>
+                        </p:dataGrid>
+                    </p:panel>
+                </h:form>
             </h:panelGroup>
+
+
+            <h:panelGroup id="estudiantes">
+                <h:form id="estudiantePorCurso">
+                    <p:commandButton id="createButton" update=":cursos, :estudiantes, " value="Regresar" rendered="#{estudianteController.flagRender eq 'estudiantes'}" class="mb-5">
+                        <f:setPropertyActionListener   value="cursos" target="#{estudianteController.flagRender}"/>
+                    </p:commandButton>
+                    <p:panel header="Estudiantes del curso: #{estudianteController.curso.csNombre}" 
+                             rendered="#{estudianteController.flagRender eq 'estudiantes'}">
+                        <p:dataTable id="datalist" value="#{estudianteController.estudiantesPorCurso}" var="item"
+                                     paginator="true" 
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50" rendered="#{estudianteController.flagRender eq 'estudiantes'}"
+                                     >
+                            <p:ajax event="rowSelect"   update="createButton  editButton estudiantes"/>
+                            <p:ajax event="rowUnselect" update="createButton  editButton estudiantes"/>
+
+                            <p:column colspan="1" style="text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="Foto"/>
+                                </f:facet>
+                                <div class="user-info-dropdown">
+                                    <span class="user-icon" style="overflow:hidden">
+                                        <p:graphicImage value="#{estudianteController.imagen(item.esFoto)}" style="border-radius: 50px; width: 75%; height: 75%" stream="false"/>
+                                    </span>
+                                </div>
+                            </p:column>
+                            <p:column colspan="2" sortBy="#{item.esNombre}" filterBy="#{item.esNombre}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{item.esNombre}"/>
+                            </p:column>
+                            <p:column colspan="2" sortBy="#{item.esApellido}" filterBy="#{item.esApellido}" filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Apellido"/>
+                                </f:facet>
+                                <h:outputText value="#{item.esApellido}"/>
+                            </p:column>
+                            <p:column colspan="2">
+                                <f:facet name="header">
+                                    <h:outputText value="Teléfono"/>
+                                </f:facet>
+                                <h:outputText value="#{item.esTelefono}"/>
+                            </p:column>
+                            <p:column colspan="2">
+                                <f:facet name="header">
+                                    <h:outputText value="Email"/>
+                                </f:facet>
+                                <h:outputText value="#{item.esCorreo}"/>
+                            </p:column>
+                            <p:column colspan="1">
+                                <f:facet name="header">
+                                    <h:outputText value="Laborando"/>
+                                </f:facet>
+                                <h:outputText value="SI" rendered="#{item.esLaborando == true}" /> 
+                                <h:outputText value="NO" rendered="#{item.esLaborando == false}" /> 
+                            </p:column>
+                            <p:column colspan="1">
+                                <f:facet name="header">
+                                    <h:outputText value="Estado de Proceso"/>
+                                </f:facet>
+                                <h:outputText value="#{item.esnId.esnNombre}"/>
+                            </p:column>
+                            <p:column colspan="2" style="text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="Acción"/>
+                                </f:facet>
+                                <p:commandButton id="createButton2" rendered="#{item.esnId.esnId !=3}"  value="Asignado"
+                                                 />
+                                <p:commandButton id="createButton" rendered="#{item.esnId.esnId == 3}" actionListener="#{recordController.prepareCreate(item.csId,item)}"  update=":frmRecordA"  value="Asignar record"
+                                                 oncomplete="PF('dlg2').show();" />
+                                <p:commandButton  rendered="false" id="editButton" value="Cambiar Estado" update=":estudiantePorCurso" style="background-color: #e0a800;border:#e0a800  ;color: #000"
+                                                  oncomplete="PF('EstudianteEditDialog').show()" disabled="#{empty estudianteController.selected}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+                <ui:include src="../analista/EditEstadoProceso.xhtml"/>
+            </h:panelGroup>
+            <h:form id="frmRecordA">
+                <p:dialog id="dlgRecord"  header="#{recordController.selected.esId.esNombre}" widgetVar="dlg2" modal="true">
+                    <p:panelGrid columns="2">    
+                        <h:outputText value="Nota :"/>
+                        <p:inputText value="#{recordController.selected.rcPromedioFinal}"/>
+                        <h:outputText value="Comentario :"/>
+                        <p:inputText value="#{recordController.selected.rcComentario}"/>
+                        <h:outputText value="Profesor :"/>
+                        <p:inputText value="#{recordController.selected.rcProfesor}"/>
+                        <h:outputText value="Record"/>
+                        <p:commandButton value="GUARDAR" actionListener="#{recordController.asignarRecordAcademico(recordController.selected.esId , loginController.estudiante.esNombre)}" update=":estudiantes , :growl"/>
+                    </p:panelGrid>  
+                </p:dialog>   
+            </h:form>
         </ui:define>
     </ui:composition>
 </html>
