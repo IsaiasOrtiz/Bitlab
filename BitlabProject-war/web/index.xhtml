@@ -9,52 +9,21 @@
     </h:head>
     <h:body>
        
-        <ui:composition template="/template.xhtml">
+        <ui:composition template="/menuAdmin.xhtml">
             <ui:define name="body">
-        <br />
-        <h:link outcome="/curso/List" value="Cursos disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/departamento/List" value="Departamentos disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/escolaridad/List" value="Escolaridad disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/estadoSeleccion/List" value="Estados de seleccion disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/estudiante/List" value="Estudiantes disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/ficheros/List" value="Ficheros disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/horario/List" value="Horarios disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/idioma/List" value="Idiomas del sistema disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/idiomas/List" value="Idiomas de usuarios (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/intermediacionLaboral/List" value="Intermediacion laboral disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/municipio/List" value="Municipios disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/nivelIdioma/List" value="Niveles de idiomas disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/preseleccion/List" value="Preselecciones de estudiantes (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/record/List" value="record de estudiantes disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/rol/List" value="Roles del sistema disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/tecnologiasDisponibles/List" value="Tecnologias disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/tecnologiasManejadas/List" value="Tecnologias manejadas por el usuario (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/departamento/List" value="Departamentos disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/empresa/List" value="Empresas disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/estadoIntermedicacion/List" value="Estados de intermediacion disponibles (Ver, Editar, Eliminar)"/>
-        <br />
-        <h:link outcome="/estadoSeleccion/List" value="Estado de de disponibles (Ver, Editar, Eliminar)"/>
-        <br />  
-        <h:link outcome="/horario/List" value="Horarios disponibles (Ver, Editar, Eliminar)"/> 
+       
+                <div class="row align-items-center">
+                    <div class="col-md-4">
+                        <img src="../resources/vendors/images/banner-img.png" alt=""/>
+                    </div>
+                    <div class="col-md-8">
+                        <h4 class="font-20 weight-500 mb-10 text-capitalize">
+                            Bienvenido #{loginController.estudiante.esNombre} <div class="weight-600 font-30 text-blue">Bitlab Skills Academy</div>
+                        </h4>
+                        <p class="font-18 max-width-600">Hola administrador, en tu modulo podras llevar el control de todos los catalogos del sistema, recuerda que tu usuario es muy importante no brindes la contraseña a desconocidos.</p>
+                        
+                    </div>
+                </div>
         </ui:define>
         </ui:composition>
     </h:body>

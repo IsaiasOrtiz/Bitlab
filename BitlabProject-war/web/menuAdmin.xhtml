@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="title">
+                Bitlab
+            </ui:define>
+
+            <ui:define name="menuMovil">
+               <li>
+                    <a href="../curso/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-invoice"></span><span class="mtext">Cursos</span>
+                    </a>
+                </li>  
+                <li>
+                    <a href="../departamento/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-browser2"></span><span class="mtext">Departamento</span>
+                    </a>
+                </li> 
+                <li>
+                    <a href="../empresa/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-house-1"></span><span class="mtext">Empresa</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../estudiante/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-user1"></span><span class="mtext">Estudiante</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../escolaridad/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-university"></span><span class="mtext">Escolaridad</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../estadoSeleccion/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-code-fork"></span><span class="mtext">Estado de seleccion</span>
+                    </a>
+                </li>
+                 <li>
+                    <a href="../horario/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-calendar-minus-o"></span><span class="mtext">Horarios Cursos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../idioma/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-language"></span><span class="mtext">Idiomas del sistema</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../intermediacionLaboral/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-exchange"></span><span class="mtext">Intermediacion laboral</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../municipio/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-map-marker"></span><span class="mtext">Municipios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../nivelIdioma/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-level-up "></span><span class="mtext">Nivel idiomas</span>
+                    </a>
+                </li>
+                 <li>
+                    <a href="../nivelTecnologia/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-keyboard-o "></span><span class="mtext">Nivel Tecnologias</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../rol/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-users"></span><span class="mtext">Roles del sistema</span>
+                    </a>
+                </li>
+                 <li>
+                     <a href="../tecnologiasDisponibles/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-code"></span><span class="mtext">Tecnologias del sistema</span>
+                    </a>
+                </li>
+            </ui:define>
+
+            <ui:define name="validacion">
+                <f:event listener="#{loginController.validarAdmin()}" type="preRenderView"/>
+            </ui:define>
+
+            <ui:define name="menu">
+                <li>
+                    <a href="../curso/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-invoice"></span><span class="mtext">Cursos</span>
+                    </a>
+                </li>  
+                <li>
+                    <a href="../departamento/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-browser2"></span><span class="mtext">Departamento</span>
+                    </a>
+                </li> 
+                <li>
+                    <a href="../empresa/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-house-1"></span><span class="mtext">Empresa</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../estudiante/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-user1"></span><span class="mtext">Estudiante</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../escolaridad/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-university"></span><span class="mtext">Escolaridad</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../estadoSeleccion/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-code-fork"></span><span class="mtext">Estado de seleccion</span>
+                    </a>
+                </li>
+                 <li>
+                    <a href="../horario/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-calendar-minus-o"></span><span class="mtext">Horarios Cursos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../idioma/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-language"></span><span class="mtext">Idiomas del sistema</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../intermediacionLaboral/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-exchange"></span><span class="mtext">Intermediacion laboral</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../municipio/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-map-marker"></span><span class="mtext">Municipios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../nivelIdioma/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-level-up "></span><span class="mtext">Nivel idiomas</span>
+                    </a>
+                </li>
+                 <li>
+                    <a href="../nivelTecnologia/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-keyboard-o "></span><span class="mtext">Nivel Tecnologias</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../rol/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-users"></span><span class="mtext">Roles del sistema</span>
+                    </a>
+                </li>
+                 <li>
+                     <a href="../tecnologiasDisponibles/List.xhtml" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-code"></span><span class="mtext">Tecnologias del sistema</span>
+                    </a>
+                </li>
+             </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
