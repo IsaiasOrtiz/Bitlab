@@ -23,7 +23,7 @@ and open the template in the editor.
             </ui:define>
 
             <ui:define name="body">
-
+                <f:event listener="#{tecnologiasManejadasController.tecnologiasSesionUsuario(loginController.estudiante.esId)}" type="preRenderView"/>
                 <div class="profile-photo">
 
                     <div style="overflow:hidden">
@@ -78,6 +78,30 @@ and open the template in the editor.
                             </li>
                         </ul>
                     </center>
+                </div>
+                <div class="profile-skills">
+                    <h5 class="mb-20 h5 text-blue">Tecnologias</h5>
+
+                    <ui:repeat value="#{tecnologiasManejadasController.items}" var="item" varStatus="estado">
+                        <h:outputText value="Al parecer no tienes tecnologias agregadas :(" rendered="#{item==null}"/>
+                        <h6 class="mb-5 font-14">#{item.tgdId.tgdNombre}</h6>
+                        <h:column rendered="#{item.nvId.nvId == 1}">
+                        <div class="progress mb-20" style="height: 6px;">
+                            <div class="progress-bar" rendered="" role="progressbar" style="width: 40%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>                          
+                        </div>
+                        </h:column>
+                        <h:column rendered="#{item.nvId.nvId == 2}">
+                        <div class="progress mb-20" style="height: 6px;">
+                            <div class="progress-bar" rendered="" role="progressbar" style="width: 65%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>                          
+                        </div>
+                        </h:column>
+                        <h:column rendered="#{item.nvId.nvId == 3}">
+                        <div class="progress mb-20" style="height: 6px;">
+                            <div class="progress-bar" rendered="" role="progressbar" style="width: 95%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>                          
+                        </div>
+                        </h:column>
+                    </ui:repeat> 
+
                 </div>
                 <div class="profile-skills">
                     <h:form id="editar" enctype="multipart/form-data">

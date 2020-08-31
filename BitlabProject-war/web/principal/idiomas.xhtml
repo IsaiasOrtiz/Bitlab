@@ -31,6 +31,8 @@ and open the template in the editor.
                                      rows="10"
                                      emptyMessage="No se encontraron registros :("
                                      rowsPerPageTemplate="10,20,30,40,50"
+                                     reflow="true"
+                                     class="table"
                                      >
                             <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                             <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>

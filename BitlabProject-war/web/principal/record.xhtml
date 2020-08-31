@@ -15,13 +15,14 @@
 
         <ui:define name="body">
             <f:event listener="#{recordController.record(loginController.estudiante.esId)}" type="preRenderView"/>
-             <p:panel header="Historial de Estudiantes Becados" rendered="#{!recordController.flag}">
-                 <p:dataTable id="datalist" value="#{recordController.items}" var="item"
+             <p:panel header="MI RECORD" rendered="#{!recordController.flag}">
+                 <p:dataTable class="table" id="datalist" value="#{recordController.items}" var="item"
                                  paginator="true"
                                  rowKey="#{item.esId}"
                                  rows="10"
                                  emptyMessage="No tenemos registros :("
                                  rowsPerPageTemplate="10,20,30,40,50" 
+                                 reflow="true"
                                  >
 
                         <p:column colspan="2">

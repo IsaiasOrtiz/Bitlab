@@ -34,7 +34,7 @@ and open the template in the editor.
                                      rows="10"
                                      emptyMessage="No tenemos registros :("
                                      rowsPerPageTemplate="10,20,30,40,50"
-
+                                     reflow="true"
                                      >
 
                             <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
@@ -80,7 +80,7 @@ and open the template in the editor.
                     <p:commandButton value="Agregar" actionListener="#{tecnologiasDisponiblesController.crearTecnologia('Isaias')}" update=":growl"/>
                 </h:form>
 
-                   
+
                 <p:dialog id="TecnologiasManejadasCreateDlg" widgetVar="TecnologiasManejadasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTecnologiasManejadasTitle}">
                     <h:form id="TecnologiasManejadasCreateForm">
                         <h:panelGroup id="display">
