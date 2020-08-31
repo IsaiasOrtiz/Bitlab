@@ -17,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -45,6 +46,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Preseleccion.findByAFechaCreacion", query = "SELECT p FROM Preseleccion p WHERE p.aFechaCreacion = :aFechaCreacion"),
     @NamedQuery(name = "Preseleccion.findByAUsuarioModifica", query = "SELECT p FROM Preseleccion p WHERE p.aUsuarioModifica = :aUsuarioModifica")})
 public class Preseleccion implements Serializable {
+
+    @Lob
+    @Column(name = "DC_DOCUMENTO")
+    private byte[] dcDocumento;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -231,6 +236,14 @@ public class Preseleccion implements Serializable {
     @Override
     public String toString() {
         return "com.bitlab.entidades.Preseleccion[ prId=" + prId + " ]";
+    }
+
+    public byte[] getDcDocumento() {
+        return dcDocumento;
+    }
+
+    public void setDcDocumento(byte[] dcDocumento) {
+        this.dcDocumento = dcDocumento;
     }
     
 }

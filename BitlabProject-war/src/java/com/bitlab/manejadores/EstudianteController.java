@@ -70,7 +70,7 @@ public class EstudianteController implements Serializable {
     {   InputStream imgStream = new ByteArrayInputStream(archivo);
          return DefaultStreamedContent.builder()
                 .name("curriculum vitae.pdf")
-                .contentType("iapplication/pdf")
+                .contentType("application/pdf")
                 .stream(() -> imgStream)
                 .build();
     }

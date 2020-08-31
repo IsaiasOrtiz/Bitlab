@@ -31,7 +31,7 @@
                             <h:outputText value="#{item.esId}"/>
                         </p:column>
                         
-                        <p:column colspan="2">
+                        <p:column colspan="2" filterBy="#{item.esNombre}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Nombre"/>
                             </f:facet>
@@ -142,11 +142,20 @@
                             </f:facet>
                             <h:outputText value="#{item.prComentario}"/>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Documento"/>
+                            </f:facet>
+                            <h:outputText value="No disponible" rendered="#{archivos.renderedArchivo(item.dcDocumento)== false}"/>
+                             <p:commandButton value="Download" ajax="false" icon="pi pi-arrow-down" rendered="#{archivos.renderedArchivo(item.dcDocumento)}">
+                                 <p:fileDownload value="#{archivos.descargar(item.dcDocumento, item.prNombre)}" />
+                            </p:commandButton>
+                        </p:column>
                         <p:summaryRow>
                             <p:column>
                                 <h:outputText value="Nota Final:" />
                             </p:column>
-                            <p:column colspan="3" style="text-align:left">
+                            <p:column colspan="4" style="text-align:left">
                                 <h:outputText value="#{preseleccionController.notaFinal}"/>
                             </p:column>
                         </p:summaryRow>

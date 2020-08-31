@@ -24,6 +24,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import org.primefaces.model.file.UploadedFile;
 
 @Named("preseleccionController")
 @ViewScoped
@@ -41,6 +42,15 @@ public class PreseleccionController implements Serializable {
     private Preseleccion selected;
     private String historialDetalle = "estudiantes";
     private double notaFinal;
+    private UploadedFile documento;
+
+    public UploadedFile getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(UploadedFile documento) {
+        this.documento = documento;
+    }
 
     public PreseleccionController() {
     }
@@ -90,6 +100,10 @@ public class PreseleccionController implements Serializable {
         selected.setPrPonderacion(25);
         selected.setAUsuarioCrea("SYSTEM");
         selected.setAFechaCreacion(new Date());
+        try {
+        selected.setDcDocumento(documento.getContent());
+        } catch (Exception e) {
+        }
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PreseleccionCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

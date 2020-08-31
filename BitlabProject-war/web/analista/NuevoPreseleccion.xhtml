@@ -9,7 +9,7 @@
     <ui:composition>
 
         <p:dialog id="PreseleccionCreateDlg" widgetVar="PreseleccionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Nueva Prueba">
-            <h:form id="PreseleccionCreateForm">
+            <h:form id="PreseleccionCreateForm" enctype="multipart/form-data">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{preseleccionController.selected != null}">
                         <p:outputLabel value="Nombre de Prueba" for="prNombre" />
@@ -17,9 +17,11 @@
                         <p:outputLabel value="Nota Obtenida" for="prNota" />
                         <p:inputText id="prNota" value="#{preseleccionController.selected.prNota}" title="#{bundle.CreatePreseleccionTitle_prNota}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prNota}"/>
                         <p:outputLabel value="Comentario" for="prComentario" />
-                        <p:inputTextarea id="prComentario" value="#{preseleccionController.selected.prComentario}" title="#{bundle.CreatePreseleccionTitle_prComentario}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prComentario}"/>
+                        <p:inputTextarea id="prComentario" value="#{preseleccionController.selected.prComentario}" title="#{bundle.CreatePreseleccionTitle_prComentario}" required="true" requiredMessage="#{bundle.CreatePreseleccionRequiredMessage_prComentario}"/>  
+                                <p:outputLabel for="file2" value="Documento:" />
+                                <p:fileUpload id="file2" value="#{preseleccionController.documento}" mode="simple" accept=".pdf" skinSimple="true"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{preseleccionController.create}" value="#{bundle.Save}" update="display,:PreseleccionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PreseleccionCreateDialog');"/>
+                    <p:commandButton actionListener="#{preseleccionController.create}" value="#{bundle.Save}" update="display,:PreseleccionListForm:datalist,:growl" ajax="false" oncomplete="handleSubmit(args, 'PreseleccionCreateDialog');"/>
                     <p:commandButton value="Cancelar" onclick="PreseleccionCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

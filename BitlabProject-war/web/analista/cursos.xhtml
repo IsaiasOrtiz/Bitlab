@@ -150,7 +150,7 @@
 
                             </p:column>
                             <f:facet name="footer">
-                               
+
                             </f:facet>
                         </p:dataTable>
                     </p:panel>
@@ -161,12 +161,12 @@
 
 
             <h:panelGroup id="proceso">
-              <h:form id="PreseleccionListForm">
+                <h:form id="PreseleccionListForm">
                     <p:commandButton id="createButton" update=":cursos, :estudiantes, :proceso" value="Regresar" rendered="#{estudianteController.flagRender eq 'proceso'}" class="mb-5">
                         <f:setPropertyActionListener value="estudiantes" target="#{estudianteController.flagRender}"/>
                     </p:commandButton>
-             
-               
+
+
                     <p:panel id="panelPreseleccion" class="tab-wizard wizard-circle wizard" header="Proceso de Seleccion para el aspirante: #{estudianteController.selected.esNombre} 
                              #{estudianteController.selected.esApellido}
                              en el curso de #{estudianteController.curso.csNombre}" 
@@ -181,7 +181,7 @@
                                      rowsPerPageTemplate="10,20,30,40,50"
                                      >
 
-                            
+
                             <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                             <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
@@ -208,6 +208,15 @@
                                     <h:outputText value="Comentario"/>
                                 </f:facet>
                                 <h:outputText value="#{item.prComentario}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Documento"/>
+                                </f:facet>
+                                <h:outputText value="No disponible" rendered="#{archivos.renderedArchivo(item.dcDocumento)== false}"/>
+                                <p:commandButton value="Download" ajax="false" icon="pi pi-arrow-down" rendered="#{archivos.renderedArchivo(item.dcDocumento)}">
+                                    <p:fileDownload value="#{archivos.descargar(item.dcDocumento, item.prNombre)}" />
+                                </p:commandButton>
                             </p:column>
                             <f:facet name="footer">
                                 <p:commandButton id="createButton" icon="ui-icon-plus"   value="Nuevo" actionListener="#{preseleccionController.prepareCreate(estudianteController.selected.esId,estudianteController.curso.csId)}" 
