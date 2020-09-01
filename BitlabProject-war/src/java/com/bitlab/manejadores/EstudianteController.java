@@ -161,6 +161,20 @@ public class EstudianteController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
+    public void createNewUser(String usuarioCrea) {
+        selected.setEsFoto(file.getContent());
+        selected.setCsId(findCurso(3));
+        selected.setEsnId(findEstadoSeleccion(1));
+        selected.setAFechaCreacion(new Date());
+        selected.setAUsuarioCrea("SYSTEM");
+        Encriptador encriptador = new Encriptador();
+        selected.setEsClave(encriptador.encriptador(selected.getEsClave()));
+        selected.setEsCv(cvEs.getContent());
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EstudianteCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
     public void traerEstudiantesConEstado(Integer id)
     {
         items=getFacade().encontrarEstudiantesPorEstadoDeSeleccion(id);

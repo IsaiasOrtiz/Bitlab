@@ -27,18 +27,7 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstudianteTitle_esId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.esId}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstudianteTitle_esFoto}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.esFoto}"/>
-                        </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEstudianteTitle_esNombre}"/>
@@ -91,33 +80,9 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstudianteTitle_esClave}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.esClave}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEstudianteTitle_esLaborando}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.esLaborando}" disabled="true"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstudianteTitle_esAspiraciones}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.esAspiraciones}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstudianteTitle_esInteres}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.esInteres}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEstudianteTitle_esCv}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.esCv}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">

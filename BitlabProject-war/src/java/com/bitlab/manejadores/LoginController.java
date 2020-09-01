@@ -94,6 +94,9 @@ public class LoginController implements Serializable{
             else if(estudiante.getRlId().getRlId() == 4){
                 JsfUtil.redireccion("profesor/inicio");
             }
+            else if(estudiante.getRlId().getRlId() == 5){
+                JsfUtil.redireccion("supervisor/inicio");
+            }
             flagCodigo = false;
         }
         else{
@@ -123,10 +126,32 @@ public class LoginController implements Serializable{
                 case 4:
                     JsfUtil.redireccion("profesor/inicio");
                     break;
+                case 5:
+                    JsfUtil.redireccion("supervisor/inicio");
+                    break;
+                    
             }
         }
     }
-    
+       public void validarSupervisor() throws IOException{
+        if(!validarSesion()){
+            switch(estudiante.getRlId().getRlId()){
+                case 2:
+                    JsfUtil.redireccion("principal/inicio");
+                    break;
+                case 3:
+                    JsfUtil.redireccion("analista/inicio");
+                    break;
+                case 4:
+                    JsfUtil.redireccion("profesor/inicio");
+                    break;
+                case 1:
+                    JsfUtil.redireccion("index");
+                    break;
+                    
+            }
+        }
+    }
     public void validarEstudiante() throws IOException{
         
         if(estudiante.getRlId() != null){
@@ -139,6 +164,9 @@ public class LoginController implements Serializable{
                     break;
                 case 4:
                     JsfUtil.redireccion("profesor/inicio");
+                    break;
+                case 5:
+                    JsfUtil.redireccion("supervisor/inicio");
                     break;
             }
         }else{
@@ -158,6 +186,9 @@ public class LoginController implements Serializable{
                 case 4:
                     JsfUtil.redireccion("profesor/inicio");
                     break;
+                 case 5:
+                    JsfUtil.redireccion("supervisor/inicio");
+                    break;
             }
         }
     }
@@ -173,6 +204,9 @@ public class LoginController implements Serializable{
                     break;
                 case 3:
                     JsfUtil.redireccion("analista/inicio");
+                    break;
+                case 5:
+                    JsfUtil.redireccion("supervisor/inicio");
                     break;
             }
         }
