@@ -23,7 +23,7 @@
                             <br></br>
                             <br></br>
                             <p:dataGrid var="curso" value="#{cursoController.items}" 
-                                        rows="9" paginator="true" 
+                                        rows="9" paginator="true" layout="grid"
                                         rendered="#{intermediacionLaboralController.flagRender eq 'cursos'}">
 
                                 <p:dataViewGridItem>
@@ -70,7 +70,7 @@
                     </p:commandButton>
                     <p:panel header="Estudiantes Desempleados" rendered="#{intermediacionLaboralController.flagRender eq 'estDesempleados'}">
                         <p:dataTable id="datalist" value="#{intermediacionLaboralController.estudiantesDesempleados}" var="item"
-                                     paginator="true"
+                                     paginator="true" reflow="true"
                                      rowKey="#{item.esId}"
                                      rows="10"
                                      rowsPerPageTemplate="10,20,30,40,50" rendered="#{intermediacionLaboralController.flagRender eq 'estDesempleados'}"
@@ -129,7 +129,7 @@
                     </p:commandButton>
                     <p:panel header="ESTUDIANTES LABORANDO" rendered="#{intermediacionLaboralController.flagRender eq 'estLaborando'}">
                         <p:dataTable id="datalist" value="#{intermediacionLaboralController.estudiantesLaborando}" var="item"
-                                     paginator="true"
+                                     paginator="true" reflow="true"
                                      rowKey="#{item.esId}"
                                      rows="10"
                                      rowsPerPageTemplate="10,20,30,40,50" rendered="#{intermediacionLaboralController.flagRender eq 'estLaborando'}"

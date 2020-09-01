@@ -18,8 +18,8 @@
             <h:form id="EstudianteListForm">
                 <p:panel header="Historial de Estudiantes que han Aplicado a Cursos" rendered="#{preseleccionController.historialDetalle eq 'estudiantes'}">
                     <p:dataTable id="datalist" value="#{estudianteController.soloEstudiantes}" var="item"
-                                 paginator="true"
-                                 rowKey="#{item.esId}"
+                                 paginator="true" reflow="true"
+                                 rowKey="#{item.esId}" 
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50" rendered="#{preseleccionController.historialDetalle eq 'estudiantes'}"
                                  >
@@ -77,7 +77,7 @@
                 </p:commandButton>
                 <p:panel header="APLICACIONES DE #{preseleccionController.cursosAplicados.get(0).esId.esNombre} #{preseleccionController.cursosAplicados.get(0).esId.esApellido}" rendered="#{preseleccionController.historialDetalle eq 'cursos'}">
                     <p:dataTable id="datalist" value="#{preseleccionController.cursosAplicados}" var="item"
-                                 paginator="true"
+                                 paginator="true" reflow="true"
                                  rowKey="#{item.prId}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50" rendered="#{preseleccionController.historialDetalle eq 'cursos'}"
@@ -115,7 +115,7 @@
                          AL #{preseleccionController.detallesCurso.get(0).csId.csNombre}" rendered="#{preseleccionController.historialDetalle eq 'detalles'}">
                     
                     <p:dataTable id="datalist" value="#{preseleccionController.detallesCurso}" var="item" sortBy="#{item.csId.csId}"
-                                 rowKey="#{item.prId}" rendered="#{preseleccionController.historialDetalle eq 'detalles'}"
+                                 rowKey="#{item.prId}" rendered="#{preseleccionController.historialDetalle eq 'detalles'}" 
                                  >
 
                         <p:column>

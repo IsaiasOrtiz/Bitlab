@@ -16,8 +16,8 @@
             <h:form id="EstudianteListForm">
                 <p:panel header="Listado de Estudiantes">
                     <p:dataTable id="datalist" value="#{estudianteController.items}" var="item"
-                                 selection="#{estudianteController.selected}"
-                                 paginator="true"
+                                 selection="#{estudianteController.selected}" 
+                                 paginator="true" reflow="true"
                                  rowKey="#{item.esId}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
@@ -85,7 +85,7 @@
                             <h:outputText value="#{item.esnId.esnNombre}"/>
                         </p:column>
                         <p:rowExpansion>
-                            <p:panelGrid  columns="3" layout="grid" styleClass="showcase-text-align-center">
+                            <p:panelGrid  columns="3" columnClasses="label,value" layout="grid" styleClass="showcase-text-align-center">
                                 <p:column>
                                     <h:outputText value="Tiene Computadora: "/>
                                     <h:outputText value="SI" rendered="#{item.esComputadora == true}" /> 

@@ -24,7 +24,7 @@
                         <a href="nuevoCurso.xhtml" class="btn btn-primary">NUEVO CURSO</a>
                         <br></br>
                         <br></br>
-                        <p:dataGrid var="curso" value="#{cursoController.items}" 
+                        <p:dataGrid var="curso" value="#{cursoController.items}" layout="grid"
                                     rows="9" paginator="true" 
                                     rendered="#{estudianteController.flagRender eq 'cursos'}">
 
@@ -82,7 +82,7 @@
                     <p:panel header="Estudiantes en proceso para el curso de: #{estudianteController.curso.csNombre}" 
                              rendered="#{estudianteController.flagRender eq 'estudiantes'}">
                         <p:dataTable id="datalist" value="#{estudianteController.estudiantesPorCurso}" var="item"
-                                     paginator="true" 
+                                     paginator="true" reflow="true"
                                      selectionMode="single" selection="#{estudianteController.selected}"
                                      rowKey="#{item.esId}"
                                      rows="10"
@@ -175,7 +175,7 @@
 
                         <p:dataTable id="datalist" value="#{estudianteController.preseleccionDetalle}" var="item"
                                      selectionMode="single" selection="#{preseleccionController.selected}"
-                                     paginator="true"
+                                     paginator="true" reflow="true"
                                      rowKey="#{item.prId}"
                                      rows="10"
                                      rowsPerPageTemplate="10,20,30,40,50"

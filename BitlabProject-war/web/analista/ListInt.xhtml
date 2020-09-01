@@ -18,7 +18,7 @@
                 <p:panel header="ESTADOS LABORALES">
                     <p:dataTable id="datalist" value="#{estadoIntermedicacionController.items}" var="item"
                                  selectionMode="single" selection="#{estadoIntermedicacionController.selected}"
-                                 paginator="true"
+                                 paginator="true" reflow="true"
                                  rowKey="#{item.itId}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"

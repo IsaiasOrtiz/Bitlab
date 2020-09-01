@@ -19,7 +19,7 @@
             <h:form id="EstudianteListForm">
                 <p:panel header="Historial de Estudiantes Becados" rendered="#{!recordController.flag}">
                     <p:dataTable id="datalist" value="#{estudianteController.soloEstudiantes}" var="item"
-                                 paginator="true"
+                                 paginator="true" reflow="true"
                                  rowKey="#{item.esId}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50" rendered="#{!recordController.flag}"
@@ -79,7 +79,7 @@
                 <p:panel header="RECORD DE #{recordController.record.get(0).esId.esNombre} #{recordController.record.get(0).esId.esApellido}" rendered="#{recordController.flag}">
                     
                     <p:dataTable id="datalist" value="#{recordController.record}" var="item"
-                                 paginator="true"
+                                 paginator="true" reflow="trues"
                                  rowKey="#{item.rcId}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50" rendered="#{recordController.flag}"
