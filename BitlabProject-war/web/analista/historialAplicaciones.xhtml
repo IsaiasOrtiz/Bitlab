@@ -17,7 +17,7 @@
             <h:panelGroup id="estudiantes">
             <h:form id="EstudianteListForm">
                 <p:panel header="Historial de Estudiantes que han Aplicado a Cursos" rendered="#{preseleccionController.historialDetalle eq 'estudiantes'}">
-                    <p:dataTable id="datalist" value="#{estudianteController.soloEstudiantes}" var="item"
+                    <p:dataTable id="datalist" value="#{estudianteController.estudiantesHistorialAplicaciones}" var="item"
                                  paginator="true" reflow="true"
                                  rowKey="#{item.esId}" 
                                  rows="10"
@@ -75,7 +75,8 @@
                 <p:commandButton id="createButton" update=":estudiantes, :detallesAplicaciones, :detalleCurso" value="Regresar" rendered="#{preseleccionController.historialDetalle eq 'cursos'}" class="mb-5">
                     <f:setPropertyActionListener value="estudiantes" target="#{preseleccionController.historialDetalle}"/>
                 </p:commandButton>
-                <p:panel header="APLICACIONES DE #{preseleccionController.cursosAplicados.get(0).esId.esNombre} #{preseleccionController.cursosAplicados.get(0).esId.esApellido}" rendered="#{preseleccionController.historialDetalle eq 'cursos'}">
+                <p:panel header="#{preseleccionController.cursosAplicados.size() != 0 ? preseleccionController.cursosAplicados.get(0).esId.esNombre : 'No hay registros'}
+                                 #{preseleccionController.cursosAplicados.size() != 0 ? preseleccionController.cursosAplicados.get(0).esId.esApellido : ''}" rendered="#{preseleccionController.historialDetalle eq 'cursos'}">
                     <p:dataTable id="datalist" value="#{preseleccionController.cursosAplicados}" var="item"
                                  paginator="true" reflow="true"
                                  rowKey="#{item.prId}"

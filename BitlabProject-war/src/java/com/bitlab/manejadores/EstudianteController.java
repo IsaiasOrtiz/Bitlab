@@ -52,6 +52,7 @@ public class EstudianteController implements Serializable {
 
     private List<Estudiante> items = null;
     private List<Estudiante> soloEstudiantes = null;
+    private List<Estudiante> estudiantesHistorialAplicaciones = null;
     private Estudiante selected;
     private UploadedFile file;
     private UploadedFile cvEs;
@@ -270,11 +271,16 @@ public class EstudianteController implements Serializable {
         return soloEstudiantes;
     }
     
+    public List<Estudiante> getEstudiantesHistorialAplicaciones() {
+        estudiantesHistorialAplicaciones = getFacade().encontrarEstudiantesPreseleccion();
+        return estudiantesHistorialAplicaciones;
+    }
+    
     /*Metodo para traer estudiantes en curso */
     public void estudiantesEnCurso(){
         soloEstudiantes = getFacade().encontrarEstudiantesPorEstadoDeSeleccion(4);
     }
-
+    
     /*Metodo para obtener los estudiantes por curso*/
     public List<Estudiante> getEstudiantesPorCurso(int id) {
         estudiantesPorCurso = getFacade().encontrarEstudiantesPorCurso(id);

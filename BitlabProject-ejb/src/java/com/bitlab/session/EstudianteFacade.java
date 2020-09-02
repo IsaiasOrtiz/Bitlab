@@ -53,6 +53,16 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
             return null;
         }
     }
+    
+    public List<Estudiante> encontrarEstudiantesPreseleccion() {
+        try {
+            Query q = em.createQuery("SELECT e FROM Estudiante e WHERE e.rlId.rlId = 2 AND e.esnId NOT IN (SELECT e.esnId FROM Estudiante e WHERE e.esnId.esnId = 1)");
+
+            return q.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
     public List<Estudiante> encontrarEstudiantesPorEstadoDeSeleccion(Integer id) {
         try {
