@@ -34,24 +34,39 @@
                                                     <h3>
                                                         <h:outputText value="#{curso.csNombre}"/></h3>
                                                 </div>
-                                                <div class="card-body text-center" >
-                                                    <h:panelGrid columns="1" style="width:100%">
-
-                                                        <h:outputText value="Inicio: #{curso.csInicio}" >
-                                                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                                                        </h:outputText>
-                                                        <h:outputText value="Descripcion: #{curso.csDescripcion}"/>
-                                                        <h:outputText value="Capacidad: #{curso.csCantidadBecados}"/>
-                                                        <h:outputText value="Hora Inicio: #{curso.hrId.hrHoraInicio}"/>
-                                                        <h:outputText value="Hora finalizacion: #{curso.hrId.hrHoraFin}"/>
-                                                        <h:outputText value="Dias: #{curso.hrId.hrDias}"/>
-                                                        <h:outputLabel value="Estado: Activo" rendered="#{curso.csEstado == true}" /> 
-                                                        <h:outputLabel value="Estado: Inactivo" rendered="#{curso.csEstado == false}" /> 
-
-                                                    </h:panelGrid>
+                                                <div class="card-body" >
+                                                    <h:panelGrid columns="2" style="width:100%">
+                                                    
+                                                    <h:outputText value="Inicio:" />
+                                                    <h:outputText style="display: inline;" value="#{curso.csInicio}" >
+                                                        <f:convertDateTime pattern="dd-MM-yyyy" />
+                                                    </h:outputText>
+                                                    <h:outputText value="Descripción:" />
+                                                    <h:outputText value="#{curso.csDescripcion}"/>
+                                                    <h:outputText value="Capacidad:" />
+                                                    <h:outputText value="#{curso.csCantidadBecados}"/>
+                                                    <h:outputText value="Hora Inicio:" />
+                                                    <h:outputText value="#{curso.hrId.hrHoraInicio}">
+                                                        <f:convertDateTime pattern="HH:mm" timeZone="CST" />
+                                                    </h:outputText>
+                                                    <h:outputText value="Hora finalización:" />
+                                                    <h:outputText value="#{curso.hrId.hrHoraFin}">
+                                                        <f:convertDateTime pattern="HH:mm" timeZone="CST"/>
+                                                    </h:outputText>
+                                                    <h:outputText value="Días:" />
+                                                    <h:outputText value="#{curso.hrId.hrDias}"/>
+                                                    <h:outputText value="Estado:" />
+                                                    <h:outputLabel value="Activo" rendered="#{curso.csEstado == true}" /> 
+                                                    <h:outputLabel value="Inactivo" rendered="#{curso.csEstado == false}" /> 
+                                                     
+                                                    
+                                                </h:panelGrid>
+                                                
                                                     <br></br>
-                                                    <p:commandButton id="laborandoButton" update=":cursos, :estLaborando, :estDesempleados" value="Estudiantes Desempleados" actionListener="#{intermediacionLaboralController.desempleadosPorCurso(curso.csId)}"/>
-                                                    <p:commandButton id="desempleadosButton" update=":cursos, :estLaborando, :estDesempleados" value="Estudiantes Laborando" actionListener="#{intermediacionLaboralController.laborandoPorCurso(curso.csId)}"/>
+                                                    <div style="text-align: center">
+                                                        <p:commandButton id="laborandoButton" update=":cursos, :estLaborando, :estDesempleados" value="Estudiantes Desempleados" actionListener="#{intermediacionLaboralController.desempleadosPorCurso(curso.csId)}"/>
+                                                        <p:commandButton id="desempleadosButton" update=":cursos, :estLaborando, :estDesempleados" value="Estudiantes Laborando" actionListener="#{intermediacionLaboralController.laborandoPorCurso(curso.csId)}"/>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

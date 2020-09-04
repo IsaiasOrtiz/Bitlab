@@ -163,6 +163,7 @@ public class EstudianteController implements Serializable {
         }
     }
     public void createNewUser(String usuarioCrea) {
+        byte[] cv = {1};
         selected.setEsFoto(file.getContent());
         selected.setCsId(findCurso(3));
         selected.setEsnId(findEstadoSeleccion(1));
@@ -170,7 +171,12 @@ public class EstudianteController implements Serializable {
         selected.setAUsuarioCrea("SYSTEM");
         Encriptador encriptador = new Encriptador();
         selected.setEsClave(encriptador.encriptador(selected.getEsClave()));
-        selected.setEsCv(cvEs.getContent());
+        selected.setEsCv(cv);
+        
+        selected.setEsComputadora(true);
+        selected.setEsLaborando(true);
+        selected.setEsAspiraciones("-");
+        selected.setEsInteres("-");
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EstudianteCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

@@ -29,26 +29,36 @@
                                                 <h3>
                                                     <h:outputText value="#{curso.csNombre}"/></h3>
                                             </div>
-                                            <div class="card-body text-center" >
-                                                <h:panelGrid columns="1" style="width:100%">
-
-                                                    <h:outputText value="Inicio: #{curso.csInicio}" >
+                                            <div class="card-body" >
+                                                <h:panelGrid columns="2" style="width:100%">
+                                                    
+                                                    <h:outputText value="Inicio:" />
+                                                    <h:outputText style="display: inline;" value="#{curso.csInicio}" >
                                                         <f:convertDateTime pattern="dd-MM-yyyy" />
                                                     </h:outputText>
-                                                    <h:outputText value="Descripcion: #{curso.csDescripcion}"/>
-                                                    <h:outputText value="Capacidad: #{curso.csCantidadBecados}"/>
-                                                    <h:outputText value="Hora Inicio: #{curso.hrId.hrHoraInicio}">
-                                                        <f:convertDateTime pattern="HH:mm" />
+                                                    <h:outputText value="Descripción:" />
+                                                    <h:outputText value="#{curso.csDescripcion}"/>
+                                                    <h:outputText value="Capacidad:" />
+                                                    <h:outputText value="#{curso.csCantidadBecados}"/>
+                                                    <h:outputText value="Hora Inicio:" />
+                                                    <h:outputText value="#{curso.hrId.hrHoraInicio}">
+                                                        <f:convertDateTime pattern="HH:mm" timeZone="CST" />
                                                     </h:outputText>
-                                                    <h:outputText value="Hora finalizacion: #{curso.hrId.hrHoraFin}">
-                                                        <f:convertDateTime pattern="HH:mm" />
+                                                    <h:outputText value="Hora finalización:" />
+                                                    <h:outputText value="#{curso.hrId.hrHoraFin}">
+                                                        <f:convertDateTime pattern="HH:mm" timeZone="CST"/>
                                                     </h:outputText>
-                                                    <h:outputText value="Dias: #{curso.hrId.hrDias}"/>
+                                                    <h:outputText value="Días:" />
+                                                    <h:outputText value="#{curso.hrId.hrDias}"/>
+                                                    
+                                                    
+                                                </h:panelGrid>
+                                                <div style="text-align: center">
                                                     <p:commandButton id="createButton" update=":cursos,:estudiantes, " 
                                                                      value="Ver Estudiantes" action="#{estudianteController.getEstudiantePorCursoAndProceso(curso.csId)}">
                                                         <f:param name="csId" value="#{curso.csId}" />
                                                     </p:commandButton>
-                                                </h:panelGrid>
+                                                </div>
                                                 <br></br>
 
                                             </div>

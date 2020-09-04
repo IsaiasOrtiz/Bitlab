@@ -101,15 +101,21 @@ public class CursoController implements Serializable {
 
     public void createCurso() throws IOException {
         List<Curso> cursos =  ejbFacade.findAll();
-        selected.setCsId((cursos.get(cursos.size()-1).getCsId())+1);
-        selected.setCsEstado(Boolean.TRUE);
-        selected.setAUsuarioCrea("SYSTEM");
-        selected.setAFechaCreacion(new Date());
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CursoCreated"));
-        JsfUtil.redireccion("../faces/analista/cursos");
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        if(selected.getCsInicio().after(selected.getCsFinalizacion()) || selected.getCsInicio().equals(selected.getCsFinalizacion())){
+            JsfUtil.addErrorMessage("Fecha Inicio es igual o mayor que Fecha Fin");
         }
+        else{
+            selected.setCsId((cursos.get(cursos.size()-1).getCsId())+1);
+            selected.setCsEstado(Boolean.TRUE);
+            selected.setAUsuarioCrea("SYSTEM");
+            selected.setAFechaCreacion(new Date());
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CursoCreated"));
+            JsfUtil.redireccion("../faces/analista/cursos");
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
+        }
+        
     }
 
     public void update() {

@@ -53,14 +53,14 @@
                         <h:selectOneMenu class="form-control" id="hrId" value="#{cursoController.selected.hrId}" required="true" requiredMessage="#{bundle.EditCursoRequiredMessage_hrId}">
                             <f:selectItems value="#{horarioController.itemsAvailableSelectOne}"
                                            var="hrIdItem"
-                                           itemLabel="#{hrIdItem.hrDias} #{hrIdItem.hrHoraInicio}:#{hrIdItem.hrHoraFin}"
+                                           itemLabel="Días: #{hrIdItem.hrDias}, Horario: #{hrIdItem.AUsuarioCrea} - #{hrIdItem.AUsuarioModifica}"
                                            itemValue="#{hrIdItem}"/>
                         </h:selectOneMenu>
                     </div>
                 </div>
 
                 <p:commandButton actionListener="#{cursoController.createCurso}" value="Guardar" update="formCurso" ajax="false" onsuccess="location.reload();" />
-                <p:commandButton value="#{bundle.Cancel}" onclick="CursoCreateDialog.hide()"/>
+               
 
             </h:form>
 

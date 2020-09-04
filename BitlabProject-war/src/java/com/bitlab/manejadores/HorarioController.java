@@ -6,6 +6,9 @@ import com.bitlab.manejadores.util.JsfUtil.PersistAction;
 import com.bitlab.session.HorarioFacade;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -26,11 +29,13 @@ public class HorarioController implements Serializable {
     @EJB
     private com.bitlab.session.HorarioFacade ejbFacade;
     private List<Horario> items = null;
+    private List<Horario> horasConFormato;
     private Horario selected;
+    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
     public HorarioController() {
     }
-
+    
     public Horario getSelected() {
         return selected;
     }
@@ -117,8 +122,16 @@ public class HorarioController implements Serializable {
         return getFacade().findAll();
     }
 
-    public List<Horario> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+    public List<Horario> getItemsAvailableSelectOne() throws ParseException {
+        horasConFormato = new ArrayList<Horario>();
+        for (Horario h : getFacade().findAll()) {
+            String horaInicio =sdf.format(h.getHrHoraInicio());
+            h.setAUsuarioCrea(horaInicio);
+            String horaFin =sdf.format(h.getHrHoraFin());
+            h.setAUsuarioModifica(horaFin);
+            horasConFormato.add(h);
+        }
+        return horasConFormato;
     }
 
     @FacesConverter(forClass = Horario.class)

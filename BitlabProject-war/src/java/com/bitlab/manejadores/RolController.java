@@ -120,6 +120,10 @@ public class RolController implements Serializable {
     public List<Rol> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
+    
+    public List<Rol> getItemsExceptEstudiante() {
+        return getFacade().rolesExceptoEstudiante();
+    }
 
     @FacesConverter(forClass = Rol.class)
     public static class RolControllerConverter implements Converter {
