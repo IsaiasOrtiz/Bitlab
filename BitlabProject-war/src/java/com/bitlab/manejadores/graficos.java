@@ -36,6 +36,8 @@ public class graficos implements Serializable {
     private CursoFacade cursoFacade;
     @EJB
     private com.bitlab.session.EstudianteFacade esFacade;
+    @EJB
+    private com.bitlab.session.IntermediacionLaboralFacade inFacade;
 
     private BarChartModel barModel;
     private int numerosCurso;
@@ -52,13 +54,13 @@ public class graficos implements Serializable {
         ChartData data = new ChartData();
 
         BarChartDataSet barDataSet = new BarChartDataSet();
-        barDataSet.setLabel("Aspirantes por curso");
+        barDataSet.setLabel("Estudiantes por curso");
 
         numerosCurso = cursoFacade.count();
 
         List<Number> values = new ArrayList<>();
         for (int i = 1; i < numerosCurso; i++) {
-            values.add(esFacade.encontrarEstudiantesPorCurso(i).size());
+            values.add(inFacade.estudiantesPorCurso(i).size());
         }
 
         barDataSet.setData(values);
@@ -103,8 +105,8 @@ public class graficos implements Serializable {
 
         List<String> labels = new ArrayList<>();
 
-        for (int i = 0; i < numerosCurso; i++) {
-            labels.add(cursoFacade.findAll().get(i).getCsNombre());
+        for (int i = 0; i < cursoFacade.cursos().size(); i++) {
+            labels.add(cursoFacade.cursos().get(i).getCsNombre());
         }
 
         data.setLabels(labels);
