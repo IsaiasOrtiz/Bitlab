@@ -85,6 +85,19 @@ public class IntermediacionLaboralController implements Serializable {
         accionRealizar = accion;
     }
     
+    public void actualizarIntermediacion(int id, Estudiante idEstudiante, boolean accion){
+        
+        selected = new IntermediacionLaboral();
+        selected.setIlbId(id);
+        selected.setEsId(idEstudiante);
+        selected.setAUsuarioCrea("oscarT");
+        selected.setAFechaCreacion(new Date());
+        
+        initializeEmbeddableKey();
+        flagRender = "crearIntermediacion";
+        accionRealizar = accion;
+    }
+    
     public void eliminarIntermediacion(IntermediacionLaboral i, int idCurso){
         selected = new IntermediacionLaboral();
         selected = i;

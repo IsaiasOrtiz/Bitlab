@@ -149,7 +149,7 @@
                                      rows="10"
                                      rowsPerPageTemplate="10,20,30,40,50" rendered="#{intermediacionLaboralController.flagRender eq 'estLaborando'}"
                                      >
-                        
+
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Nombre"/>
@@ -180,7 +180,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="Acción"/>
                                 </f:facet>
-                                <p:commandButton id="actualizarButton" update=":crearIntermediacion, :estLaborando, :estDesempleados" value="Actualizar intermediación" actionListener="#{intermediacionLaboralController.agregarIntermediacion(item.esId, 'false')}"/>
+                                <p:commandButton id="actualizarButton" update=":crearIntermediacion, :estLaborando, :estDesempleados" value="Actualizar intermediación" actionListener="#{intermediacionLaboralController.actualizarIntermediacion(item.ilbId, item.esId, 'false')}"/>
                                 <p:commandButton id="eliminarButton" update=":crearIntermediacion, :estLaborando, :estDesempleados" value="Sin laborar" actionListener="#{intermediacionLaboralController.eliminarIntermediacion(item, item.esId.csId.csId)}" style="background-color: tomato; border-color: tomato"/>
                             </p:column>
 
